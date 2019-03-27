@@ -501,6 +501,10 @@ input::placeholder {
 	width: 50%;
 }
 
+.ad-main-content .new-user-form .form-row {
+	display: inline-block;
+}
+
 footer {
 	align-items: baseline;
 	color: #fff;
