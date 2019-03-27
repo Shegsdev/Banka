@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Banka | Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
+</head>
+<body>
+	<div class="auth-page">
+		<section class="banner">
+			<h1>Welcome Back!</h1>
+		</section>
+
+		<section class="container form">
+			<header>
+				<h3>Log In</h3>
+			</header>
+			<form action="#" method="POST">
+                <div class="form-row">
+                    <div class="form-input">
+                    	<label for="email">Email:</label>
+                        <input type="text" name="email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-input">
+                    	<label for="password">Password:</label>
+                        <input type="password" name="password">
+                    </div>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div class="form-input login-button">
+                        <input class="button-blue" type="submit" value="Login">
+                    </div>
+                </div>
+                <!-- Navigate -->
+                <div class="navigate">
+	                <div>
+	                	<span><small>Don't have an account yet?</small></span><br>
+	                	<span><small>Click <a href="signup.html">here</a> to create one</small></span>
+	                </div>
+	                <div>
+	                	<span><small><a href="#">Forgot password?</a></small></span>
+	                </div>
+	            </div>
+            </form>
+		</section>
+	</div>
+	
+	<script>
+		let div = document.querySelector('.auth-page');
+		div.style.height = window.innerHeight + "px";
+	</script>
+</body>
+</html>
