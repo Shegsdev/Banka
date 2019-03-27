@@ -9,6 +9,18 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
 </head>
 <body>
+	<div class="ad-modal">
+		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
+		<div class="modal-content center">
+			<header>
+				<h2>Choose transaction type:</h2>
+			</header>
+			<div class="actions">
+				<a href="credit.html"><button class="button-blue">CREDIT</button></a>
+				<a href="debit.html"><button class="button-blue">DEBIT</button></a>
+			</div>
+		</div>
+	</div>
 	<nav id="ad-nav">
 		<div id="logo">
 			<img src="../../assets/img/logo.png" alt="logo">
@@ -88,5 +100,6 @@
 		</section>
 	</div>
 	
+	<script src="../../assets/js/main.js"></script>
 </body>
 </html>

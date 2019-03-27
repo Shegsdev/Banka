@@ -31,6 +31,10 @@ hr {
 	text-align: center;
 }
 
+.right {
+	float: right;
+}
+
 .grid {
 	display: grid;
 	justify-content: space-between;

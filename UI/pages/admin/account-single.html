@@ -43,38 +43,31 @@
 		</section>
 
 		<section class="ad-main-showcase">
-			<header><h3>{{Dashboard}}</h3></header>
-			<div class="ad-main-content three-equal-sized-columns grid">
-				<div class="card center">
-					<div class="card-media users">
-						<div class="card-content">
-							9 users
-						</div>
-					</div>
-					<div class="actions">
-						<a href="users.html"><button>View all users</button></a>
-					</div>
-				</div>
-				<div class="card center">
-					<div class="card-media accounts">
-						<div class="card-content">
-							4 accounts
-						</div>
-					</div>
-					<div class="actions">
-						<a href="accounts.html"><button>View all accounts</button></a>
-					</div>
-				</div>
-				<div class="card center">
-					<div class="card-media staff">
-						<div class="card-content">
-							1 staff
-						</div>
-					</div>
-					<div class="actions">
-						<a href="staff.html"><button>View all staff</button></a>
-					</div>
-				</div>
+			<div class="ad-main-content">
+				<section class="single">
+					<header><h2>Account info</h2></header>
+					<p>Holder's Name: John Doe</p>
+					<p>Account Number: 1234567890</p>
+					<p>Account Type: Savings</p>
+					<p>Balance: 999999.99</p>
+					<p>Status: Active</p>
+					<br/>
+				</section>
+				<hr/>
+				<section class="single">
+					<header><h2>Change account status</h2></header>
+					<p>This account is {active}. <br/>By deactivating account, user may not be able to perform transactions.</p>
+					<br/>
+					<button class="right">Deactivate</button>
+				</section>
+				<hr/>
+				<section class="single">
+					<header><h2>Delete account</h2></header>
+					<p>This action can not be undone. <br/>By deleting this account all user data can not be retreived.</p>
+					<br/>
+					<button class="right">Delete account</button>
+				</section>
+				<hr/>
 			</div>
 		</section>
 	</div>
