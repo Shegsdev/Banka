@@ -160,6 +160,20 @@ hr {
 	background-size: cover;
 }
 
+.hero-new-account {
+	background-image: url("../../assets/img/img_1.jpg");	
+	background-size: cover;
+}
+.hero-copy-new-account p {
+	color: #000;
+	background: lightgrey;
+	display: inline;
+}
+.account {
+	margin: 0 auto;
+	width: 50%;
+}
+
 .hero-copy {
 	color: #fff;
 	margin: 10px 0 0 100px;
