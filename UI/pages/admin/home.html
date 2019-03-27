@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Banka | Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
+</head>
+<body>
+	<div class="ad-modal">
+		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
+		<div class="modal-content center">
+			<header>
+				<h2>Choose transaction type:</h2>
+			</header>
+			<div class="actions">
+				<a href="credit.html"><button class="button-blue">CREDIT</button></a>
+				<a href="debit.html"><button class="button-blue">DEBIT</button></a>
+			</div>
+		</div>
+	</div>
+	<nav id="ad-nav">
+		<div id="logo">
+			<img src="../../assets/img/logo.png" alt="logo">
+		</div>
+		<div class="ad-nav-right">
+			<div id="avatar"></div>
+		</div>
+	</nav>
+	<div class="ad-main">
+		<section>
+			<aside>
+				<ul>
+					<a href="home.html"><li>Dashboard</li></a>
+					<a href="accounts.html"><li>All accounts</li></a>
+					<li onclick="modalOpen(true)">New transaction</li>
+					<a href="new-staff.html"><li>Add new staff</li></a>
+					<a href="#"><li>Logout</li></a>
+				</ul>
+			</aside>
+		</section>
+
+		<section class="ad-main-showcase">
+			<header><h3>{{Dashboard}}</h3></header>
+			<div class="ad-main-content three-equal-sized-columns grid">
+				<div class="card center">
+					<div class="card-media users">
+						<div class="card-content">
+							9 users
+						</div>
+					</div>
+					<div class="actions">
+						<a href="users.html"><button>View all users</button></a>
+					</div>
+				</div>
+				<div class="card center">
+					<div class="card-media accounts">
+						<div class="card-content">
+							4 accounts
+						</div>
+					</div>
+					<div class="actions">
+						<a href="accounts.html"><button>View all accounts</button></a>
+					</div>
+				</div>
+				<div class="card center">
+					<div class="card-media staff">
+						<div class="card-content">
+							1 staff
+						</div>
+					</div>
+					<div class="actions">
+						<a href="staff.html"><button>View all staff</button></a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	
+	<script src="../assets/js/main.js"></script>
+</body>
+</html>
