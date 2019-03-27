@@ -496,6 +496,11 @@ input::placeholder {
 	padding-left: 50px;
 }
 
+.ad-main-content .transaction-form {
+	margin-top: 40px;
+	width: 50%;
+}
+
 footer {
 	align-items: baseline;
 	color: #fff;
