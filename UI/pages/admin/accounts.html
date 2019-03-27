@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Banka | Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
+</head>
+<body>
+	<nav id="ad-nav">
+		<div id="logo">
+			<img src="../../assets/img/logo.png" alt="logo">
+		</div>
+		<div class="ad-nav-right">
+			<div id="avatar"></div>
+		</div>
+	</nav>
+	<div class="ad-main">
+		<section>
+			<aside>
+				<ul>
+					<a href="home.html"><li>Dashboard</li></a>
+					<a href="accounts.html"><li>All accounts</li></a>
+					<li onclick="modalOpen(true)">New transaction</li>
+					<a href="new-staff.html"><li>Add new staff</li></a>
+					<a href="#"><li>Logout</li></a>
+				</ul>
+			</aside>
+		</section>
+
+		<section class="ad-main-showcase">
+			<header><h3>{{Accounts}}</h3></header>
+			<div class="ad-main-content">
+				<table>
+					<tr>
+						<th>ID</th>
+						<th>Account number</th>
+						<th>Account type</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>1234567890</td>
+						<td>Savings</td>
+						<td>Active</td>
+						<td><a href="account-single.html"><button>View</button></a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>2345678901</td>
+						<td>Savings</td>
+						<td>Dormant</td>
+						<td><button>View</button></td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>3456789012</td>
+						<td>Current</td>
+						<td>Dormant</td>
+						<td><button>View</button></td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>1234567890</td>
+						<td>Savings</td>
+						<td>Active</td>
+						<td><button>View</button></td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>2345678901</td>
+						<td>Savings</td>
+						<td>Dormant</td>
+						<td><button>View</button></td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>0987654321</td>
+						<td>Current</td>
+						<td>Dormant</td>
+						<td><button>View</button></td>
+					</tr>
+				</table>
+			</div>
+		</section>
+	</div>
+	
+</body>
+</html>

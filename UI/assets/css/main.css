@@ -452,6 +452,46 @@ input::placeholder {
 	background-image: url('../../assets/img/img_2.jpg');
 }
 
+/*All accounts*/
+.ad-main-content hr {
+	clear: both;
+}
+
+.ad-main-content table {
+	border-collapse: collapse;
+}
+.ad-main-content table th, .ad-main-content table td {
+	border-bottom: 1px solid #bbb;
+	padding: 15px 20px;
+}
+.ad-main-content table button {
+	background: #f3f3f3;
+	border: none;
+	border-radius: 3px;
+	color: #087308;
+	cursor: pointer;
+	font-size: 14px;
+	padding: 5px 20px;
+}
+.ad-main-content section button {
+	background: #f3f3f3;
+	border: none;
+	border-radius: 3px;
+	color: red;
+	cursor: pointer;
+	font-size: 14px;
+	padding: 5px 20px;
+}
+.ad-main-content table button:hover, .ad-main-content section button {
+	background: #e9e9e9;
+}
+.ad-main-content table button:focus {
+	outline: 1px dashed #087308;
+}
+.ad-main-content table th:last-child, .ad-main-content table td:last-child {
+	padding-left: 50px;
+}
+
 footer {
 	align-items: baseline;
 	color: #fff;
