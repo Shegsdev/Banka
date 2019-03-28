@@ -27,13 +27,14 @@
         display: none;
     }
     .hero {
-        height: 300px;
+        height: 500px;
     }
     .hero-copy {
         margin: 10px 0 0 50px;
+        max-width: 300px;
     }
     .hero-copy h1 {
-        font-size: 30px;
+        font-size: 60px;
         margin-bottom: 0;
     }
     .hero-copy p {
@@ -41,8 +42,7 @@
         margin-top: 5px;
     }
     .main section header {
-        margin: 20px auto;
-        font-size: 22px;
+        margin: 40px auto;
     }
 	.main .landing {
         background: #f3f3f3;
@@ -67,20 +67,16 @@
         padding: 10px;
     }
     .hero {
-        height: 150px;
+        height: 400px;
     }
     .hero-copy {
-        margin: 5px 0 0 30px;
-    }
-    .hero-copy h1 {
-        font-size: 20px;
+        max-width: 200px;
     }
     .hero-copy p {
         font-size: 12px;
     }
     .main section header {
         margin: 20px auto;
-        font-size: 20px;
     }
     .main .landing {
         height: 250px;

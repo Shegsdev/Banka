@@ -227,6 +227,10 @@ nav ul a li:hover {
 	color: rgb(0, 124, 195);
 }
 
+nav ul li:hover:not(:last-child) {
+	border-bottom: 5px solid lightgrey;
+}
+
 .main section header {
 	margin: 80px auto;
 	font-size: 30px;
@@ -563,7 +567,7 @@ footer {
 	background: transparent;
 	color: #fff;
 	cursor: pointer;
-	font-size: 50px;
+	font-size: 40px;
 	margin-left: 50px;
 	position: absolute;
 	top: 0;
