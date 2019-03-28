@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
 	<link rel="stylesheet" type="text/css" href="./UI/assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="./UI/assets/css/responsive.css">
 </head>
 <body>
 	<div class="hero hero-landing">
@@ -28,6 +29,27 @@
 					<li><a href="#">Help</a></li>
 					<a href="./UI/pages/login.html"><li>Login</li></a>
 				</ul>
+				<!-- Hamburger links -->
+			    <span class="open-slide">
+				    <a href="#" onclick="openSlideMenu()">
+				        <svg width="30" height="30">
+				            <path d="M0,5 30,5" stroke="#fff" stroke-width="5"/>
+				            <path d="M0,14 30,14" stroke="#fff" stroke-width="5"/>
+				            <path d="M0,23 30,23" stroke="#fff" stroke-width="5"/>
+				        </svg>
+				    </a>
+			    </span>
+
+				<div id="side-menu" class="side-nav">
+				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
+				    <li class="active"><a href="index.html">Home</a></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Help</a></li>
+					<li><a href="./UI/pages/admin/home.html">Admin</a></li>
+					<li><a href="./UI/pages/profile.html">Profile</a></li>
+					<li><a href="./UI/pages/login.html">Login</a></li>
+				</div>
 			</div>
 		</nav>
 		<div class="hero-copy">
@@ -60,5 +82,7 @@
 	<footer>
 		<p>&copy; All rights reservered.</p>
 	</footer>
+
+	<script src="./UI/assets/js/main.js"></script>
 </body>
 </html>

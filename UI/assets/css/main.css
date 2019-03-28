@@ -528,3 +528,51 @@ footer {
 	text-align: center;
 	width: 100%;
 }
+
+.side-nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index:999;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    opacity: 0.9;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+  
+.side-nav a {
+	padding: 10px 10px 10px 30px;
+	text-decoration: none;
+	color: #ccc;
+	display: block;
+	transition: 0.3s;
+}
+.side-nav li {
+	font-size: 20px;
+	text-transform: uppercase;
+}
+.side-nav li:hover {
+	background: #000;
+}
+
+.side-nav .btn-close {
+	border: 0 none;
+	background: transparent;
+	color: #fff;
+	cursor: pointer;
+	font-size: 50px;
+	margin-left: 50px;
+	position: absolute;
+	top: 0;
+	right: 22px;
+}
+
+.open-slide {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	visibility: hidden;
+}
