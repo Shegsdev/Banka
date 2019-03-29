@@ -35,6 +35,11 @@ hr {
 	float: right;
 }
 
+.header:first-letter {
+	border-top: 8px solid black;
+	padding-top: 15px;	
+}
+
 .grid {
 	display: grid;
 	justify-content: space-between;
@@ -169,7 +174,7 @@ hr {
 	background: lightgrey;
 	display: inline;
 }
-.account {
+.main .account {
 	margin: 0 auto;
 	width: 50%;
 }

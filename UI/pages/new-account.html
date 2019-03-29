@@ -13,16 +13,40 @@
 	<div class="hero hero-new-account">
 		<nav>
 			<div id="logo">
-				<img src="../assets/img/logo.png" alt="logo">
+				<a href="../../index.html">
+					<img src="../assets/img/logo.png" alt="logo">
+				</a>
 			</div>
 			<div class="nav-links">
 				<ul>
-					<li><a href="../index.html">Home</a></li>
+					<li><a href="../../index.html">Home</a></li>
 					<li><a href="#">Contact</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Help</a></li>
 					<a href="login.html"><li>Login</li></a>
 				</ul>
+				<!-- Hamburger links -->
+			    <span class="open-slide">
+				    <a href="#" onclick="openSlideMenu()">
+				        <svg width="30" height="30">
+				            <path d="M0,5 30,5" stroke="#fff" stroke-width="4"/>
+				            <path d="M0,14 30,14" stroke="#fff" stroke-width="4"/>
+				            <path d="M0,23 30,23" stroke="#fff" stroke-width="4"/>
+				        </svg>
+				    </a>
+			    </span>
+
+				<!-- Side nav -->
+				<div id="side-menu" class="side-nav">
+				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
+				    <li><a href="../../index.html">Home</a></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Help</a></li>
+					<li><a href="./UI/pages/admin/home.html">Admin</a></li>
+					<li><a href="./UI/pages/profile.html">Profile</a></li>
+					<li><a href="./UI/pages/login.html">Login</a></li>
+				</div>
 			</div>
 		</nav>
 		<div class="hero-copy hero-copy-new-account">
@@ -76,15 +100,12 @@
 				</div>
 			</div>
 		</section>
-
-		<section class="main-showcase">
-			<!-- ... -->
-		</section>
 	</div> <!-- end main-->
-
 
 	<footer>
 		<p>&copy; All rights reservered.</p>
 	</footer>
+
+	<script src="../assets/js/main.js"></script>
 </body>
 </html>

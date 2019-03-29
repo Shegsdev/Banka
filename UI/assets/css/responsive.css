@@ -12,7 +12,11 @@
 }
 
 /* Medium Devices, Tablets */
-@media only screen and (max-width : 768px) {    
+@media only screen and (max-width : 768px) {
+    .header:first-letter {
+        border: 0 none;
+    }
+
     #logo {
         padding: 5px;
     }
@@ -81,6 +85,7 @@
 
     .ad-main {
         display: block;
+        margin-bottom: 50px;
     }
 
     .ad-main aside {
@@ -117,6 +122,19 @@
 
     .ad-main-content .new-user-form .form-row {
         display: block;
+    }
+
+    /*Account opening page*/
+    .main .account {
+        margin: 0;
+        width: 100%;
+    }
+    .hero-copy-new-account {
+        margin: 0 auto;
+    }
+    .hero-copy-new-account h1 {
+        color: #243244;
+        margin-top: 0;
     }
 }
 
@@ -157,9 +175,14 @@
     .ad-main-content .transaction-form {
         width: 100%;
     }
+
+    /*Account opening page*/
+    .hero-new-account .open-slide path {
+        stroke: #000;
+    }
 }
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width : 320px) {
-    
+
 }
