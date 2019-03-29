@@ -52,6 +52,19 @@
     .main .landing article {
         max-width: 100%;
     }
+
+    /*Login*/
+    .auth-page {
+        display: block;
+    }
+    .auth-page .banner {
+        font-size: 40px;
+        padding: 22px;
+    }
+
+    .form {
+        width: 80%;
+    }
 }
 
 /* Extra Small Devices, Phones */
