@@ -17,8 +17,8 @@
         padding: 5px;
     }
     #logo img {
-        height: 50px;
-        width: 50px;
+        height: 60px;
+        width: 60px;
     }
     .open-slide {
         visibility: visible;
@@ -65,6 +65,59 @@
     .form {
         width: 80%;
     }
+
+    /*Admin*/
+    #ad-nav {
+        padding: 5px 10px;
+    }
+
+    #ad-nav #avatar {
+        display: none;
+    }
+
+    #ad-nav #avatar::after {
+        display: none;
+    }
+
+    .ad-main {
+        display: block;
+    }
+
+    .ad-main aside {
+        display: none;
+    }
+
+    .ad-main-showcase {
+        box-sizing: border-box;
+        margin: 10px 10px 0;
+    }
+
+    .ad-main-content {
+        display: block;
+    }
+
+    /*All accounts*/
+    .ad-main-content table {
+        font-size: 12px;
+    }
+    .ad-main-content table th, .ad-main-content table td {
+        padding: 8px 10px;
+    }
+    .ad-main-content table button, .ad-main-content section button {
+        font-size: 12px;
+        padding: 2px 8px;
+    }
+    .ad-main-content table th:last-child, .ad-main-content table td:last-child {
+        padding-left: 8px;
+    }
+
+    .ad-main-content .transaction-form {
+        width: 80%;
+    }
+
+    .ad-main-content .new-user-form .form-row {
+        display: block;
+    }
 }
 
 /* Extra Small Devices, Phones */
@@ -73,8 +126,8 @@
         padding: 3px;
     }
     #logo img {
-        height: 40px;
-        width: 40px;
+        height: 50px;
+        width: 50px;
     }
 	nav {
         padding: 10px;
@@ -98,6 +151,11 @@
     .main .landing article {
         font-size: 16px;
         line-height: 1.2em;
+    }
+
+    /*Admin*/
+    .ad-main-content .transaction-form {
+        width: 100%;
     }
 }
 
