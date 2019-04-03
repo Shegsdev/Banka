@@ -4,8 +4,9 @@
   "description": "A light-weight core banking application that powers banking operations.",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "mocha --require babel-register tests/*.js --exit || true",
-    "start": "node_modules/.bin/nodemon server.js --exec babel-node --"
+    "dev": "node_modules/.bin/nodemon server.js --exec babel-node --"
   },
   "repository": {
     "type": "git",
