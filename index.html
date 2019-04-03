@@ -5,48 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100" type="text/css">
 	<link rel="stylesheet" type="text/css" href="./UI/assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="./UI/assets/css/responsive.css">
 </head>
 <body>
 	<div class="hero hero-landing">
-		<nav>
+		<nav id="nav">
 			<div id="logo">
 				<a href="index.html">
 					<img src="./UI/assets/img/logo.png" alt="logo">
 				</a>
 			</div>
 			<div class="nav-links">
-				<div style="text-align: right;color: #fff">
-					<a href="./UI/pages/admin/home.html" style="color: #8df3e6">ADMIN area</a> |
-					<a href="./UI/pages/profile.html" style="color: #8df3e6">USER dashboard</a>
-				</div>
 				<ul>
 					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="#">Contact</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Help</a></li>
+					<li><a href="./UI/pages/contact-us.html">Contact</a></li>
+					<li><a href="./UI/pages/about.html">About</a></li>
+					<li><a href="./UI/pages/help.html">Help</a></li>
 					<a href="./UI/pages/login.html"><li>Login</li></a>
 				</ul>
+				<div id="tmp-links" style="text-align: right;color: #fff">
+					<a href="./UI/pages/admin/home.html" style="color: #000">ADMIN area</a> |
+					<a href="./UI/pages/profile.html" style="color: #000">Dashboard</a>
+				</div>
 				<!-- Hamburger links -->
-			    <span class="open-slide">
-				    <a href="#" onclick="openSlideMenu()">
-				        <svg width="30" height="30">
-				            <path d="M0,5 30,5" stroke="#fff" stroke-width="4"/>
-				            <path d="M0,14 30,14" stroke="#fff" stroke-width="4"/>
-				            <path d="M0,23 30,23" stroke="#fff" stroke-width="4"/>
-				        </svg>
-				    </a>
-			    </span>
+			    <a onclick="openSlideMenu()">
+				    <span class="open-slide" style="color: #fff">
+					    <i class="fas fa-bars fa-2x"></i>
+					</span>
+				</a>
 
 				<!-- Side nav -->
 				<div id="side-menu" class="side-nav">
 				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				    <li class="active"><a href="index.html">Home</a></li>
-					<li><a href="#">Contact</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Help</a></li>
+					<li><a href="./UI/pages/contact-us.html">Contact</a></li>
+					<li><a href="./UI/pages/about.html">About</a></li>
+					<li><a href="./UI/pages/help.html">Help</a></li>
 					<li><a href="./UI/pages/admin/home.html">Admin</a></li>
 					<li><a href="./UI/pages/profile.html">Profile</a></li>
 					<li><a href="./UI/pages/login.html">Login</a></li>
@@ -65,25 +61,59 @@
 				<h2 class="center">Let's bank</h2>
 			</header>
 			<div class="main-content landing">
-				<!-- <img src="./UI/assets/img/img_1.jpg"> -->
 				<article>
 					<h2>Get an account that suits you!</h2>
-					At Banka, we believe that the beauty of life lies in the little things that give us a better expression of ourselves, make us more social and connect emotionally.
+					<p>At Banka, we believe that the beauty of life lies in the little things that give us a better expression of ourselves, make us more social and connect emotionally.</p>
 					<a href="./UI/pages/new-account.html"><button>GET STARTED TODAY</button></a>
 				</article>
 			</div>
 		</section>
 
-		<section class="main-showcase">
-			<!-- ... -->
+		<section class="main-showcase container">
+			<header>
+				<h2 class="center">Why choose us?</h2>
+			</header>
+			<div class="main-showcase-content three-equal-sized-columns grid">
+				<div class="why-us center">
+					<i class="fas fa-tachometer-alt fa-6x"></i>
+					<article>
+						<h3>Quick & Easy</h3>
+						<p>Get an account in the shortest amount of time in just two steps.
+							<em>Banka</em> provides an elegant
+							user interface that makes it all simple.</p>
+					</article>
+				</div>
+				<div class="why-us center">
+					<i class="fas fa-universal-access fa-6x"></i>
+					<article>
+						<h3>Accessible</h3>
+						<p>Manage your account from anywhere, at anytime.
+						You are in full control.</p>
+					</article>
+				</div>
+				<div class="why-us center">
+					<i class="fas fa-shield-alt fa-6x"></i>
+					<article>
+						<h3>Secure <i class="fas fa-percent"></i></h3>
+						<p>At <em style="color: #ff1967">Banka</em> we do not take our customers' confidentiality
+						lightly. Our concern about security is topnotch.</p>
+					</article>
+				</div>
+			</div>
 		</section>
 	</div> <!-- end main-->
 
 
-	<footer>
-		<p>&copy; All rights reservered.</p>
-	</footer>
+	<div class="footer">
+		<footer class="container">
+			<p>&copy; All rights reservered.</p>
+			<div class="made-with">Made with <i class="fa fa-heart"></i> by GiftedHands</div>
+		</footer>
+	</div>
 
 	<script src="./UI/assets/js/main.js"></script>
+	<script src="./UI/assets/js/partials.js"></script>
+
+	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>

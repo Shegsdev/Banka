@@ -8,7 +8,7 @@ function modalOpen(bool) {
 // Hamburger Menu
 
 function openSlideMenu() {
-	document.getElementById('side-menu').style.width = '300px';
+	document.getElementById('side-menu').style.width = window.innerWidth + 'px';
 }
 
 function closeSlideMenu() {

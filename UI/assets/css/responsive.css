@@ -13,6 +13,10 @@
 
 /* Medium Devices, Tablets */
 @media only screen and (max-width : 768px) {
+    .card {
+        padding-bottom: 1px;
+        margin-bottom: 10px;
+    }
     .header:first-letter {
         border: 0 none;
     }
@@ -27,7 +31,7 @@
     .open-slide {
         visibility: visible;
     }
-    .nav-links div:first-child, ul {
+    .nav-links #tmp-links, ul {
         display: none;
     }
     .hero {
@@ -35,35 +39,46 @@
     }
     .hero-copy {
         margin: 10px 0 0 50px;
-        max-width: 300px;
-    }
-    .hero-copy h1 {
-        font-size: 60px;
-        margin-bottom: 0;
+        max-width: 400px;
     }
     .hero-copy p {
         font-size: 16px;
         margin-top: 5px;
     }
     .main section header {
-        margin: 40px auto;
+        margin: 80px auto;
     }
 	.main .landing {
-        background: #f3f3f3;
+        background: #ffffff;
         height: 300px;
         text-align: center;
     }
     .main .landing article {
         max-width: 100%;
     }
+    .main-showcase-content {
+        display: block;
+    }
+    .main-showcase .why-us {
+        border-bottom: 1px dotted #3b719f;
+        font-size: 20px !important;
+        max-width: 250px;
+    }
 
     /*Login*/
     .auth-page {
         display: block;
     }
+    .auth-page .nav {
+        display: inline-block;
+    }
     .auth-page .banner {
         font-size: 40px;
         padding: 22px;
+    }
+
+    .back {
+        visibility: hidden;
     }
 
     .form {
@@ -124,13 +139,10 @@
         display: block;
     }
 
-    /*Account opening page*/
-    .main .account {
-        margin: 0;
-        width: 100%;
-    }
-    .hero-copy-new-account {
+    /*Account opening page / Contact*/
+    .main .account, .main .contact-us {
         margin: 0 auto;
+        width: 90%;
     }
     .hero-copy-new-account h1 {
         color: #243244;
@@ -160,15 +172,17 @@
         font-size: 12px;
     }
     .main section header {
-        margin: 20px auto;
+        /*margin: 20px auto;*/
+        font-size: 30px;
     }
     .main .landing {
         height: 250px;
         text-align: center;
     }
-    .main .landing article {
-        font-size: 16px;
-        line-height: 1.2em;
+
+    .main-showcase .why-us {
+        font-size: 18px !important;
+        max-width: 100%;
     }
 
     /*Admin*/
