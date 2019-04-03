@@ -37,7 +37,6 @@ class User {
 			}
 		});
 		const id = users.length + 1;
-		console.log(id)
 
 		const newUser = {
 			id,
