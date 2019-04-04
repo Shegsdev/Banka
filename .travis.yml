@@ -3,7 +3,5 @@ node_js:
   - 10
   - 6
   - node
-script:
+before_script:
   - npm start
-after_success:
-  - npm test
