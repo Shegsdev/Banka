@@ -4,5 +4,5 @@ node_js:
   - 6
   - node
 script:
-  - node server.js &
+  - babel-node server.js &
   - npm test
