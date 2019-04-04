@@ -1,7 +1,8 @@
 // import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import users from '../db/users.db';
-import validateSignUpInput from '../../validation/signup';
+import validateSignUpInput from '../../validation/authentication/signup';
+import validateSignInInput from '../../validation/authentication/signin';
 
 const secret = process.env.SECRET || 'UseMeInstead';
 
@@ -9,8 +10,8 @@ class User {
 	create(req, res) {
 		const {
 			email,
-			firstname,
-			lastname,
+			firstName,
+			lastName,
 			password,
 		} = req.body;
 
@@ -37,13 +38,12 @@ class User {
 			}
 		});
 		const id = users.length + 1;
-		console.log(id)
 
 		const newUser = {
 			id,
 			email,
-			firstname,
-			lastname,
+			firstName,
+			lastName,
 			password,
 		};
 		users.push(newUser);
@@ -59,19 +59,70 @@ class User {
       }, (err, token) => {
           if(err) console.log('Error generating token', err);
           else {
-              res.status(201).send({
-                  status: 201,
-                  data: {
-                  	token,
-                  	id,
-                  	firstname,
-                  	lastname,
-                  	email,
-                  }
-              });
+            res.status(201).send({
+                status: 201,
+                data: {
+                	token,
+                	id,
+                	firstName,
+                	lastName,
+                	email,
+                }
+            });
           }
-      });
+      	});
 		}
+	}
+
+	// login
+	login(req, res) {
+		const {
+			email,
+			password,
+		} = req.body;
+
+		const {
+			error,
+			isValid,
+		} = validateSignInInput(req.body);
+
+		if (!isValid) {
+			return res.status(400).send({
+				status: 400,
+				error,
+			});
+	   }
+
+		// Check if account exists
+		users.find(user => {
+			if (user.email !== email || user.password !== password) {
+				return res.send({
+					status: 401,
+					error: 'Invalid login details',
+				});
+			} else {
+				// Logs user in
+				const payload = {};
+				jwt.sign(payload, secret, {
+		          expiresIn: '1h'
+		      }, (err, token) => {
+		          if(err) console.log('Error generating token', err);
+		          else {
+		            res.status(200).send({
+	                status: 200,
+		                data: {
+		                	token,
+		                	id: user.id,
+		                	firstName: user.firstName,
+		                	lastName: user.lastName,
+		                	email: user.email,
+		                }
+		            });
+		          }
+		      	});
+			}
+		});
+
 	}
 }
 
