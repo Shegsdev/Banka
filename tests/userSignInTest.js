@@ -17,5 +17,8 @@ describe('Login user account', () => {
 			   	next();
 			   });
 		});
+		it('should return same string', () => {
+			expect('samething').to.equal('samething');
+		});
 	});
 });
