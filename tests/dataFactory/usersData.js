@@ -1,54 +1,54 @@
 export const user = [
 	{
-		firstname: 'John',
-		lastname: 'Doe',
+		firstName: 'John',
+		lastName: 'Doe',
 		email: 'johndoe@email.com',
 		password: 'password',
 	},
 	{
-		firstname: 'Jane',
-		lastname: 'Doe',
+		firstName: 'Jane',
+		lastName: 'Doe',
 		email: 'janedoe@email.com',
 		password: 'password',
 	},
 	{
-		firstname: 'John',
-		lastname: 'Morris',
+		firstName: 'John',
+		lastName: 'Morris',
 		email: 'johnmorre@email.com',
 		password: 'password',
 	},
 	{
-		firstname: 'Dave',
-		lastname: 'Morris',
+		firstName: 'Dave',
+		lastName: 'Morris',
 		email: 'dmorris@email.com',
 		password: 'password',
 	},
 ];
 
 export const missingFirstname = {
-	firstname: '',
-	lastname: 'Doe',
+	firstName: '',
+	lastName: 'Doe',
 	email: 'nofirstname@email.com',
 	password: 'password',
 };
 
 export const missingLastname = {
-	firstname: 'John',
-	lastname: '',
+	firstName: 'John',
+	lastName: '',
 	email: 'nolastname@email.com',
 	password: 'password',
 };
 
 export const missingEmail = {
-	firstname: 'John',
-	lastname: 'Doe',
+	firstName: 'John',
+	lastName: 'Doe',
 	email: '',
 	password: 'password',
 };
 
 export const missingPassword = {
-	firstname: 'John',
-	lastname: 'Doe',
+	firstName: 'John',
+	lastName: 'Doe',
 	email: 'nopassword@email.com',
 	password: '',
 };
