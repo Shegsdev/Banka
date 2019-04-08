@@ -5,9 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "babel-node server.js",
-    "test": "mocha --require babel-register tests/*.js --exit || true",
-    "dev": "node_modules/.bin/nodemon server.js --exec babel-node --"
+    "test": "nyc --reporter=html --reporter=text --timeout 40000 mocha --require babel-register ./tests/*.js --exit",
+    "dev": "node_modules/.bin/nodemon server.js --exec babel-node --",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shegsdev/Banka.git"
@@ -34,7 +36,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "mocha": "^6.0.2",
+    "mocha-lcov-reporter": "^1.3.0",
     "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
     "supertest": "^4.0.2"
   },
   "dependencies": {

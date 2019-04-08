@@ -6,3 +6,5 @@ node_js:
 script:
   - babel-node server.js &
   - npm run test
+after_success:
+  - npm run coverage

@@ -6,7 +6,7 @@ import {
 	missingFirstname,
 	missingLastname,
 	missingEmail,
-	missingPassword } from './dataFactory/usersData';
+	missingPassword } from '../database/factories/userFactory';
 
 const api = supertest('http://localhost:5000');
 
