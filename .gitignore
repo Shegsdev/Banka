@@ -1,4 +1,7 @@
 node_modules/
+coverage/
+.coveralls.yml
+.nyc_output
 package-lock.json
 
 
