@@ -1,3 +1,4 @@
 import usersRoute from './users.route';
+import accountsRoute from './accounts.route';
 
-module.exports = { usersRoute };
+export { usersRoute, accountsRoute };

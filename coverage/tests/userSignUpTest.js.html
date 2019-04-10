@@ -131,13 +131,11 @@
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,10 +196,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -222,93 +216,90 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import chai, { expect } from 'chai';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { expect } from 'chai';
 import supertest from 'supertest';
 // import users from '../server/db/users.db';
 import {
-	user,
-	missingFirstname,
-	missingLastname,
-	missingEmail,
-	missingPassword } from '../database/factories/userFactory';
+  user,
+  missingFirstname,
+  missingLastname,
+  missingEmail,
+  missingPassword,
+} from '../database/factories/userFactory';
 &nbsp;
 const api = supertest('http://localhost:5000');
 &nbsp;
 describe('Create new user account', () =&gt; {
-	describe('POST /api/v1/auth/signup', () =&gt; {
-		it('should return status code 201 on success', next =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(user[0])
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.status).to.equal(201);
-			   	  next();
-			   });
-		});
-		it('should return error due to registered email', next =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(user[0])
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.error).to.equal('Account already exists');
-			   	  next();
-			   });
-		});
-		it('should return return error due to missing firstname', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(missingFirstname)
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.error).to.equal('First name cannot be blank.');
-			   	  done();
-			   });
-		});
-		it('should return error due to missing lastname', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(missingLastname)
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.error).to.equal('Last name cannot be blank.');
-			   	  done();
-			   });
-		});
-		it('should return error due to missing email', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(missingEmail)
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.error).to.equal('Email cannot be blank.');
-			   	  done();
-			   });
-		});
-		it('should return error due to missing password', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(missingPassword)
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.error).to.equal('Password cannot be blank.');
-			   	  done();
-			   });
-		});
-		// beforeEach((done) =&gt; {
-		// 	users.filter(user =&gt; user !== user);
-		// 	done();
-		// });
-	});
+  describe('POST /api/v1/auth/signup', () =&gt; {
+    it('should return status code 201 on success', (next) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(user[0])
+        .end((err, res) =&gt; {
+          expect(res.body.status).to.equal(201);
+          next();
+        });
+    });
+    it('should return error due to registered email', (next) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(user[0])
+        .end((err, res) =&gt; {
+          expect(res.body.error).to.equal('Account already exists');
+          next();
+        });
+    });
+    it('should return return error due to missing firstname', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(missingFirstname)
+        .end((err, res) =&gt; {
+          expect(res.body.error).to.equal('First name cannot be blank.');
+          done();
+        });
+    });
+    it('should return error due to missing lastname', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(missingLastname)
+        .end((err, res) =&gt; {
+          expect(res.body.error).to.equal('Last name cannot be blank.');
+          done();
+        });
+    });
+    it('should return error due to missing email', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(missingEmail)
+        .end((err, res) =&gt; {
+          expect(res.body.error).to.equal('Email cannot be blank.');
+          done();
+        });
+    });
+    it('should return error due to missing password', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(missingPassword)
+        .end((err, res) =&gt; {
+          expect(res.body.error).to.equal('Password cannot be blank.');
+          done();
+        });
+    });
+  });
 &nbsp;
-	describe('POST /api/v1/auth/signup', () =&gt; {
-		it('should return data property as object', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(user[1])
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.data).to.be.a('object');
-			   	  done();
-			   });
-		});
+  describe('POST /api/v1/auth/signup', () =&gt; {
+    it('should return data property as object', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(user[1])
+        .end((err, res) =&gt; {
+          expect(res.body.data).to.be.a('object');
+          done();
+        });
+    });
 &nbsp;
-		it('should return data containing token', done =&gt; {
-			api.post('/api/v1/auth/signup')
-			   .send(user[2])
-			   .end((err, res) =&gt; {
-			   	  expect(res.body.data).to.have.property('token');
-			   	  done();
-			   });
-		});
-	})
+    it('should return data containing token', (done) =&gt; {
+      api.post('/api/v1/auth/signup')
+        .send(user[2])
+        .end((err, res) =&gt; {
+          expect(res.body.data).to.have.property('token');
+          done();
+        });
+    });
+  });
 });
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -316,7 +307,7 @@ describe('Create new user account', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Apr 08 2019 01:04:06 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Apr 10 2019 17:44:10 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
