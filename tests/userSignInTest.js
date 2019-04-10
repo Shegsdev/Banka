@@ -1,4 +1,4 @@
-import chai, { expect } from 'chai';
+import { expect } from 'chai';
 import supertest from 'supertest';
 import { user } from '../database/factories/userFactory';
 
