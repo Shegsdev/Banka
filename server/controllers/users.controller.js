@@ -57,7 +57,7 @@ class User {
       jwt.sign(payload, secret, {
           expiresIn: '1h'
       }, (err, token) => {
-          if(err) console.log('Error generating token', err);
+          if (err) console.log('Error generating token', err);
           else {
             res.status(201).send({
                 status: 201,
@@ -106,7 +106,7 @@ class User {
 				jwt.sign(payload, secret, {
 		          expiresIn: '1h'
 		      }, (err, token) => {
-		          if(err) console.log('Error generating token', err);
+		          if (err) console.log('Error generating token', err);
 		          else {
 		            res.status(200).send({
 	                status: 200,
