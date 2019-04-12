@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">48.15% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>13/27</span>
+        <span class='fraction'>27/27</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/8</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">48.15% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>13/27</span>
+        <span class='fraction'>27/27</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,35 +123,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,35 +178,35 @@ describe('Login user account', () =&gt; {
         .end((_err, res) =&gt; {
           // eslint-disable-next-line prefer-destructuring
           token = res.body.data.token;
-<span class="cstat-no" title="statement not covered" >          done();</span>
+          done();
         });
     });
-    it('should return status code 200 on success', <span class="fstat-no" title="function not covered" >(n</span>ext) =&gt; {
-<span class="cstat-no" title="statement not covered" >      api.p</span>ost('/api/v1/auth/signin')
+    it('should return status code 200 on success', (next) =&gt; {
+      api.post('/api/v1/auth/signin')
         .set('x-access-token', token)
         .send({
           email: 'mark55@email.com',
           password: 'markhen',
         })
-        .end(<span class="fstat-no" title="function not covered" >(_</span>err, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.status).to.equal(200);
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.data).to.be.a('object');
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.data).to.have.property('token');
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.data).to.have.property('email');
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.data).to.have.property('firstName');
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.data).to.have.property('lastName');
-<span class="cstat-no" title="statement not covered" >          next();</span>
+        .end((_err, res) =&gt; {
+          expect(res.body.status).to.equal(200);
+          expect(res.body.data).to.be.a('object');
+          expect(res.body.data).to.have.property('token');
+          expect(res.body.data).to.have.property('email');
+          expect(res.body.data).to.have.property('firstName');
+          expect(res.body.data).to.have.property('lastName');
+          next();
         });
     });
 &nbsp;
-    it('should return error for invalid login', <span class="fstat-no" title="function not covered" >(n</span>ext) =&gt; {
-<span class="cstat-no" title="statement not covered" >      api.p</span>ost('/api/v1/auth/signin')
+    it('should return error for invalid login', (next) =&gt; {
+      api.post('/api/v1/auth/signin')
         .send(user[0])
-        .end(<span class="fstat-no" title="function not covered" >(_</span>err, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.status).to.equal(401);
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.error).to.be.a('string');
-<span class="cstat-no" title="statement not covered" >          expect(r</span>es.body.error).to.equal('Invalid login details');
-<span class="cstat-no" title="statement not covered" >          next();</span>
+        .end((_err, res) =&gt; {
+          expect(res.body.status).to.equal(401);
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.error).to.equal('Invalid login details');
+          next();
         });
     });
   });
@@ -217,7 +217,7 @@ describe('Login user account', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 12 2019 20:27:44 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 12 2019 20:30:09 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
