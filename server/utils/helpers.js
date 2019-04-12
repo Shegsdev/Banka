@@ -5,6 +5,11 @@ export const uniqueID = (array) => {
   return 1;
 };
 
-export const generateToken = () => {
-  // Todo: return randomized token
+export const setAuthToken = (req, token) => {
+  if (token) {
+    req.headers['x-access-token'] = token;
+  } else {
+    req.headers['x-access-token'] = '';
+  }
+  return true;
 };

@@ -112,7 +112,7 @@ describe('Create bank account', () => {
 describe('Change bank account status', () => {
   it('should return error when request details are incomplete', (done) => {
     const accountNumber = 1554798152466;
-    api.patch(`/api/v1/account/${accountNumber}`)
+    api.patch(`/api/v1/accounts/${accountNumber}`)
       .send({})
       .end((_err, res) => {
         expect(res.body.status).to.equal(206);

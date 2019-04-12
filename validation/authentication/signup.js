@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import Validator from 'validator';
 import isEmpty from '../isEmpty';
 
 const validateSignUpInput = (data) => {
@@ -8,17 +9,28 @@ const validateSignUpInput = (data) => {
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
 
-  if (isEmpty(data.firstName)) {
-    error = 'First name cannot be blank.';
+  if (Validator.isEmpty(data.firstName)) {
+    error = 'First name cannot be blank';
   }
-  if (isEmpty(data.lastName)) {
-    error = 'Last name cannot be blank.';
+
+  if (Validator.isEmpty(data.lastName)) {
+    error = 'Last name cannot be blank';
   }
-  if (isEmpty(data.email)) {
-    error = 'Email cannot be blank.';
+
+  if (!Validator.isEmail(data.email)) {
+    error = 'Email is invalid';
   }
-  if (isEmpty(data.password)) {
-    error = 'Password cannot be blank.';
+
+  if (Validator.isEmpty(data.email)) {
+    error = 'Email cannot be blank';
+  }
+
+  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
+    error = 'Password must be atleast 6 characters';
+  }
+
+  if (Validator.isEmpty(data.password)) {
+    error = 'Password cannot be blank';
   }
 
   return {

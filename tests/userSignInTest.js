@@ -4,34 +4,49 @@ import { user } from '../database/factories/userFactory';
 
 const api = supertest('http://localhost:5000');
 
+const testUser = {
+  firstName: 'mark',
+  lastName: 'Henry',
+  email: 'mark55@email.com',
+  password: 'markhen',
+};
+
 describe('Login user account', () => {
   describe('POST /api/v1/auth/signin', () => {
+    let token;
+    before((done) => {
+      api.post('/api/v1/auth/signup')
+        .send(testUser)
+        .end((_err, res) => {
+          // eslint-disable-next-line prefer-destructuring
+          token = res.body.data.token;
+          done();
+        });
+    });
     it('should return status code 200 on success', (next) => {
-      const loginUser = {
-        email: 'mark55@email.com',
-        password: 'markhen',
-      };
       api.post('/api/v1/auth/signin')
-        .send(loginUser)
-        .end((err, res) => {
+        .set('x-access-token', token)
+        .send({
+          email: 'mark55@email.com',
+          password: 'markhen',
+        })
+        .end((_err, res) => {
           expect(res.body.status).to.equal(200);
+          expect(res.body.data).to.be.a('object');
+          expect(res.body.data).to.have.property('token');
+          expect(res.body.data).to.have.property('email');
+          expect(res.body.data).to.have.property('firstName');
+          expect(res.body.data).to.have.property('lastName');
           next();
         });
     });
 
-    it('should return error code for invalid login', (next) => {
+    it('should return error for invalid login', (next) => {
       api.post('/api/v1/auth/signin')
         .send(user[0])
-        .end((err, res) => {
+        .end((_err, res) => {
           expect(res.body.status).to.equal(401);
-          next();
-        });
-    });
-
-    it('should return invalid login details', (next) => {
-      api.post('/api/v1/auth/signin')
-        .send(user[1])
-        .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
           expect(res.body.error).to.equal('Invalid login details');
           next();
         });

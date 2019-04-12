@@ -7,7 +7,7 @@ router
   .get('/accounts/:accountNumber', Account.findOne)
   .get('/accounts', Account.findAll)
   .post('/accounts', Account.create)
-  .patch('/account/:accountNumber', Account.changeStatus)
+  .patch('/accounts/:accountNumber', Account.changeStatus)
   .delete('/accounts/:accountNumber', Account.delete);
 
 export default router;

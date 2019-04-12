@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import User from '../controllers/users.controller';
+import UsersController from '../controllers/users.controller';
 
 const router = Router();
 
 router
-  .post('/auth/signup', User.create)
-  .post('/auth/signin', User.login);
+  .get('/users', UsersController.findAll)
+  .get('/users/:id', UsersController.findOne)
+  .post('/admin/new', UsersController.addStaff);
 
 export default router;

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">79.49% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>39/39</span>
+        <span class='fraction'>31/39</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,16 +35,16 @@
         <span class='fraction'>19/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">79.49% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>39/39</span>
+        <span class='fraction'>31/39</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -151,7 +151,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -159,7 +159,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -167,7 +167,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -175,7 +175,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -183,7 +183,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -191,7 +191,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,7 +202,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,7 +211,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,7 +236,7 @@ describe('Create new user account', () =&gt; {
         .send(user[0])
         .end((err, res) =&gt; {
           expect(res.body.status).to.equal(201);
-          next();
+<span class="cstat-no" title="statement not covered" >          next();</span>
         });
     });
     it('should return error due to registered email', (next) =&gt; {
@@ -244,39 +244,39 @@ describe('Create new user account', () =&gt; {
         .send(user[0])
         .end((err, res) =&gt; {
           expect(res.body.error).to.equal('Account already exists');
-          next();
+<span class="cstat-no" title="statement not covered" >          next();</span>
         });
     });
     it('should return return error due to missing firstname', (done) =&gt; {
       api.post('/api/v1/auth/signup')
         .send(missingFirstname)
         .end((err, res) =&gt; {
-          expect(res.body.error).to.equal('First name cannot be blank.');
-          done();
+          expect(res.body.error).to.equal('First name cannot be blank');
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
     it('should return error due to missing lastname', (done) =&gt; {
       api.post('/api/v1/auth/signup')
         .send(missingLastname)
         .end((err, res) =&gt; {
-          expect(res.body.error).to.equal('Last name cannot be blank.');
-          done();
+          expect(res.body.error).to.equal('Last name cannot be blank');
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
     it('should return error due to missing email', (done) =&gt; {
       api.post('/api/v1/auth/signup')
         .send(missingEmail)
         .end((err, res) =&gt; {
-          expect(res.body.error).to.equal('Email cannot be blank.');
-          done();
+          expect(res.body.error).to.equal('Email cannot be blank');
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
     it('should return error due to missing password', (done) =&gt; {
       api.post('/api/v1/auth/signup')
         .send(missingPassword)
         .end((err, res) =&gt; {
-          expect(res.body.error).to.equal('Password cannot be blank.');
-          done();
+          expect(res.body.error).to.equal('Password cannot be blank');
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
   });
@@ -287,7 +287,7 @@ describe('Create new user account', () =&gt; {
         .send(user[1])
         .end((err, res) =&gt; {
           expect(res.body.data).to.be.a('object');
-          done();
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
 &nbsp;
@@ -296,7 +296,7 @@ describe('Create new user account', () =&gt; {
         .send(user[2])
         .end((err, res) =&gt; {
           expect(res.body.data).to.have.property('token');
-          done();
+<span class="cstat-no" title="statement not covered" >          done();</span>
         });
     });
   });
@@ -307,7 +307,7 @@ describe('Create new user account', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Apr 10 2019 19:34:42 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Apr 12 2019 20:27:44 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

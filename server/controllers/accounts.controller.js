@@ -51,7 +51,6 @@ const AccountsController = {
    * */
   findAll(req, res) {
     const accounts = Account.findAll();
-    if (accounts.length < 1) return {};
     return res.status(200).json({
       status: 200,
       data: accounts,

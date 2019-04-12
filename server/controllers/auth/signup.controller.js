@@ -1,63 +1,17 @@
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import User from '../models/user.model';
-import { setAuthToken } from '../utils/helpers';
-import validateSignUpInput from '../../validation/authentication/signup';
+import User from '../../models/user.model';
+import validateSignUpInput from '../../../validation/authentication/signup';
+import { setAuthToken } from '../../utils/helpers';
 
 config();
 
 const secret = process.env.SECRET || 'UseMeInstead';
 
-const UsersController = {
+const SignupController = {
   /**
-   * @description - Finds a specific user
-   *
-   * @param  {object} req - request
-   *
-   * @param  {object} res - response
-   *
-   * @return {json} - jsonObject containing status and data
-   *
-   * Route: GET: /users/:id
-   *
-   * */
-  findOne(req, res) {
-    const user = User.findOne(parseInt(req.params.id, 10));
-    if (user) {
-      return res.status(200).json({
-        status: 200,
-        data: user,
-      });
-    }
-    return res.status(404).json({
-      status: 404,
-      error: 'User does not exist',
-    });
-  },
-
-  /**
-   * @description - Finds all users
-   *
-   * @param  {object} req - request
-   *
-   * @param  {object} res - response
-   *
-   * @return {json} - jsonObject containing status and data
-   *
-   * Route: GET: /users
-   *
-   * */
-  findAll(req, res) {
-    const users = User.findAll();
-    return res.status(200).json({
-      status: 200,
-      data: users,
-    });
-  },
-
-  /**
-   * @description - Creates new staff
+   * @description - Creates new user
    *
    * @param  {object} req - request
    *
@@ -65,16 +19,15 @@ const UsersController = {
    *
    * @return {json} - jsonObject containing status, token and user data
    *
-   * Route: POST: /admin/new
+   * Route: POST: /auth/signup
    *
    * */
-  addStaff(req, res) {
+  signup(req, res) {
     let { email } = req.body;
     const {
       firstName,
       lastName,
       password,
-      type,
     } = req.body;
 
     const {
@@ -101,17 +54,16 @@ const UsersController = {
       });
     }
 
-    const newStaff = {
+    const newUser = {
       email,
       firstName,
       lastName,
       password,
-      type,
     };
 
     // Create user account
-    User.addStaff(newStaff)
-      .then((staff) => {
+    User.create(newUser)
+      .then((user) => {
         // Check if user was successfully added to database
         if (!User.findByEmail(email)) {
           return res.status(500).json({
@@ -119,8 +71,7 @@ const UsersController = {
             error: 'Error creating account, try again',
           });
         }
-        const payload = staff;
-        payload.isStaff = true;
+        const payload = user;
         // eslint-disable-next-line consistent-return
         jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
           if (err) {
@@ -135,12 +86,10 @@ const UsersController = {
             status: 201,
             data: {
               token,
-              id: staff.id,
-              firstName: staff.firstName,
-              lastName: staff.lastName,
-              email: staff.email,
-              type: staff.type,
-              isAdmin: staff.isAdmin,
+              id: user.id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
             },
           });
         });
@@ -152,4 +101,4 @@ const UsersController = {
   },
 };
 
-export default UsersController;
+export default SignupController;

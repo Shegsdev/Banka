@@ -33,7 +33,7 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingFirstname)
         .end((err, res) => {
-          expect(res.body.error).to.equal('First name cannot be blank.');
+          expect(res.body.error).to.equal('First name cannot be blank');
           done();
         });
     });
@@ -41,7 +41,7 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingLastname)
         .end((err, res) => {
-          expect(res.body.error).to.equal('Last name cannot be blank.');
+          expect(res.body.error).to.equal('Last name cannot be blank');
           done();
         });
     });
@@ -49,7 +49,7 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingEmail)
         .end((err, res) => {
-          expect(res.body.error).to.equal('Email cannot be blank.');
+          expect(res.body.error).to.equal('Email cannot be blank');
           done();
         });
     });
@@ -57,7 +57,7 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingPassword)
         .end((err, res) => {
-          expect(res.body.error).to.equal('Password cannot be blank.');
+          expect(res.body.error).to.equal('Password cannot be blank');
           done();
         });
     });
