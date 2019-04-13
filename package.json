@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "babel-node server.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 40000 ./tests/*.js --exit",
+    "test": "nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 1000 ./tests/*.js --exit",
     "dev": "node_modules/.bin/nodemon server.js --exec babel-node --",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",

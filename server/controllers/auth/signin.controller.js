@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user.model';
+import { setAuthToken } from '../../utils/helpers';
 import validateSignInInput from '../../../validation/authentication/signin';
 
 config();
@@ -61,6 +62,9 @@ const SigninController = {
                 error: `There is some error in token ${err}`,
               });
             }
+
+            // Set token
+            setAuthToken(req, token);
             res.status(200).send({
               status: 200,
               data: {
