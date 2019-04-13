@@ -98,7 +98,7 @@ const AccountsController = {
   changeStatus(req, res) {
     const { status } = req.body;
     if (!req.params.accountNumber || status === undefined) {
-      res.status(206).json({
+      return res.status(206).json({
         status: 206,
         error: 'Account number or status not provided',
       });

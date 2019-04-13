@@ -179,7 +179,7 @@ describe('Credit bank account non-staff', () => {
   before((next) => {
     // Creates new user account
     api.post('/api/v1/auth/signup')
-      .send(user[0])
+      .send(user[3])
       .end((_err, res) => {
         token = res.body.data.token;
         next();

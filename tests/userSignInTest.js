@@ -23,7 +23,7 @@ describe('Login user account', () => {
           done();
         });
     });
-    it('should return status code 200 on success', (next) => {
+    it('should return status code 200 on success', (done) => {
       api.post('/api/v1/auth/signin')
         .set('x-access-token', token)
         .send({
@@ -37,18 +37,18 @@ describe('Login user account', () => {
           expect(res.body.data).to.have.property('email');
           expect(res.body.data).to.have.property('firstName');
           expect(res.body.data).to.have.property('lastName');
-          next();
+          done();
         });
     });
 
-    it('should return error for invalid login', (next) => {
+    it('should return error for invalid login', (done) => {
       api.post('/api/v1/auth/signin')
-        .send(user[0])
+        .send(user[4])
         .end((_err, res) => {
           expect(res.body.status).to.equal(401);
           expect(res.body.error).to.be.a('string');
           expect(res.body.error).to.equal('Invalid login details');
-          next();
+          done();
         });
     });
   });
