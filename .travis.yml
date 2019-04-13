@@ -3,6 +3,8 @@ node_js:
   - 10
   - 6
   - node
+env:
+  - SECRET=secret_key
 script:
   - babel-node server.js &
   - npm run test
