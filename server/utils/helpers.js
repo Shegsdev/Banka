@@ -11,5 +11,4 @@ export const setAuthToken = (req, token) => {
   } else {
     req.headers['x-access-token'] = '';
   }
-  return true;
 };

@@ -20,8 +20,6 @@ class User {
   }
 
   create(data) {
-    const date = new Date();
-
     // Hash user password before saving
     const newUser = new Promise((resolve, reject) => {
       bcrypt.genSalt(10, (_err, salt) => {
@@ -37,7 +35,7 @@ class User {
             type: data.type || this.type,
             isStaff: false,
             isAdmin: false,
-            createdAt: date.toString(),
+            createdAt: new Date(),
           };
           this.users.push(result);
           resolve(result);

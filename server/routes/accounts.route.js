@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import Account from '../controllers/accounts.controller';
+import AccountsController from '../controllers/accounts.controller';
 
 const router = Router();
 
 router
-  .get('/accounts/:accountNumber', Account.findOne)
-  .get('/accounts', Account.findAll)
-  .post('/accounts', Account.create)
-  .patch('/accounts/:accountNumber', Account.changeStatus)
-  .delete('/accounts/:accountNumber', Account.delete);
+  .get('/accounts/:accountNumber', AccountsController.findOne)
+  .get('/accounts', AccountsController.findAll)
+  .post('/accounts', AccountsController.create)
+  .patch('/accounts/:accountNumber', AccountsController.changeStatus)
+  .delete('/accounts/:accountNumber', AccountsController.delete);
 
 export default router;

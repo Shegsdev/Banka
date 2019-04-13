@@ -14,7 +14,7 @@ const AccountsController = {
    * Route: POST: /accounts
    *
    * */
-  create(req, res) {
+  async create(req, res) {
     const { error, isValid } = validateCreateBankAccountInput(req.body);
     if (!isValid) {
       return res.status(400).json({
@@ -23,7 +23,7 @@ const AccountsController = {
       });
     }
 
-    const newAccount = Account.create(req.body);
+    const newAccount = await Account.create(req.body);
     return res.status(201).json({
       status: 201,
       data: {

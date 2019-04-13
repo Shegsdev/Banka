@@ -2,7 +2,12 @@ import debug from 'debug';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import { authRoute, usersRoute, accountsRoute } from './server/routes';
+import {
+  authRoute,
+  usersRoute,
+  accountsRoute,
+  transactionsRoute,
+} from './server/routes';
 
 const app = express();
 app.set('port', process.env.PORT || 5000);
@@ -19,6 +24,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // append /api to http requests
-app.use('/api/v1', [usersRoute, accountsRoute, authRoute]);
+app.use('/api/v1', [usersRoute, accountsRoute, authRoute, transactionsRoute]);
 
 app.listen(app.get('port'), () => debug('server')(`LISTENING ON PORT ${app.get('port')}`));

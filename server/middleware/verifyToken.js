@@ -5,7 +5,8 @@ import User from '../models/user.model';
 config();
 
 const Auth = {
-  async tokenVerify(req, res, next) {
+  // eslint-disable-next-line consistent-return
+  tokenVerify(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
       return res.status(400).json({
@@ -25,15 +26,16 @@ const Auth = {
       }
       req.user = {
         id: decoded.id,
+        isStaff: decoded.isStaff,
         isAdmin: decoded.isAdmin,
       };
-      return next();
     } catch (error) {
       return res.status(400).json({
         status: 400,
         error: `Something went wrong ${error}`,
       });
     }
+    next();
   },
 };
 
