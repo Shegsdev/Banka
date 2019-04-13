@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Shegsdev/Banka.svg?branch=ft-signin-endpoint-164982322)](https://travis-ci.com/Shegsdev/Banka) [![Coverage Status](https://coveralls.io/repos/github/Shegsdev/Banka/badge.svg?branch=ft-create-bank-account-164982317)](https://coveralls.io/github/Shegsdev/Banka?branch=ft-create-bank-account-164982317) [![Maintainability](https://api.codeclimate.com/v1/badges/7375c2bea8fcd4984968/maintainability)](https://codeclimate.com/github/Shegsdev/Banka/maintainability)
+[![Build Status](https://travis-ci.com/Shegsdev/Banka.svg?branch=ft-signin-endpoint-164982322)](https://travis-ci.com/Shegsdev/Banka) [![Coverage Status](https://coveralls.io/repos/github/Shegsdev/Banka/badge.svg?branch=develop)](https://coveralls.io/github/Shegsdev/Banka?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/7375c2bea8fcd4984968/maintainability)](https://codeclimate.com/github/Shegsdev/Banka/maintainability)
 
 # Banka
 
