@@ -104,6 +104,6 @@ ___
 
 ## Author
 ### Segun Akanbi
-Follow me on [Twitter](http://twitter.com/shegsdev)
+You can follow me on [Twitter](http://twitter.com/shegsdev)
 
 
