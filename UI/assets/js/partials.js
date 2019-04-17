@@ -7,7 +7,6 @@ const nav = document.querySelector('#nav');
 const bars = document.querySelector('.open-slide');
 const list = nav.children[1].children[0].children;
 
-
 window.onscroll = function () {
   if (window.scrollY > 50) {
     // nav
@@ -16,6 +15,8 @@ window.onscroll = function () {
     nav.style.top = 0;
     nav.style.right = 0;
     nav.style.left = 0;
+    nav.style.padding = '0 40px';
+    nav.style.transition = '0.5s all';
     nav.style.boxShadow = '0 2px 10px 1px rgba(0, 0, 0, 0.18)';
 
     // bars
@@ -23,24 +24,31 @@ window.onscroll = function () {
 
     // nav-links list
     for (const l of Array.from(list)) {
-      l.children[0].style.color = '#ff1967';
+      const el = l.children[0];
+      // Handle login link
+      if (el.tagName === 'LI') el.style.borderColor = 'rgb(0, 124, 195)';
+      el.style.color = 'rgb(0, 124, 195)';
     }
     // active link border-bottom
     for (const l of list) {
       if (l.className === 'active') {
-        l.style.borderColor = '#ff1967';
+        l.style.borderColor = 'rgb(0, 124, 195)';
       }
     }
   }
   if (window.scrollY < 50) {
     nav.style.position = 'relative';
     nav.style.background = 'none';
+    nav.style.padding = '14px 40px';
+    nav.style.transition = 'none';
     nav.style.boxShadow = '0 0px 0px 0px rgb(255, 255, 255)';
 
     bars.style.color = '#fff';
 
     for (const l of Array.from(list)) {
-      l.children[0].style.color = '#e7e7e9';
+      const el = l.children[0];
+      if (el.tagName === 'LI') el.style.borderColor = '#e7e7e9';
+      el.style.color = '#e7e7e9';
     }
 
     for (const l of list) {

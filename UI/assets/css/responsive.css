@@ -31,15 +31,21 @@
     .open-slide {
         visibility: visible;
     }
-    .nav-links #tmp-links, ul {
+    .side-nav li {
+        font-weight: 200;
+    }
+    .nav-links ul {
         display: none;
     }
     .hero {
         height: 500px;
     }
     .hero-copy {
-        margin: 10px 0 0 50px;
+        margin: 50px auto;
         max-width: 400px;
+    }
+    .hero-copy h1 {
+        margin: 0;
     }
     .hero-copy p {
         font-size: 16px;
@@ -54,7 +60,9 @@
         text-align: center;
     }
     .main .landing article {
+        padding: 0;
         max-width: 100%;
+        margin: 0;
     }
     .main-showcase-content {
         display: block;
@@ -103,6 +111,14 @@
         margin-bottom: 50px;
     }
 
+    .ad-main .card-content img {
+        width: 30%;
+    }
+
+    .ad-main .card button {
+        width: 100%;
+    }
+
     .ad-main aside {
         display: none;
     }
@@ -119,18 +135,27 @@
     /*All accounts*/
     .ad-main-content table {
         font-size: 12px;
+        width: 80%;
     }
+    .ad-main-content table .actions {
+        display: none;
+    }
+    .ad-main-content table .ellipsis {
+        cursor: pointer;
+        display: block;
+        border: 0 none;
+    }
+
     .ad-main-content table th, .ad-main-content table td {
         padding: 8px 10px;
     }
     .ad-main-content table button, .ad-main-content section button {
-        font-size: 12px;
-        padding: 2px 8px;
+        font-size: 14px;
+        padding: 4px 8px;
     }
     .ad-main-content table th:last-child, .ad-main-content table td:last-child {
         padding-left: 8px;
     }
-
     .ad-main-content .transaction-form {
         width: 80%;
     }
@@ -140,13 +165,9 @@
     }
 
     /*Account opening page / Contact*/
-    .main .account, .main .contact-us {
+    .main .account, .main .contact-us, .main .about-us {
         margin: 0 auto;
         width: 90%;
-    }
-    .hero-copy-new-account h1 {
-        color: #243244;
-        margin-top: 0;
     }
 }
 
@@ -160,10 +181,10 @@
         width: 50px;
     }
 	nav {
-        padding: 10px;
+        padding: 10px !important;
     }
     .hero {
-        height: 400px;
+        height: 450px;
     }
     .hero-copy {
         max-width: 200px;
@@ -186,13 +207,18 @@
     }
 
     /*Admin*/
+    .ad-main-content table th, .ad-main-content table td {
+        padding: 6px 8px;
+    }
+    .ad-main-content table button, .ad-main-content section button {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+    .ad-main-content table th:last-child, .ad-main-content table td:last-child {
+        padding-left: 8px;
+    }
     .ad-main-content .transaction-form {
         width: 100%;
-    }
-
-    /*Account opening page*/
-    .hero-new-account .open-slide path {
-        stroke: #000;
     }
 }
 

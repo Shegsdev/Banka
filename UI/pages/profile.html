@@ -17,7 +17,16 @@
 			</div>
 		</a>
 		<div class="ad-nav-right">
-			<div id="avatar"></div>
+			<img id="avatar"
+				onclick="openDropDown(true)" 
+				class="dropbtn"
+				src="../assets/img/avatar.png" 
+			/>
+			<!-- Dropdown content -->
+			<div class="dropdown-content" id="dropdown">
+				<a href="home.html">My Profile</a>
+				<a href="../../index.html">Logout</a>
+			</div>
 			<!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
 			    <span class="open-slide" style="color: #000">
@@ -31,7 +40,7 @@
 			    <li><a href="profile.html">Dashboard</a></li>
 				<li><a href="#">Edit Profile</a></li>
 				<li><a href="transactions.html">My transactions</a></li>
-				<li><a href="#">Logout</a></li>
+				<li><a href="../../index.html">Logout</a></li>
 			</div>
 		</div>
 	</nav>
@@ -42,43 +51,36 @@
 					<a href="profile.html"><li>Dashboard</li></a>
 					<a href="#"><li>Edit Profile</li></a>
 					<a href="transactions.html"><li>My transactions</li></a>
-					<a href="#"><li>Logout</li></a>
+					<a href="../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>
 		</section>
 
 		<section class="ad-main-showcase">
-			<header><h1>Recent activity</h1></header>
+			<header><h3>Recent activity</h3></header>
 			<div class="ad-main-content two-equal-sized-columns grid">
 				<div class="card center">
 					<div class="card-media">
 						<div class="card-content">
-							Transaction successful
+							<img src="../assets/img/growth.png">
 						</div>
 					</div>
 					<div class="actions">
-						<a href="transactions.html"><button>View more</button></a>
+						<a href="transactions.html"><button>View history</button></a>
 					</div>
 				</div>
 				<div class="card center">
 					<div class="card-media">
 						<div class="card-content">
-							Profile updated
+							<img src="../assets/img/profile.png">
 						</div>
 					</div>
 					<div class="actions">
-						<a href="#"><button>View more</button></a>
+						<a href="#"><button>View profile</button></a>
 					</div>
 				</div>
 			</div>
 		</section>
-	</div>
-
-	<div class="footer">
-		<footer class="container">
-			<p>&copy; All rights reservered.</p>
-			<div class="made-with">Made with <i class="fa fa-heart"></i> by GiftedHands</div>
-		</footer>
 	</div>
 	
 	<script src="../assets/js/main.js"></script>
