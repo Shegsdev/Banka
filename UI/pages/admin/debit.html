@@ -12,15 +12,7 @@
 <body>
 	<div class="ad-modal">
 		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
-		<div class="modal-content center">
-			<header>
-				<h2>Choose transaction type:</h2>
-			</header>
-			<div class="actions">
-				<a href="credit.html"><button class="button-blue">CREDIT</button></a>
-				<a href="debit.html"><button class="button-blue">DEBIT</button></a>
-			</div>
-		</div>
+		<div class="modal-content center"></div>
 	</div>
 	<nav id="ad-nav">
 		<div id="logo">
@@ -29,7 +21,16 @@
 			</a>
 		</div>
 		<div class="ad-nav-right">
-			<div id="avatar"></div>
+			<img id="avatar"
+				onclick="openDropDown(true)" 
+				class="dropbtn"
+				src="../../assets/img/avatar.png" 
+			/>
+			<!-- Dropdown content -->
+			<div class="dropdown-content" id="dropdown">
+				<a href="home.html">My Profile</a>
+				<a href="../../../index.html">Logout</a>
+			</div>
 			<!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
 			    <span class="open-slide" style="color: #000">
@@ -42,9 +43,17 @@
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li onclick="modalOpen(true)"><a href="#">New transaction</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div>
 				<li><a href="new-staff.html">Add new staff</a></li>
-				<li><a href="./UI/pages/login.html">Login</a></li>
+				<li><a href="../../../index.html">Logout</a></li>
 			</div>
 		</div>
 	</nav>
@@ -54,9 +63,17 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<li onclick="modalOpen(true)">New transaction</li>
+					<li class="accordion">
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="new-staff.html"><li>Add new staff</li></a>
-					<a href="#"><li>Logout</li></a>
+					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>
 		</section>
@@ -81,7 +98,7 @@
 		                <br>
 		                <div class="form-row">
 		                    <div class="form-input">
-		                        <input class="button" type="submit" value="Debit">
+		                        <input class="button-blue" type="submit" value="Debit">
 		                    </div>
 		                </div>
 			            </div>

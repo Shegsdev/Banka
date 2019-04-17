@@ -12,15 +12,7 @@
 <body>
 	<div class="ad-modal">
 		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
-		<div class="modal-content center">
-			<header>
-				<h2>Choose transaction type:</h2>
-			</header>
-			<div class="actions">
-				<a href="credit.html"><button class="button-blue">CREDIT</button></a>
-				<a href="debit.html"><button class="button-blue">DEBIT</button></a>
-			</div>
-		</div>
+		<div class="modal-content center"></div>
 	</div>
 	<nav id="ad-nav">
 		<div id="logo">
@@ -29,7 +21,16 @@
 			</a>
 		</div>
 		<div class="ad-nav-right">
-			<div id="avatar"></div>
+			<img id="avatar"
+				onclick="openDropDown(true)" 
+				class="dropbtn"
+				src="../../assets/img/avatar.png" 
+			/>
+			<!-- Dropdown content -->
+			<div class="dropdown-content" id="dropdown">
+				<a href="home.html">My Profile</a>
+				<a href="../../../index.html">Logout</a>
+			</div>
 			<!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
 			    <span class="open-slide" style="color: #000">
@@ -42,7 +43,15 @@
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li onclick="modalOpen(true)"><a href="#">New transaction</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div> <!-- end accordion content -->
 				<li><a href="new-staff.html">Add new staff</a></li>
 				<li><a href="./UI/pages/login.html">Login</a></li>
 			</div>
@@ -54,9 +63,17 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<li onclick="modalOpen(true)">New transaction</li>
+					<li class="accordion">
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="new-staff.html"><li>Add new staff</li></a>
-					<a href="#"><li>Logout</li></a>
+					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>
 		</section>
@@ -71,48 +88,213 @@
 						<th>Account type</th>
 						<th>Status</th>
 						<th></th>
+						<th></th>
+						<th></th>
 					</tr>
 					<tr>
 						<td>1</td>
 						<td>1234567890</td>
 						<td>Savings</td>
 						<td>Active</td>
-						<td><a href="account-single.html"><button>View</button></a></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'deactivate')" class="blue">
+								Deactivate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
+
 					</tr>
 					<tr>
 						<td>2</td>
 						<td>2345678901</td>
 						<td>Savings</td>
 						<td>Dormant</td>
-						<td><button>View</button></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>3</td>
 						<td>3456789012</td>
 						<td>Current</td>
 						<td>Dormant</td>
-						<td><button>View</button></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>4</td>
 						<td>1234567890</td>
 						<td>Savings</td>
 						<td>Active</td>
-						<td><button>View</button></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'deactivate')" class="blue">
+								Deactivate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td class="actions">
 					</tr>
 					<tr>
 						<td>5</td>
 						<td>2345678901</td>
 						<td>Savings</td>
 						<td>Dormant</td>
-						<td><button>View</button></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>6</td>
 						<td>0987654321</td>
 						<td>Current</td>
 						<td>Dormant</td>
-						<td><button>View</button></td>
+						<td>
+							<a href="account-single.html">
+								<button class="green">View</button>
+							</a>
+						</td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 				</table>
 			</div>

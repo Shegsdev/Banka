@@ -10,6 +10,11 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
 </head>
 <body>
+	<!-- Modal -->
+	<div class="ad-modal">
+		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
+		<div class="modal-content center"></div>
+	</div>
 	<nav id="ad-nav">
 		<a href="../../index.html">
 			<div id="logo">
@@ -17,8 +22,17 @@
 			</div>
 		</a>
 		<div class="ad-nav-right">
-			<div id="avatar"></div>
-			<!-- Hamburger links -->
+			<img id="avatar"
+				onclick="openDropDown(true)" 
+				class="dropbtn"
+				src="../assets/img/avatar.png" 
+			/>
+			<!-- Dropdown content -->
+			<div class="dropdown-content" id="dropdown">
+				<a href="home.html">My Profile</a>
+				<a href="../../index.html">Logout</a>
+			</div>
+		    <!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
 			    <span class="open-slide" style="color: #000">
 				    <i class="fas fa-bars fa-2x"></i>
@@ -31,7 +45,7 @@
 			    <li><a href="profile.html">Dashboard</a></li>
 				<li><a href="edit-profile.html">Edit Profile</a></li>
 				<li><a href="transactions.html">My transactions</a></li>
-				<li><a href="#">Logout</a></li>
+				<li><a href="../../index.html">Logout</a></li>
 			</div>
 		</div>
 	</nav>
@@ -42,7 +56,7 @@
 					<a href="profile.html"><li>Dashboard</li></a>
 					<a href="edit-profile.html"><li>Edit Profile</li></a>
 					<a href="transactions.html"><li>My transactions</li></a>
-					<a href="#"><li>Logout</li></a>
+					<a href="../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>
 		</section>
@@ -54,7 +68,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Account No.</th>
-						<th>Transaction Type</th>
+						<th>Type</th>
 						<th>Date</th>
 						<th></th>
 					</tr>
@@ -64,53 +78,188 @@
 						<td>Debit</td>
 						<td>Jan 9, 2010</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>2</td>
 						<td>2345678901</td>
 						<td>Debit</td>
 						<td>Feb 1, 2020</td>
-						<td><button>View</button></td>
+						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>3</td>
 						<td>3456789012</td>
 						<td>Debit</td>
 						<td>Feb 1, 2020</td>
-						<td><button>View</button></td>
+						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>4</td>
 						<td>1234567890</td>
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
-						<td><button>View</button></td>
+						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>5</td>
 						<td>2345678901</td>
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
-						<td><button>View</button></td>
+						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 					<tr>
 						<td>6</td>
 						<td>0987654321</td>
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
-						<td><button>View</button></td>
+						<td><a href="transaction-single.html"><button>View</button></a></td>
+						<!-- Accordion for mobile view -->
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+							<!-- Dropdown content -->
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="blue">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
+							</div>
+						</td> <!-- end accordion -->
+						<td class="actions">
+							<button onclick="modalOpen(true, 'activate')" class="blue">
+								Activate
+							</button>
+						</td>
+						<td class="actions">
+							<button onclick="modalOpen(true, 'delete')" class="red">
+								Delete
+							</button>
+						</td>
 					</tr>
 				</table>
 			</div>
 		</section>
 	</div>
 
-	<div class="footer">
-		<footer class="container">
-			<p>&copy; All rights reservered.</p>
-			<div class="made-with">Made with <i class="fa fa-heart"></i> by GiftedHands</div>
-		</footer>
-	</div>
+	<footer>
+		<p>&copy; All rights reservered.</p>
+	</footer>
 	
 	<script src="../assets/js/main.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
