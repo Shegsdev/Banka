@@ -5,7 +5,7 @@ node_js:
 env:
   - SECRET=secret_key
 script:
-  - babel-node server.js &
+  - babel-node server/server.js &
   - npm run test
 after_success:
   - npm run coveralls
