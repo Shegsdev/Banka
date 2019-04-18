@@ -26,4 +26,12 @@ app.use(bodyParser.json());
 // append /api to http requests
 app.use('/api/v1', [usersRoute, accountsRoute, authRoute, transactionsRoute]);
 
+// Custom 404 route
+app.use((req, res) => {
+	res.status(404).json({
+		status: 404,
+		error: 'Page not found'
+	});
+});
+
 app.listen(app.get('port'), () => debug('server')(`LISTENING ON PORT ${app.get('port')}`));
