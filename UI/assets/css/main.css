@@ -199,6 +199,9 @@ select {
 
 .hero-landing {
 	background-color: teal;
+	/*background-image: url('../img/hero.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;*/
 }
 
 .main .account, .main .contact-us, .main .about-us {
@@ -207,7 +210,8 @@ select {
 }
 
 .hero-copy {
-	margin: 74px 0 0 200px;
+	margin: 74px auto;
+	text-align: center;
 }
 .hero-copy h1, .hero-copy h2 {
 	font-size: 70px;
