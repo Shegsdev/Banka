@@ -7,7 +7,7 @@ import {
   usersRoute,
   accountsRoute,
   transactionsRoute,
-} from './server/routes';
+} from './routes';
 
 const app = express();
 app.set('port', process.env.PORT || 5000);
