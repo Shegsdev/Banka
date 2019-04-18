@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | Admin</title>
+	<title>Banka | Staff</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
@@ -43,7 +43,15 @@
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li><a href="new-staff.html">Add new staff</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div> <!-- end accordion content -->
 				<li><a href="./UI/pages/login.html">Login</a></li>
 			</div>
 		</div>
@@ -54,7 +62,15 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<a href="new-staff.html"><li>Add new staff</li></a>
+					<li class="accordion">
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>

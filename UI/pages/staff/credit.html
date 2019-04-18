@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | Admin</title>
+	<title>Banka | Staff</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
@@ -21,7 +21,11 @@
 			</a>
 		</div>
 		<div class="ad-nav-right">
-			<div id="avatar" onclick="openDropDown(true)" class="dropbtn"></div>
+			<img id="avatar"
+				onclick="openDropDown(true)" 
+				class="dropbtn"
+				src="../../assets/img/avatar.png" 
+			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
 				<a href="home.html">My Profile</a>
@@ -39,7 +43,15 @@
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li><a href="new-staff.html">Add new staff</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div>
 				<li><a href="../../../index.html">Logout</a></li>
 			</div>
 		</div>
@@ -50,27 +62,46 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<a href="new-staff.html"><li>Add new staff</li></a>
+					<li class="accordion">
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
 			</aside>
 		</section>
 
 		<section class="ad-main-showcase">
+			<header><h3>New Transaction</h3></header>
 			<div class="ad-main-content">
-				<span class="back" onclick="window.history.back()">
-					<i class="fas fa-arrow-left fa-2x"></i>
-				</span>
-				<section class="single">
-					<header><h2>Account info</h2></header>
-					<p>Holder's Name: John Doe</p>
-					<p>Account Number: 1234567890</p>
-					<p>Account Type: Savings</p>
-					<p>Balance: 999999.99</p>
-					<p>Status: Active</p>
-					<br/>
-				</section>
-				<hr/>
+				<div class="transaction-form">
+					<form action="#" method="POST">
+		                <div class="form-row">
+		                    <div class="form-input">
+		                    	<label for="account_number">Enter account number:</label>
+		                        <input type="text" name="account_number">
+		                    </div>
+		                </div>
+		                <div class="form-row">
+		                    <div class="form-input">
+		                    	<label for="amount">Enter amount:</label>
+		                        <input type="text" name="amount">
+		                    </div>
+		                </div>
+		                <br>
+		                <div class="form-row">
+		                    <div class="form-input">
+		                        <input class="button-blue" type="submit" value="Credit">
+		                    </div>
+		                </div>
+			            </div>
+		            </form>
+				</div>
 			</div>
 		</section>
 	</div>
