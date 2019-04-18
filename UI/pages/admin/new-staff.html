@@ -45,15 +45,6 @@
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li class="accordion">
-					<a href="#">New transaction</a>
-					<i class="fa fa-caret-down right"></i>
-				</li>
-				<!-- Accordion content -->
-				<div class="panel">
-					<a href="credit.html">Credit</a>
-					<a href="debit.html">Debit</a>
-				</div>
 				<li><a href="new-staff.html">Add new staff</a></li>
 				<li><a href="../../../index.html">Logout</a></li>
 			</div>
@@ -65,15 +56,6 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<li class="accordion">
-						<a href="#">New transaction</a>
-						<i class="fa fa-caret-down right"></i>
-					</li>
-					<!-- Accordion content -->
-					<div class="panel">
-						<a href="credit.html">Credit</a>
-						<a href="debit.html">Debit</a>
-					</div>
 					<a href="new-staff.html"><li>Add new staff</li></a>
 					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
@@ -106,7 +88,16 @@
 		                        <input type="password" name="password" placeholder="Password">
 		                    </div>
 		                </div>
-		                <br>
+						<br>
+						<div class="form-row">
+		                    <div class="form-input">
+		                        <select name="type" id="type">
+									<option value="1">Admin</option>
+									<option value="2">Staff</option>
+								</select>
+		                    </div>
+						</div>
+						<br/>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                        <input class="button-blue" type="submit" value="Create account">
@@ -119,6 +110,10 @@
 		</section>
 	</div>
 	
+	<script>
+		let aside = document.querySelector('aside');
+		aside.style.height = window.innerHeight + "px";
+	</script>
 	<script src="../../assets/js/main.js"></script>
 </body>
 </html>

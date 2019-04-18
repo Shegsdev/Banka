@@ -43,15 +43,6 @@
 				<button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				<li><a href="home.html">Dashboard</a></li>
 				<li><a href="accounts.html">All accounts</a></li>
-				<li class="accordion">
-					<a href="#">New transaction</a>
-					<i class="fa fa-caret-down right"></i>
-				</li>
-				<!-- Accordion content -->
-				<div class="panel">
-					<a href="credit.html">Credit</a>
-					<a href="debit.html">Debit</a>
-				</div>
 				<li><a href="new-staff.html">Add new staff</a></li>
 				<li><a href="../../../index.html">Logout</a></li>
 			</div>
@@ -63,15 +54,6 @@
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
 					<a href="accounts.html"><li>All accounts</li></a>
-					<li class="accordion">
-						New transaction
-						<i class="fa fa-caret-down right"></i>
-					</li>
-					<!-- Accordion content -->
-					<div class="panel">
-						<a href="credit.html">Credit</a>
-						<a href="debit.html">Debit</a>
-					</div>
 					<a href="new-staff.html"><li>Add new staff</li></a>
 					<a href="../../../index.html"><li>Logout</li></a>
 				</ul>
@@ -115,6 +97,10 @@
 		</section>
 	</div>
 	
+	<script>
+		let aside = document.querySelector('aside');
+		aside.style.height = window.innerHeight + "px";
+	</script>
 	<script src="../../assets/js/main.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
