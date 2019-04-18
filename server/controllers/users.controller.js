@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../models/user.model';
 import { setAuthToken } from '../utils/helpers';
-import validateSignUpInput from '../../validation/authentication/signup';
+import validateSignUpInput from '../validation/authentication/signup';
 
 config();
 

@@ -1,5 +1,5 @@
 import Account from '../models/account.model';
-import validateCreateBankAccountInput from '../../validation/bankAccount';
+import validateCreateBankAccountInput from '../validation/bankAccount';
 
 const AccountsController = {
   /**
