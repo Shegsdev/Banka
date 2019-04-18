@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user.model';
 import { setAuthToken } from '../../utils/helpers';
-import validateSignInInput from '../../../validation/authentication/signin';
+import validateSignInInput from '../../validation/authentication/signin';
 
 config();
 
@@ -59,7 +59,7 @@ const SigninController = {
             if (err) {
               return res.status(500).json({
                 status: 500,
-                error: `There is some error in token ${err}`,
+                error: `Some error occured - ${err}`,
               });
             }
 
@@ -79,7 +79,7 @@ const SigninController = {
         } else {
           return res.status(400).json({
             status: 400,
-            error: 'Incorrect password',
+            error: 'Invalid login details.',
           });
         }
       });
