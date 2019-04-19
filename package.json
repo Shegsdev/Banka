@@ -6,9 +6,9 @@
   "scripts": {
     "start": "babel-node server/server.js",
     "test": "nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 4000 ./server/tests/*.js --exit",
-    "dev": "node_modules/.bin/nodemon server/server.js --exec babel-node --",
+    "dev": "DEBUG=express:server node_modules/.bin/nodemon server/server.js --exec babel-node --",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "db": "babel-node server/models/index.js"
+    "db": "DEBUG=express:* babel-node server/models/index.js"
   },
   "repository": {
     "type": "git",

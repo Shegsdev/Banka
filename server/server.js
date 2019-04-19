@@ -9,6 +9,8 @@ import {
   transactionsRoute,
 } from './routes';
 
+const log = debug('express:server');
+
 const app = express();
 app.set('port', process.env.PORT || 5000);
 
@@ -34,4 +36,4 @@ app.use((req, res) => {
   });
 });
 
-app.listen(app.get('port'), () => debug('server')(`LISTENING ON PORT ${app.get('port')}`));
+app.listen(app.get('port'), () => log(`LISTENING ON PORT ${app.get('port')}`));
