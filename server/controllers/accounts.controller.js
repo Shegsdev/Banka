@@ -33,8 +33,8 @@ const AccountsController = {
     User.findOne('email', email)
       .then((result) => {
         if (!result || result.rows.length < 1) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(401).json({
+            status: 401,
             error: 'Please create a user account to continue',
           });
         }
@@ -124,14 +124,14 @@ const AccountsController = {
       const transactions = await Transaction.findOne('account_number', accountNumber);
 
       if (!accountNumber || accountNumber.toString().length < 13) {
-        return res.status(401).json({ status: 401, error: 'Invalid account number' });
+        return res.status(400).json({ status: 400, error: 'Invalid account number' });
       }
       return res.status(200).json({ status: 200, data: transactions.rows });
     } catch (err) {
       if (err) {
-        return res.status(404).json({
-          status: 404,
-          error: 'Acount does not exist',
+        return res.status(500).json({
+          status: 500,
+          error: 'Could not fetch transactions',
         });
       }
     }
@@ -152,8 +152,8 @@ const AccountsController = {
   changeStatus(req, res) {
     const { status } = req.body;
     if (!req.params.accountNumber || status === undefined) {
-      return res.status(206).json({
-        status: 206,
+      return res.status(400).json({
+        status: 400,
         error: 'Account number or status not provided',
       });
     }
@@ -195,15 +195,15 @@ const AccountsController = {
    * */
   delete(req, res) {
     if (!req.params.accountNumber) {
-      res.status(406).json({
-        status: 406,
+      res.status(400).json({
+        status: 400,
         error: 'Account number not provided',
       });
     }
 
     Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10))
-      .then(result => res.status(200).json({
-        status: 200,
+      .then(result => res.status(204).json({
+        status: 204,
         data: result.rows,
       }));
   },

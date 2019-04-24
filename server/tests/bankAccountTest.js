@@ -113,7 +113,7 @@ describe('Change bank account status', () => {
     api.patch(`/api/v1/accounts/${accountNumber}`)
       .send({})
       .end((_err, res) => {
-        expect(res.body.status).to.equal(206);
+        expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('Account number or status not provided');
         done();
