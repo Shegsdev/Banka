@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user.model';
 import validateSignUpInput from '../../validation/authentication/signup';
-import { setAuthToken } from '../../utils/helpers';
+import { hash /* setAuthToken */ } from '../../utils/helpers';
 
 config();
 
@@ -17,7 +17,7 @@ const SignupController = {
    *
    * @param  {object} res - response
    *
-   * @return {json} - jsonObject containing status, token and user data
+   * @return {json} - jsonObject containing status, token and user data/error
    *
    * Route: POST: /auth/signup
    *
@@ -25,9 +25,7 @@ const SignupController = {
   signup(req, res) {
     let { email } = req.body;
     const {
-      firstName,
-      lastName,
-      password,
+      firstName, lastName, password,
     } = req.body;
 
     const {
@@ -36,68 +34,61 @@ const SignupController = {
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({
-        status: 400,
-        error,
-      });
+      return res.status(400).json({ status: 400, error });
     }
 
     // Convert email to lowercase
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
 
     // Check if account exists
-    const exist = User.findByEmail(email);
-    if (exist) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Account already exists',
-      });
-    }
-
-    const newUser = {
-      email,
-      firstName,
-      lastName,
-      password,
-    };
-
-    // Create user account
-    User.create(newUser)
-      .then((user) => {
-        // Check if user was successfully added to database
-        if (!User.findByEmail(email)) {
-          return res.status(500).json({
-            status: 500,
-            error: 'Error creating account, try again',
+    User.findOne('email', email)
+      .then((result) => {
+        if (result.rows.length > 0) {
+          return res.status(400).json({
+            status: 400,
+            error: 'Account already exists',
           });
         }
-        const payload = user;
-        // eslint-disable-next-line consistent-return
-        jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
-          if (err) {
-            return res.status(500).json({
-              status: 500,
-              error: `Error generating token ${err}`,
-            });
+      });
+
+    // Hash password
+    hash(password).then((hashed) => {
+      const newUser = {
+        firstName, lastName, email, password: hashed,
+      };
+
+      // Save user
+      User.save(newUser)
+        .then((result) => {
+          // Check if user was successfully added to database
+          if (result.rows === undefined || result.rows.length < 1) {
+            return;
           }
-          // Set token
-          setAuthToken(req, token);
-          return res.status(201).json({
-            status: 201,
-            data: {
-              token,
-              id: user.id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              email: user.email,
-            },
+          const payload = result.rows[0];
+          // eslint-disable-next-line consistent-return
+          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+            if (err) {
+              return res.status(500).json({
+                status: 500,
+                error: `Error generating token ${err}`,
+              });
+            }
+            // Set token
+            // setAuthToken(req, token);
+            return res.status(201).json({
+              status: 201,
+              data: {
+                token,
+                id: payload.id,
+                firstName: payload.firstname,
+                lastName: payload.lastname,
+                email: payload.email,
+              },
+            });
           });
         });
-      })
-      .catch(err => res.status(500).json({
-        status: 500,
-        error: `Something went wrong ${err}. Please try again`,
-      }));
+      // .catch(_err => console.log('Something went wrong. Please try again'));
+    });
   },
 };
 

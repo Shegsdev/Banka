@@ -5,10 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "babel-node server/server.js",
-    "test": "nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 4000 ./server/tests/*.js --exit",
+    "test": "npm run migration:seed && nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 40000 ./server/tests/*.js --exit",
     "dev": "DEBUG=express:server node_modules/.bin/nodemon server/server.js --exec babel-node --",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "db": "DEBUG=express:* babel-node server/models/index.js"
+    "coveralls": "nyc report --reporter=text-lcov cat ./coverage/lcov.info | coveralls",
+    "migration:create": "DEBUG=express:migration babel-node server/utils/createTables",
+    "migration:drop": "DEBUG=express:migration babel-node server/utils/dropTables",
+    "migration:seed": "DEBUG=express:migration babel-node server/database/seeders"
   },
   "repository": {
     "type": "git",
