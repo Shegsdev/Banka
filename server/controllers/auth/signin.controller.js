@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user.model';
-// import { setAuthToken } from '../../utils/helpers';
 import validateSignInInput from '../../validation/authentication/signin';
 
 config();

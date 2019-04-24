@@ -35,8 +35,8 @@ const AccountsController = {
     User.findOne('email', email)
       .then((result) => {
         if (!result || result.rows.length < 1) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(404).json({
+            status: 404,
             error: 'Please create a user account to continue',
           });
         }
@@ -59,8 +59,8 @@ const AccountsController = {
               openingBalance: account.balance,
             },
           }))
-          .catch(err => res.status(400).json({
-            status: 400,
+          .catch(err => res.status(500).json({
+            status: 500,
             error: `Could not create account ${err}`,
           }));
       });
@@ -132,14 +132,12 @@ const AccountsController = {
       return res.status(200).json({ status: 200, data: transactions.rows });
     } catch (err) {
       if (err) {
-        console.log(err)
         return res.status(404).json({
           status: 404,
           error: 'Acount does not exist',
         });
       }
     }
-    // return res.status(200).json({ status: 200, data: '' });
   },
 
   /**
@@ -180,8 +178,8 @@ const AccountsController = {
           },
         });
       })
-      .catch(err => res.status(400).json({
-        status: 400,
+      .catch(err => res.status(500).json({
+        status: 500,
         error: `Error updating account ${err}`,
       }));
   },
