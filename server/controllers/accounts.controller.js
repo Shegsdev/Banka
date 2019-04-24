@@ -20,23 +20,21 @@ const AccountsController = {
   async create(req, res) {
     const { error, isValid } = validateCreateBankAccountInput(req.body);
     if (!isValid) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
     const {
       firstName, lastName, email, type,
     } = req.body;
 
-    // Generate account account number
     const date = new Date();
     const accountNumber = date.getTime();
 
-    // Check if user has a registered account
     User.findOne('email', email)
       .then((result) => {
         if (!result || result.rows.length < 1) {
-          return res.status(404).json({
-            status: 404,
+          return res.status(400).json({
+            status: 400,
             error: 'Please create a user account to continue',
           });
         }
@@ -46,7 +44,6 @@ const AccountsController = {
           type,
         };
 
-        // Save account
         return Account.save(accountDetail).then(data => data.rows[0])
           .then(account => res.status(201).json({
             status: 201,

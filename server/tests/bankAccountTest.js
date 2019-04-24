@@ -46,7 +46,7 @@ describe('Create bank account', () => {
     api.post('/api/v1/accounts')
       .send(missingFirstname)
       .end((_err, res) => {
-        expect(res.body.status).to.equal(406);
+        expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('First name cannot be blank');
         done();
@@ -58,7 +58,7 @@ describe('Create bank account', () => {
     api.post('/api/v1/accounts')
       .send(missingLastname)
       .end((_err, res) => {
-        expect(res.body.status).to.equal(406);
+        expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('Last name cannot be blank');
         done();
@@ -70,7 +70,7 @@ describe('Create bank account', () => {
     api.post('/api/v1/accounts')
       .send(missingEmail)
       .end((_err, res) => {
-        expect(res.body.status).to.equal(406);
+        expect(res.body.status).to.equal(400);
         expect(res.body).to.be.a('object');
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('Email cannot be blank');
@@ -83,7 +83,7 @@ describe('Create bank account', () => {
     api.post('/api/v1/accounts')
       .send(invalidEmail)
       .end((_err, res) => {
-        expect(res.body.status).to.equal(406);
+        expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('Email is invalid');
         done();
@@ -99,7 +99,7 @@ describe('Create bank account', () => {
         password: '🏋️🏋️🏋️',
       })
       .end((_err, res) => {
-        expect(res.body.status).to.equal(406);
+        expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
         expect(res.body.error).to.equal('Please select an account type');
         done();

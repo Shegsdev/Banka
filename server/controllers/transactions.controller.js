@@ -21,10 +21,9 @@ const TransactionsController = {
     amount = parseFloat(amount);
     const { error, isValid } = validateTransactionInput(req.body);
     if (!isValid) {
-      return res.status(406).json({ status: 406, error });
+      return res.status(400).json({ status: 400, error });
     }
 
-    // Get cashier id - req.user is set in the verifyToken middleware
     if (req.user.isStaff) {
       try {
         const account = await Account.findOne('account_number', accountNumber);

@@ -76,20 +76,19 @@ const UsersController = {
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
-      return res.status(406).json({
-        status: 406,
+      return res.status(400).json({
+        status: 400,
         error,
       });
     }
 
     email = email.toLowerCase().trim();
 
-    // Check if account exists
     User.findOne('email', email)
       .then((result) => {
         if (result.rows.length > 0) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(409).json({
+            status: 409,
             error: 'Account already exists',
           });
         }
@@ -102,16 +101,7 @@ const UsersController = {
 
       User.save(newStaff)
         .then((result) => {
-          // Check if user was successfully added to database
-          if (result.rows.length < 1) {
-            return res.status(404).json({
-              status: 404,
-              error: 'Error creating account, try again',
-            });
-          }
-
           const payload = result.rows[0];
-          // Update user role
           if (type === 'staff') {
             User.findOneAndUpdate('id', payload.id, { is_staff: true })
               .then(() => {});
@@ -124,12 +114,11 @@ const UsersController = {
           // eslint-disable-next-line consistent-return
           jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
-              return res.status(501).json({
-                status: 501,
+              return res.status(500).json({
+                status: 500,
                 error: `Error generating token ${err}`,
               });
             }
-            // Set token
             setAuthToken(req, token);
             return res.status(201).json({
               status: 201,

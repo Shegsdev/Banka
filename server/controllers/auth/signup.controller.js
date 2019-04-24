@@ -37,44 +37,34 @@ const SignupController = {
       return res.status(400).json({ status: 400, error });
     }
 
-    // Convert email to lowercase
     email = email.toLowerCase().trim();
 
-    // Check if account exists
     User.findOne('email', email)
       .then((result) => {
         if (result.rows.length > 0) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(409).json({
+            status: 409,
             error: 'Account already exists',
           });
         }
       });
 
-    // Hash password
     hash(password).then((hashed) => {
       const newUser = {
         firstName, lastName, email, password: hashed,
       };
 
-      // Save user
       User.save(newUser)
         .then((result) => {
-          // Check if user was successfully added to database
-          if (result.rows === undefined || result.rows.length < 1) {
-            return;
-          }
           const payload = result.rows[0];
           // eslint-disable-next-line consistent-return
           jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
-              return res.status(501).json({
-                status: 501,
+              return res.status(500).json({
+                status: 500,
                 error: `Error generating token ${err}`,
               });
             }
-            // Set token
-            // setAuthToken(req, token);
             return res.status(201).json({
               status: 201,
               data: {
@@ -86,7 +76,11 @@ const SignupController = {
               },
             });
           });
-        });
+        })
+        .catch(err => res.status(500).json({
+          status: 500,
+          error: `An occured while creating account. Please try again.\n${err}`,
+        }));
     });
   },
 };

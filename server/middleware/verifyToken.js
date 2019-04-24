@@ -9,8 +9,8 @@ const Auth = {
   async tokenVerify(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: 'Token not found',
       });
     }
@@ -30,8 +30,8 @@ const Auth = {
         isAdmin: user.rows[0].is_admin,
       };
     } catch (error) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(500).json({
+        status: 500,
         error: `Something went wrong ${error}`,
       });
     }
