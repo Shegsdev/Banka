@@ -29,6 +29,12 @@ export const user = [
     email: 'dsteve@email.com',
     password: 'password',
   },
+  {
+    firstName: 'Jay',
+    lastName: 'Hairston',
+    email: 'no_mail@email.com',
+    password: 'password',
+  },
 ];
 
 export const missingFirstname = {

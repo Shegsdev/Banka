@@ -1,4 +1,7 @@
+/* eslint-disable consistent-return */
+import User from '../models/user.model';
 import Account from '../models/account.model';
+import Transaction from '../models/transaction.model';
 import validateCreateBankAccountInput from '../validation/bankAccount';
 
 const AccountsController = {
@@ -9,7 +12,7 @@ const AccountsController = {
    *
    * @param  {object} res - response
    *
-   * @return {json} - jsonObject containing status code and or error
+   * @return {json} - jsonObject containing status code and data or error
    *
    * Route: POST: /accounts
    *
@@ -17,24 +20,47 @@ const AccountsController = {
   async create(req, res) {
     const { error, isValid } = validateCreateBankAccountInput(req.body);
     if (!isValid) {
-      return res.status(400).json({
-        status: 400,
-        error,
-      });
+      return res.status(400).json({ status: 400, error });
     }
 
-    const newAccount = await Account.create(req.body);
-    return res.status(201).json({
-      status: 201,
-      data: {
-        accountNumber: newAccount.accountNumber,
-        firstName: newAccount.firstName,
-        lastName: newAccount.lastName,
-        email: newAccount.email,
-        type: newAccount.type,
-        openingBalance: newAccount.balance,
-      },
-    });
+    const {
+      firstName, lastName, email, type,
+    } = req.body;
+
+    const date = new Date();
+    const accountNumber = date.getTime();
+
+    User.findOne('email', email)
+      .then((result) => {
+        if (!result || result.rows.length < 1) {
+          return res.status(400).json({
+            status: 400,
+            error: 'Please create a user account to continue',
+          });
+        }
+        const accountDetail = {
+          account_number: accountNumber,
+          owner: result.rows[0].id,
+          type,
+        };
+
+        return Account.save(accountDetail).then(data => data.rows[0])
+          .then(account => res.status(201).json({
+            status: 201,
+            data: {
+              accountNumber: account.account_number,
+              firstName,
+              lastName,
+              email,
+              type: account.type,
+              openingBalance: account.balance,
+            },
+          }))
+          .catch(err => res.status(500).json({
+            status: 500,
+            error: `Could not create account ${err}`,
+          }));
+      });
   },
 
   /**
@@ -42,19 +68,17 @@ const AccountsController = {
    *
    * @param  {object} req - request
    *
-   * @param  {object} res - response
+   * @param  {Object} res - response
    *
-   * @return {json} - jsonObject containing status code and or error
+   * @return {json} - jsonObject containing status code and data or error
    *
    * Route: GET: /accounts
    *
    * */
   findAll(req, res) {
-    const accounts = Account.findAll();
-    return res.status(200).json({
-      status: 200,
-      data: accounts,
-    });
+    Account.findAll().then(accounts => res.status(200).json({
+      status: 200, data: accounts.rows,
+    }));
   },
 
   /**
@@ -70,27 +94,57 @@ const AccountsController = {
    *
    * */
   findOne(req, res) {
-    const account = Account.findOne(parseInt(req.params.accountNumber, 10));
-    if (!account) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Acount does not exist',
+    Account.findBy('accountNumber', parseInt(req.params.accountNumber, 10))
+      .then((account) => {
+        if (!account) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Acount does not exist',
+          });
+        }
+        return res.status(200).json({ status: 200, data: account.rows });
       });
-    }
-    return res.status(200).json({
-      status: 200,
-      data: account,
-    });
   },
 
   /**
-   * @description - Activate a specific bank account
+   * @description - Find transaction history of specific bank account
    *
    * @param  {object} req - request
    *
    * @param  {object} res - response
    *
-   * @return {json} - jsonObject containing status code and or error
+   * @return {json} - jsonObject containing status code and data or error
+   *
+   * Route: GET: /accounts/:accountNumber/transaction
+   *
+   * */
+  async getTransactions(req, res) {
+    try {
+      const accountNumber = parseInt(req.params.accountNumber, 10);
+      const transactions = await Transaction.findOne('account_number', accountNumber);
+
+      if (!accountNumber || accountNumber.toString().length < 13) {
+        return res.status(401).json({ status: 401, error: 'Invalid account number' });
+      }
+      return res.status(200).json({ status: 200, data: transactions.rows });
+    } catch (err) {
+      if (err) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Acount does not exist',
+        });
+      }
+    }
+  },
+
+  /**
+   * @description - Activate/deactivate a specific bank account
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @return {json} - jsonObject containing status code and data or error
    *
    * Route: PATCH: /account/:accountNumber/activate
    *
@@ -104,20 +158,27 @@ const AccountsController = {
       });
     }
 
-    const account = Account.changeStatus(parseInt(req.params.accountNumber, 10), status);
-    if (account == null) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Account does not exist',
-      });
-    }
-    return res.status(200).json({
-      status: 200,
-      data: {
-        accountNumber: account.accountNumber,
-        status: account.status,
-      },
-    });
+    return Account.findOneAndUpdate('account_number', parseInt(req.params.accountNumber, 10), { status })
+      .then(result => result.rows[0])
+      .then((data) => {
+        if (!data) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Account does not exist',
+          });
+        }
+        return res.status(200).json({
+          status: 200,
+          data: {
+            accountNumber: data.accountNumber,
+            status: data.status,
+          },
+        });
+      })
+      .catch(err => res.status(500).json({
+        status: 500,
+        error: `Error updating account ${err}`,
+      }));
   },
 
   /**
@@ -127,24 +188,24 @@ const AccountsController = {
    *
    * @param  {object} res - response
    *
-   * @return {json} - jsonObject containing status code and or error
+   * @return {json} - jsonObject containing status code and data or error
    *
    * Route: DELETE: /accounts/:accountNumber
    *
    * */
   delete(req, res) {
     if (!req.params.accountNumber) {
-      res.status(400).json({
-        status: 400,
+      res.status(406).json({
+        status: 406,
         error: 'Account number not provided',
       });
     }
 
-    const account = Account.delete(parseInt(req.params.accountNumber, 10));
-    return res.status(200).json({
-      status: 200,
-      data: account,
-    });
+    Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10))
+      .then(result => res.status(200).json({
+        status: 200,
+        data: result.rows,
+      }));
   },
 };
 

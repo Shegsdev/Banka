@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
 import supertest from 'supertest';
 import { user } from '../database/factories/userFactory';
@@ -13,19 +14,15 @@ const testUser = {
 
 describe('Login user account', () => {
   describe('POST /api/v1/auth/signin', () => {
-    let token;
     before((done) => {
       api.post('/api/v1/auth/signup')
-        .send(testUser)
-        .end((_err, res) => {
-          // eslint-disable-next-line prefer-destructuring
-          token = res.body.data.token;
-          done();
-        });
+      .send(testUser)
+      .end((_err, res) => {
+        done();
+      });
     });
     it('should return status code 200 on success', (done) => {
       api.post('/api/v1/auth/signin')
-        .set('x-access-token', token)
         .send({
           email: 'mark55@email.com',
           password: 'markhen',
@@ -37,6 +34,9 @@ describe('Login user account', () => {
           expect(res.body.data).to.have.property('email');
           expect(res.body.data).to.have.property('firstName');
           expect(res.body.data).to.have.property('lastName');
+          expect(res.body.data.firstName).to.equal('mark');
+          expect(res.body.data.lastName).to.equal('Henry');
+          expect(res.body.data.email).to.equal('mark55@email.com');
           done();
         });
     });
@@ -47,7 +47,7 @@ describe('Login user account', () => {
         .end((_err, res) => {
           expect(res.body.status).to.equal(401);
           expect(res.body.error).to.be.a('string');
-          expect(res.body.error).to.equal('Invalid login details');
+          expect(res.body.error).to.equal('Invalid login details.');
           done();
         });
     });

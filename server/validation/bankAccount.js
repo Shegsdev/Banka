@@ -8,7 +8,6 @@ const validateCreateBankAccountInput = (data) => {
   data.firstName = !isEmpty(data.firstName) ? data.firstName : '';
   data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
   data.email = !isEmpty(data.email) ? data.email : '';
-  data.password = !isEmpty(data.password) ? data.password : '';
   data.type = !isEmpty(data.type) ? data.type : '';
 
   // const user = User.find(usr => usr.email === data.email) || null;
@@ -30,14 +29,6 @@ const validateCreateBankAccountInput = (data) => {
 
   if (Validator.isEmpty(data.email)) {
     error = 'Email cannot be blank';
-  }
-
-  if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    error = 'Password must be atleast 6 characters';
-  }
-
-  if (Validator.isEmpty(data.password)) {
-    error = 'Password cannot be blank';
   }
 
   if (Validator.isEmpty(data.type)) {
