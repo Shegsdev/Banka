@@ -10,8 +10,10 @@ addons:
   - postgresql: "9.4"
 before_script:
   - psql -c 'create database banka;' -U postgres
+  - npm run migration:create
 script:
   - babel-node server/server.js &
   - npm run test
 after_success:
   - npm run coveralls
+  - npm run migration:drop
