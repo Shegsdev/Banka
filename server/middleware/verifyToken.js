@@ -9,9 +9,9 @@ const Auth = {
   async tokenVerify(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Token not found',
+      return res.status(406).json({
+        status: 406,
+        error: 'Unable to verify token',
       });
     }
 
@@ -21,7 +21,7 @@ const Auth = {
       if (user.rows[0].length < 0) {
         res.status(401).json({
           status: 401,
-          error: 'Invalid token',
+          error: 'Could not confirm token',
         });
       }
       req.user = {

@@ -86,15 +86,13 @@ const TransactionsController = {
       return res.status(400).json({ status: 400, error });
     }
 
-    // Get cashier id - req.user is set in the verifyToken middleware
     if (req.user.isStaff) {
       try {
         const account = await Account.findOne('account_number', accountNumber);
 
-        // Check balance
         if (amount > account.rows[0].balance) {
-          return res.status(406).json({
-            status: 406,
+          return res.status(422).json({
+            status: 422,
             error: 'Insuffient funds',
           });
         }
