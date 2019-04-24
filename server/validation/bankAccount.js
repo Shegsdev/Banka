@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import Validator from 'validator';
 import isEmpty from './isEmpty';
-// import User from '../server/models/user.model';
 
 const validateCreateBankAccountInput = (data) => {
   let error;
@@ -9,11 +8,6 @@ const validateCreateBankAccountInput = (data) => {
   data.lastName = !isEmpty(data.lastName) ? data.lastName : '';
   data.email = !isEmpty(data.email) ? data.email : '';
   data.type = !isEmpty(data.type) ? data.type : '';
-
-  // const user = User.find(usr => usr.email === data.email) || null;
-  // if (user === null) {
-  //   error.notRegistered = 'You need to signup to create a bank account';
-  // }
 
   if (Validator.isEmpty(data.firstName)) {
     error = 'First name cannot be blank';

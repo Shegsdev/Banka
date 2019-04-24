@@ -1,7 +1,7 @@
-import authRoute from './auth.route';
-import usersRoute from './users.route';
-import accountsRoute from './accounts.route';
-import transactionsRoute from './transactions.route';
+import authRoute from './authRoute';
+import usersRoute from './usersRoute';
+import accountsRoute from './accountsRoute';
+import transactionsRoute from './transactionsRoute';
 
 export {
   authRoute,

@@ -1,5 +1,5 @@
-import Account from '../models/account.model';
-import Transaction from '../models/transaction.model';
+import Account from '../models/account';
+import Transaction from '../models/transaction';
 import validateTransactionInput from '../validation/transaction';
 
 const TransactionsController = {

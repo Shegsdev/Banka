@@ -1,7 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
 import supertest from 'supertest';
-// import users from '../server/db/users.db';
 import {
   missingFirstname,
   missingLastname,

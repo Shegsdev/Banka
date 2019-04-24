@@ -16,10 +16,10 @@ describe('Login user account', () => {
   describe('POST /api/v1/auth/signin', () => {
     before((done) => {
       api.post('/api/v1/auth/signup')
-      .send(testUser)
-      .end((_err, res) => {
-        done();
-      });
+        .send(testUser)
+        .end(() => {
+          done();
+        });
     });
     it('should return status code 200 on success', (done) => {
       api.post('/api/v1/auth/signin')

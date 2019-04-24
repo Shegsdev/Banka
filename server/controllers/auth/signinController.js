@@ -2,9 +2,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import User from '../../models/user.model';
+import User from '../../models/user';
 // import { setAuthToken } from '../../utils/helpers';
-import validateSignInInput from '../../validation/authentication/signin';
+import validateSignInInput from '../../validation/authentication/signIn';
 
 config();
 
