@@ -20,7 +20,7 @@ const AccountsController = {
   async create(req, res) {
     const { error, isValid } = validateCreateBankAccountInput(req.body);
     if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(406).json({ status: 406, error });
     }
 
     const {
@@ -198,8 +198,8 @@ const AccountsController = {
    * */
   delete(req, res) {
     if (!req.params.accountNumber) {
-      res.status(400).json({
-        status: 400,
+      res.status(406).json({
+        status: 406,
         error: 'Account number not provided',
       });
     }

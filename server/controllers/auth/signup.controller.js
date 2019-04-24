@@ -68,8 +68,8 @@ const SignupController = {
           // eslint-disable-next-line consistent-return
           jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
-              return res.status(500).json({
-                status: 500,
+              return res.status(501).json({
+                status: 501,
                 error: `Error generating token ${err}`,
               });
             }
@@ -87,7 +87,6 @@ const SignupController = {
             });
           });
         });
-      // .catch(_err => console.log('Something went wrong. Please try again'));
     });
   },
 };

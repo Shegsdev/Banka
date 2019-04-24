@@ -76,13 +76,12 @@ const UsersController = {
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(406).json({
+        status: 406,
         error,
       });
     }
 
-    // Convert email to lowercase
     email = email.toLowerCase().trim();
 
     // Check if account exists
@@ -96,19 +95,17 @@ const UsersController = {
         }
       });
 
-    // Hash password
     hash(password).then((hashed) => {
       const newStaff = {
         email, firstName, lastName, password: hashed, type,
       };
 
-      // Create user account
       User.save(newStaff)
         .then((result) => {
           // Check if user was successfully added to database
           if (result.rows.length < 1) {
-            return res.status(500).json({
-              status: 500,
+            return res.status(404).json({
+              status: 404,
               error: 'Error creating account, try again',
             });
           }
@@ -121,14 +118,14 @@ const UsersController = {
           }
           if (type === 'admin') {
             User.findOneAndUpdate('id', payload.id, { is_admin: true })
-            .then(() => {});
+              .then(() => {});
           }
 
           // eslint-disable-next-line consistent-return
           jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
-              return res.status(500).json({
-                status: 500,
+              return res.status(501).json({
+                status: 501,
                 error: `Error generating token ${err}`,
               });
             }

@@ -37,7 +37,6 @@ const SigninController = {
       return res.status(400).send({ status: 400, error });
     }
 
-    // Convert email to lowercase
     email = email.toLowerCase().trim();
 
     // Check if account exists
@@ -50,15 +49,14 @@ const SigninController = {
           });
         }
 
-        // Check if password match
         bcrypt.compare(password, result.rows[0].password)
           .then((isMatch) => {
             if (isMatch) {
               const payload = result.rows[0];
               jwt.sign(payload, secret, { expiresIn: '2h' }, (err, token) => {
                 if (err) {
-                  return res.status(500).json({
-                    status: 500,
+                  return res.status(401).json({
+                    status: 401,
                     error: `Some error occured - ${err}`,
                   });
                 }

@@ -21,7 +21,7 @@ const TransactionsController = {
     amount = parseFloat(amount);
     const { error, isValid } = validateTransactionInput(req.body);
     if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(406).json({ status: 406, error });
     }
 
     // Get cashier id - req.user is set in the verifyToken middleware
@@ -53,8 +53,8 @@ const TransactionsController = {
           },
         });
       } catch (err) {
-        res.status(400).json({
-          status: 400,
+        res.status(500).json({
+          status: 500,
           error: `There was an error making new transaction ${err}`,
         });
       }
@@ -124,8 +124,8 @@ const TransactionsController = {
           },
         });
       } catch (err) {
-        res.status(400).json({
-          status: 400,
+        res.status(500).json({
+          status: 500,
           error: `There was an error making new transaction ${err}`,
         });
       }
@@ -143,7 +143,7 @@ const TransactionsController = {
       const trans = await Transaction.findBy('account_number', parseInt(account, 10));
       return res.status(201).json({ status: 201, data: trans.rows });
     } catch (err) {
-      return res.status(400).json({ status: 400, error: 'Record not found' });
+      return res.status(404).json({ status: 404, error: 'Record not found' });
     }
   },
 };
