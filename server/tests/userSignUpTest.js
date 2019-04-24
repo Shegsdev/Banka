@@ -1,8 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
 import supertest from 'supertest';
 // import users from '../server/db/users.db';
 import {
-  user,
   missingFirstname,
   missingLastname,
   missingEmail,
@@ -15,16 +15,37 @@ describe('Create new user account', () => {
   describe('POST /api/v1/auth/signup', () => {
     it('should return status code 201 on success', (next) => {
       api.post('/api/v1/auth/signup')
-        .send(user[0])
+        .send({
+          firstName: 'Joel',
+          lastName: 'joel',
+          email: 'joi@email.com',
+          password: 'validate',
+        })
         .end((err, res) => {
           expect(res.body.status).to.equal(201);
+          expect(res.body.data).to.be.a('object');
+          expect(res.body.data).to.have.property('id');
+          expect(res.body.data).to.have.property('token');
+          expect(res.body.data).to.have.property('lastName');
+          expect(res.body.data).to.have.property('firstName');
+          expect(res.body.data).to.have.property('email');
+          expect(res.body.data.firstName).to.equal('Joel');
+          expect(res.body.data.lastName).to.equal('joel');
+          expect(res.body.data.email).to.equal('joi@email.com');
           next();
         });
     });
     it('should return error due to registered email', (next) => {
       api.post('/api/v1/auth/signup')
-        .send(user[0])
+        .send({
+          firstName: 'Joi',
+          lastName: 'joi',
+          email: 'joi@email.com',
+          password: 'validate',
+        })
         .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.status).to.equal(400);
           expect(res.body.error).to.equal('Account already exists');
           next();
         });
@@ -33,6 +54,8 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingFirstname)
         .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.status).to.equal(400);
           expect(res.body.error).to.equal('First name cannot be blank');
           done();
         });
@@ -41,6 +64,8 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingLastname)
         .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.status).to.equal(400);
           expect(res.body.error).to.equal('Last name cannot be blank');
           done();
         });
@@ -49,6 +74,8 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingEmail)
         .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.status).to.equal(400);
           expect(res.body.error).to.equal('Email cannot be blank');
           done();
         });
@@ -57,27 +84,9 @@ describe('Create new user account', () => {
       api.post('/api/v1/auth/signup')
         .send(missingPassword)
         .end((err, res) => {
+          expect(res.body.error).to.be.a('string');
+          expect(res.body.status).to.equal(400);
           expect(res.body.error).to.equal('Password cannot be blank');
-          done();
-        });
-    });
-  });
-
-  describe('POST /api/v1/auth/signup', () => {
-    it('should return data property as object', (done) => {
-      api.post('/api/v1/auth/signup')
-        .send(user[1])
-        .end((err, res) => {
-          expect(res.body.data).to.be.a('object');
-          done();
-        });
-    });
-
-    it('should return data containing token', (done) => {
-      api.post('/api/v1/auth/signup')
-        .send(user[2])
-        .end((err, res) => {
-          expect(res.body.data).to.have.property('token');
           done();
         });
     });

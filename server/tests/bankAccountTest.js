@@ -1,27 +1,36 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable prefer-destructuring */
 import { expect } from 'chai';
 import supertest from 'supertest';
+
 import {
   missingFirstname,
   missingLastname,
   missingEmail,
-  missingPassword,
   invalidEmail,
 } from '../database/factories/userFactory';
 
 const api = supertest('http://localhost:5000');
 
 describe('Create bank account', () => {
+  before((done) => {
+    api.post('/api/v1/auth/signup')
+      .send({
+        firstName: 'Herman',
+        lastName: 'Brook',
+        email: 'brooks@email.com',
+        password: 'no_psswd',
+      })
+      .end(() => { done(); });
+  });
   it('should create a bank account on success', (done) => {
-    const userInfo = {
-      firstName: 'Herman',
-      lastName: 'Brook',
-      email: 'brooks@email.com',
-      password: 'password',
-      type: 'savings',
-    };
     api.post('/api/v1/accounts')
-      .send(userInfo)
+      .send({
+        firstName: 'Herman',
+        lastName: 'Brook',
+        email: 'brooks@email.com',
+        type: 'savings',
+      })
       .end((_err, res) => {
         expect(res.body.status).to.equal(201);
         expect(res.body.data).to.be.a('object');
@@ -69,18 +78,6 @@ describe('Create bank account', () => {
       });
   });
 
-  it('should return error when password is not provided', (done) => {
-    missingPassword.type = 'current';
-    api.post('/api/v1/accounts')
-      .send(missingPassword)
-      .end((_err, res) => {
-        expect(res.body.status).to.equal(400);
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Password cannot be blank');
-        done();
-      });
-  });
-
   it('should return error when email is invalid', (done) => {
     invalidEmail.type = 'current';
     api.post('/api/v1/accounts')
@@ -117,98 +114,36 @@ describe('Change bank account status', () => {
       .send({})
       .end((_err, res) => {
         expect(res.body.status).to.equal(206);
+        expect(res.body.error).to.be.a('string');
+        expect(res.body.error).to.equal('Account number or status not provided');
         done();
       });
   });
 });
 
-describe('Credit a bank account', () => {
-  // let token = '';
+describe('Bank account transactions', () => {
   let accountNumber;
   before((done) => {
-    // // Creates new staff account
-    // api.post('/api/v1/admin/new')
-    //   .send({
-    //     firstName: 'staff',
-    //     lastName: 'user',
-    //     email: 'email@staff.com',
-    //     password: 'password',
-    //     type: 'staff',
-    //   })
-    //   .end((_err, res) => {
-    //     token = res.body.data.token;
-    //     done();
-    //   });
-    // Creates new bank account
-    api.post('/api/v1/accounts')
-      // .set('x-access-token', token)
-      .send({
-        firstName: 'Herman',
-        lastName: 'Brook',
-        email: 'brooks@email.com',
-        type: 'savings',
-        password: 'password',
-      })
+    api.get('/api/v1/accounts')
       .end((_err, res) => {
-        accountNumber = res.body.data.accountNumber;
+        accountNumber = res.body.data[0].account_number;
         done();
       });
   });
-  it('should credit a bank account with authorized token', (done) => {
-    api.post(`/api/v1/transactions/${accountNumber}/credit`)
-      // .set('x-access-token', token)
-      .send({
-        amount: '999',
-        cashier: '1',
-      })
+  it('should return all transaction history of specific account', (done) => {
+    api.get(`/api/v1/accounts/${accountNumber}/transactions`)
       .end((_err, res) => {
-        expect(res.body.status).to.equal(201);
-        expect(res.body.data).to.be.a('object');
-        expect(res.body.data).to.have.property('transactionId');
-        expect(res.body.data).to.have.property('transactionType');
-        expect(res.body.data).to.have.property('accountNumber');
-        expect(res.body.data).to.have.property('accountBalance');
+        expect(res.body.status).to.equal(200);
+        expect(res.body).to.be.a('object');
+        expect(res.body.data[0]).to.be.a('object');
+        expect(res.body.data[0]).to.have.property('transaction_id');
+        expect(res.body.data[0]).to.have.property('type');
+        expect(res.body.data[0]).to.have.property('account_number');
+        expect(res.body.data[0]).to.have.property('cashier');
+        expect(res.body.data[0]).to.have.property('amount');
+        expect(res.body.data[0]).to.have.property('old_balance');
+        expect(res.body.data[0]).to.have.property('new_balance');
         done();
       });
   });
 });
-
-// describe('Credit bank account non-staff', () => {
-//   let token = '';
-//   let accountNumber;
-//   before((next) => {
-//     // Creates new user account
-//     api.post('/api/v1/auth/signup')
-//       .send(user[3])
-//       .end((_err, res) => {
-//         token = res.body.data.token;
-//         next();
-//       });
-//     // Creates new bank account
-//     api.post('/api/v1/accounts')
-//       .send({
-//         firstName: 'Herman',
-//         lastName: 'Brook',
-//         email: 'brooks@email.com',
-//         type: 'savings',
-//         password: 'password',
-//       })
-//       .end((_err, res) => {
-//         accountNumber = res.body.data.accountNumber;
-//       });
-//   });
-//   it('should return error with authorized token', (done) => {
-//     api.post(`/api/v1/transactions/${accountNumber}/credit`)
-//       .set('x-access-token', token)
-//       .send({
-//         amount: '999',
-//         type: 'credit',
-//       })
-//       .end((_err, res) => {
-//         expect(res.body.status).to.equal(401);
-//         expect(res.body.error).to.be.a('string');
-//         expect(res.body.error).to.equal('Unauthorized access');
-//         done();
-//       });
-//   });
-// });

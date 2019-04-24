@@ -2,7 +2,7 @@
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../models/user.model';
-import { setAuthToken } from '../utils/helpers';
+import { hash, setAuthToken } from '../utils/helpers';
 import validateSignUpInput from '../validation/authentication/signup';
 
 config();
@@ -23,17 +23,16 @@ const UsersController = {
    *
    * */
   findOne(req, res) {
-    const user = User.findOne(parseInt(req.params.id, 10));
-    if (user) {
-      return res.status(200).json({
-        status: 200,
-        data: user,
+    User.findBy('id', parseInt(req.params.id, 10))
+      .then((user) => {
+        if (!user) {
+          return res.status(404).json({
+            status: 404,
+            error: 'User does not exist',
+          });
+        }
+        return res.status(200).json({ status: 200, data: user.rows });
       });
-    }
-    return res.status(404).json({
-      status: 404,
-      error: 'User does not exist',
-    });
   },
 
   /**
@@ -49,11 +48,9 @@ const UsersController = {
    *
    * */
   findAll(req, res) {
-    const users = User.findAll();
-    return res.status(200).json({
-      status: 200,
-      data: users,
-    });
+    User.findAll().then(users => res.status(200).json({
+      status: 200, data: users.rows,
+    }));
   },
 
   /**
@@ -71,15 +68,11 @@ const UsersController = {
   addStaff(req, res) {
     let { email } = req.body;
     const {
-      firstName,
-      lastName,
-      password,
-      type,
+      firstName, lastName, password, type,
     } = req.body;
 
     const {
-      error,
-      isValid,
+      error, isValid,
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
@@ -90,65 +83,76 @@ const UsersController = {
     }
 
     // Convert email to lowercase
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
 
     // Check if account exists
-    const exist = User.findByEmail(email);
-    if (exist) {
-      return res.status(400).json({
-        status: 400,
-        error: 'Account already exists',
-      });
-    }
-
-    const newStaff = {
-      email,
-      firstName,
-      lastName,
-      password,
-      type,
-    };
-
-    // Create user account
-    User.addStaff(newStaff)
-      .then((staff) => {
-        // Check if user was successfully added to database
-        if (!User.findByEmail(email)) {
-          return res.status(500).json({
-            status: 500,
-            error: 'Error creating account, try again',
+    User.findOne('email', email)
+      .then((result) => {
+        if (result.rows.length > 0) {
+          return res.status(400).json({
+            status: 400,
+            error: 'Account already exists',
           });
         }
-        const payload = staff;
-        payload.isStaff = true;
-        // eslint-disable-next-line consistent-return
-        jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
-          if (err) {
+      });
+
+    // Hash password
+    hash(password).then((hashed) => {
+      const newStaff = {
+        email, firstName, lastName, password: hashed, type,
+      };
+
+      // Create user account
+      User.save(newStaff)
+        .then((result) => {
+          // Check if user was successfully added to database
+          if (result.rows.length < 1) {
             return res.status(500).json({
               status: 500,
-              error: `Error generating token ${err}`,
+              error: 'Error creating account, try again',
             });
           }
-          // Set token
-          setAuthToken(req, token);
-          return res.status(201).json({
-            status: 201,
-            data: {
-              token,
-              id: staff.id,
-              firstName: staff.firstName,
-              lastName: staff.lastName,
-              email: staff.email,
-              type: staff.type,
-              isAdmin: staff.isAdmin,
-            },
+
+          const payload = result.rows[0];
+          // Update user role
+          if (type === 'staff') {
+            User.findOneAndUpdate('id', payload.id, { is_staff: true })
+              .then(() => {});
+          }
+          if (type === 'admin') {
+            User.findOneAndUpdate('id', payload.id, { is_admin: true })
+            .then(() => {});
+          }
+
+          // eslint-disable-next-line consistent-return
+          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+            if (err) {
+              return res.status(500).json({
+                status: 500,
+                error: `Error generating token ${err}`,
+              });
+            }
+            // Set token
+            setAuthToken(req, token);
+            return res.status(201).json({
+              status: 201,
+              data: {
+                token,
+                id: payload.id,
+                firstName: payload.firstname,
+                lastName: payload.lastname,
+                email: payload.email,
+                type: payload.type,
+                isAdmin: payload.isAdmin,
+              },
+            });
           });
-        });
-      })
-      .catch(err => res.status(500).json({
-        status: 500,
-        error: `Something went wrong ${err}. Please try again`,
-      }));
+        })
+        .catch(err => res.status(500).json({
+          status: 500,
+          error: `Something went wrong ${err}. Please try again`,
+        }));
+    });
   },
 };
 
