@@ -4,6 +4,12 @@ node_js:
   - node
 env:
   - SECRET=secret_key
+services:
+  - postgresql
+addons:
+  - postgresql: "9.4"
+before_script:
+  - psql -c 'create database banka;' -U postgres
 script:
   - babel-node server/server.js &
   - npm run test
