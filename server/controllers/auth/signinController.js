@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user';
-// import { setAuthToken } from '../../utils/helpers';
 import validateSignInInput from '../../validation/authentication/signIn';
 
 config();
@@ -38,20 +37,10 @@ const SigninController = {
       return res.status(400).send({ status: 400, error });
     }
 
-    // Convert email to lowercase
     email = email.toLowerCase().trim();
 
-    // Check if account exists
     User.findOne('email', email)
       .then((result) => {
-        if (result.rows.length < 1) {
-          return res.status(401).json({
-            status: 401,
-            error: 'Invalid login details.',
-          });
-        }
-
-        // Check if password match
         bcrypt.compare(password, result.rows[0].password)
           .then((isMatch) => {
             if (isMatch) {
@@ -63,9 +52,6 @@ const SigninController = {
                     error: `Some error occured - ${err}`,
                   });
                 }
-
-                // Set token
-                // setAuthToken(req, token);
                 res.status(200).send({
                   status: 200,
                   data: {
@@ -83,7 +69,11 @@ const SigninController = {
                 error: 'Invalid login details.',
               });
             }
-          });
+          })
+          .catch(err => res.status(500).json({
+            status: 500,
+            error: `An error occured while signing in. Please try again.\n${err}`,
+          }));
       });
   },
 };

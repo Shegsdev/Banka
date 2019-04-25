@@ -27,16 +27,14 @@ const AccountsController = {
       firstName, lastName, email, type,
     } = req.body;
 
-    // Generate account account number
     const date = new Date();
     const accountNumber = date.getTime();
 
-    // Check if user has a registered account
     User.findOne('email', email)
       .then((result) => {
         if (!result || result.rows.length < 1) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(401).json({
+            status: 401,
             error: 'Please create a user account to continue',
           });
         }
@@ -46,7 +44,6 @@ const AccountsController = {
           type,
         };
 
-        // Save account
         return Account.save(accountDetail).then(data => data.rows[0])
           .then(account => res.status(201).json({
             status: 201,
@@ -59,8 +56,8 @@ const AccountsController = {
               openingBalance: account.balance,
             },
           }))
-          .catch(err => res.status(400).json({
-            status: 400,
+          .catch(err => res.status(500).json({
+            status: 500,
             error: `Could not create account ${err}`,
           }));
       });
@@ -127,14 +124,14 @@ const AccountsController = {
       const transactions = await Transaction.findOne('account_number', accountNumber);
 
       if (!accountNumber || accountNumber.toString().length < 13) {
-        return res.status(401).json({ status: 401, error: 'Invalid account number' });
+        return res.status(400).json({ status: 400, error: 'Invalid account number' });
       }
       return res.status(200).json({ status: 200, data: transactions.rows });
     } catch (err) {
       if (err) {
-        return res.status(404).json({
-          status: 404,
-          error: 'Acount does not exist',
+        return res.status(500).json({
+          status: 500,
+          error: 'Could not fetch transactions',
         });
       }
     }
@@ -155,8 +152,8 @@ const AccountsController = {
   changeStatus(req, res) {
     const { status } = req.body;
     if (!req.params.accountNumber || status === undefined) {
-      return res.status(206).json({
-        status: 206,
+      return res.status(400).json({
+        status: 400,
         error: 'Account number or status not provided',
       });
     }
@@ -178,8 +175,8 @@ const AccountsController = {
           },
         });
       })
-      .catch(err => res.status(400).json({
-        status: 400,
+      .catch(err => res.status(500).json({
+        status: 500,
         error: `Error updating account ${err}`,
       }));
   },
@@ -205,8 +202,8 @@ const AccountsController = {
     }
 
     Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10))
-      .then(result => res.status(200).json({
-        status: 200,
+      .then(result => res.status(204).json({
+        status: 204,
         data: result.rows,
       }));
   },

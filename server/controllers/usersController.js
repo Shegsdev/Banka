@@ -82,39 +82,26 @@ const UsersController = {
       });
     }
 
-    // Convert email to lowercase
     email = email.toLowerCase().trim();
 
-    // Check if account exists
     User.findOne('email', email)
       .then((result) => {
         if (result.rows.length > 0) {
-          return res.status(400).json({
-            status: 400,
+          return res.status(409).json({
+            status: 409,
             error: 'Account already exists',
           });
         }
       });
 
-    // Hash password
     hash(password).then((hashed) => {
       const newStaff = {
         email, firstName, lastName, password: hashed, type,
       };
 
-      // Create user account
       User.save(newStaff)
         .then((result) => {
-          // Check if user was successfully added to database
-          if (result.rows.length < 1) {
-            return res.status(500).json({
-              status: 500,
-              error: 'Error creating account, try again',
-            });
-          }
-
           const payload = result.rows[0];
-          // Update user role
           if (type === 'staff') {
             User.findOneAndUpdate('id', payload.id, { is_staff: true })
               .then(() => {});
@@ -132,7 +119,6 @@ const UsersController = {
                 error: `Error generating token ${err}`,
               });
             }
-            // Set token
             setAuthToken(req, token);
             return res.status(201).json({
               status: 201,

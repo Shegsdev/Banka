@@ -17,5 +17,5 @@ const log = debug('express:migration');
   setTimeout(() => {
     transactionSeeder();
     log('seeded transactions table successfully at', new Date());
-  }, 3000);
+  }, 4000);
 }());
