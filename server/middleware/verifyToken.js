@@ -9,19 +9,19 @@ const Auth = {
   async tokenVerify(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
-      return res.status(404).json({
-        status: 404,
-        error: 'Token not found',
+      return res.status(403).json({
+        status: 403,
+        error: 'Unable to verify token',
       });
     }
 
     const decoded = await jwt.verify(token, process.env.SECRET);
     try {
       const user = await User.findById(decoded.id);
-      if (user.rows[0].length < 0) {
+      if (user.rows[0].length < 1) {
         res.status(401).json({
           status: 401,
-          error: 'Invalid token',
+          error: 'Invalid email or password',
         });
       }
       req.user = {
