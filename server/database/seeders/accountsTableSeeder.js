@@ -1,5 +1,5 @@
 import DB from '../../config/database';
-import Account from '../../models/account.model';
+import Account from '../../models/account';
 
 const bankAccounts = [
   { account_number: 1248332222246, type: 'savings' },
@@ -11,7 +11,7 @@ const bankAccounts = [
 ];
 
 
-export default function accountSeeder() {
+const accountSeeder = () => {
   DB.query('SELECT * FROM users')
     .then((result) => {
       const addOwner = bankAccounts.map((acc, idx) => {
@@ -26,4 +26,6 @@ export default function accountSeeder() {
         Account.save(data).then(result => result.rows);
       }
     });
-}
+};
+
+export default accountSeeder;

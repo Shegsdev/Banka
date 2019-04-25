@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import User from '../../models/user.model';
-import validateSignUpInput from '../../validation/authentication/signup';
+import User from '../../models/user';
+import validateSignUpInput from '../../validation/authentication/signUp';
 import { hash /* setAuthToken */ } from '../../utils/helpers';
 
 config();

@@ -14,7 +14,7 @@ const DB = () => {
   pool.on('connect', () => { log('Connected to database'); });
 
   // Pool ended
-  pool.on('remove', () => { log('Connection successfully ended'); });
+  pool.on('remove', () => { log('Connection ended successfully'); });
 
   return pool;
 };

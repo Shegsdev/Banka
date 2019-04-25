@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
-import User from '../models/user.model';
-import Account from '../models/account.model';
-import Transaction from '../models/transaction.model';
+import User from '../models/user';
+import Account from '../models/account';
+import Transaction from '../models/transaction';
 import validateCreateBankAccountInput from '../validation/bankAccount';
 
 const AccountsController = {
