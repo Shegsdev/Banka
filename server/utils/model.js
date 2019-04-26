@@ -20,7 +20,6 @@ class Model {
       const result = await DB.query(text, values);
       return result;
     } catch (err) {
-      // log(err.stack);
       return err.stack;
     }
   }
@@ -35,7 +34,7 @@ class Model {
     }
   }
 
-  async findOne(column, param) {
+  async findBy(column, param) {
     try {
       const result = await DB.query(`SELECT * FROM ${this.table} WHERE ${column} = '${param}'`);
       return result;
@@ -45,7 +44,7 @@ class Model {
     }
   }
 
-  async findAll() {
+  async findAllById() {
     try {
       const result = await DB.query(`SELECT * FROM ${this.table} ORDER BY id ASC`);
       return result;

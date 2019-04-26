@@ -71,3 +71,19 @@ export const invalidEmail = {
   email: 'invalidemail',
   password: 'password',
 };
+
+export const admin = {
+  firstName: 'Admin',
+  lastName: 'Account',
+  email: 'admin@banka.com',
+  password: 'password',
+  type: 'admin',
+};
+
+export const staff = {
+  firstName: 'Staff',
+  lastName: 'Account',
+  email: 'staff@banka.com',
+  password: 'password',
+  type: 'staff',
+};
