@@ -63,6 +63,7 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">Successful</div>
 			<header><h3>Accounts</h3></header>
 			<div class="ad-main-content">
 				<table>
@@ -86,13 +87,16 @@
 							</a>
 						</td>
 						<!-- Accordion for mobile view -->
-						<td>
-							<i class="fa fa-ellipsis-v dropbtn" aria-hidden="true"
-							onclick="openDropDown(true)"></i>
+						<td class="ellipsis accordion">
+							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
 							<!-- Dropdown content -->
-							<div class="dropdown-content" id="dropdown">
-								<a href="#">Deactivate</a>
-								<a href="#">Delete</a>
+							<div class="more-options">
+								<button onclick="modalOpen(true, 'deactivate')" class="gold">
+									Deactivate
+								</button>
+								<button onclick="modalOpen(true, 'delete')" class="red">
+									Delete
+								</button>
 							</div>
 						</td> <!-- end accordion -->
 						<td class="actions">

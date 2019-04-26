@@ -48,13 +48,13 @@
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="email">Email:</label>
-                        <input type="text" name="email" required>
+                        <input type="email" name="email" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="password">Password:</label>
-                        <input type="password" name="password" required>
+                        <input type="password" name="password" required minlength="6">
                     </div>
                 </div>
                 <br>
@@ -85,10 +85,10 @@
 		const handleLogin = (e) => {
 			const { email, password } = e.target;
 			
-			if (/^admin$/.test(email.value)) {
+			if (/admin/.test(email.value)) {
 				location.assign('./admin/home.html');
 			}
-			else if (/^staff$/.test(email.value)) {
+			else if (/staff/.test(email.value)) {
 				location.assign('./staff/home.html');
 			}
 			else location.assign('profile.html');

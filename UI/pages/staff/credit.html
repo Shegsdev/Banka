@@ -79,10 +79,11 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">Transaction sent</div>
 			<header><h3>New Transaction</h3></header>
 			<div class="ad-main-content">
 				<div class="transaction-form">
-					<form action="#" method="POST">
+					<form onsubmit="event.preventDefault(); return showToast()">
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="account_number">Enter account number:</label>
