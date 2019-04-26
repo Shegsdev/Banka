@@ -47,34 +47,36 @@
 	</div> <!-- end no-hero -->
 	<div class="main">
 		<section>
+			<div class="toast">Congratulations! Your account has been created.</div>
 			<header>
 				<h2 class="center">New Account Opening</h2>
 			</header>
 			<div class="main-content account">
 				<div class="account-form">
-					<form action="#" method="POST">
+					<form onsubmit="event.preventDefault(); window.scroll(0,0); return showToast()">
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="firstname">Enter your first name:</label>
-		                        <input type="text" name="firstname" required>
+		                        <input type="text" name="firstname" placeholder="John" readonly>
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="lastname">Enter your last name:</label>
-		                        <input type="text" name="lastname" required>
+		                        <input type="text" name="lastname" placeholder="Moore" readonly>
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="email">Enter your email:</label>
-		                        <input type="text" name="email" required>
+		                        <input type="email" name="email" placeholder="john_moore@banka.com" readonly="">
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="type">Select type:</label>
 		                        <select name="type" required>
+		                        	<option disabled="true" selected="true">Please select</option>
 		                        	<option>Savings</option>
 		                        	<option>Current</option>
 		                        </select>

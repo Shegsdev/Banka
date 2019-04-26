@@ -4,6 +4,16 @@
 const modal = document.querySelector('.ad-modal');
 const modalContent = document.querySelector('.modal-content');
 
+const showToast = () => {
+  const toast = document.querySelector('.toast');
+  toast.style.display = 'block';
+  modalOpen(false);
+  setTimeout(() => {
+    toast.style.display = 'none';
+    window.location.reload();
+  }, 3000);
+}
+
 function modalOpen(bool, action = 'undefined') {
   modalContent.innerHTML = '';
   // Delete form
@@ -12,7 +22,7 @@ function modalOpen(bool, action = 'undefined') {
     <form action='#'>
       <header><h2>Confirm delete</h2></header>
       <div class='actions'>
-        <button type='submit' class='button-red'>Delete</button>
+        <button onclick='showToast()' class='button-red'>Delete</button>
         <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
       </div>
     </form>`;
@@ -23,7 +33,7 @@ function modalOpen(bool, action = 'undefined') {
     <form action='#'>
       <header><h2>Confirm ${action}</h2></header>
       <div class='actions'>
-        <button type='submit' class='button-red'>${action[0].toUpperCase() + action.slice(1)}</button>
+        <button onclick='showToast()' class='button-red'>${action[0].toUpperCase() + action.slice(1)}</button>
         <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
       </div>
     </form>`;
@@ -66,6 +76,7 @@ for (let acc of accordion) {
         options.style.display = 'none';
       } else {
         options.style.display = 'block';
+        options.style.position = 'absolute';
       }
   });
 }

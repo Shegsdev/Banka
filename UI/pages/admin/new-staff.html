@@ -67,10 +67,11 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">Account created successfully</div>
 			<header><h3>New user</h3></header>
 			<div class="ad-main-content">
 				<div class="new-user-form">
-					<form action="#" method="POST">
+					<form onsubmit="event.preventDefault(); return showToast()">
 		                <div class="form-row">
 		                    <div class="form-input">
 		                        <input type="text" name="firstname" placeholder="First name" required>
