@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | My Account</title>
+	<title>Banka | New Account</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
@@ -56,25 +56,25 @@
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="firstname">Enter your first name:</label>
-		                        <input type="text" name="firstname">
+		                        <input type="text" name="firstname" required>
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="lastname">Enter your last name:</label>
-		                        <input type="text" name="lastname">
+		                        <input type="text" name="lastname" required>
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="email">Enter your email:</label>
-		                        <input type="text" name="email">
+		                        <input type="text" name="email" required>
 		                    </div>
 		                </div>
 		                <div class="form-row">
 		                    <div class="form-input">
 		                    	<label for="type">Select type:</label>
-		                        <select name="type">
+		                        <select name="type" required>
 		                        	<option>Savings</option>
 		                        	<option>Current</option>
 		                        </select>
@@ -93,9 +93,11 @@
 		</section>
 	</div> <!-- end main-->
 
-	<footer>
-		<p>&copy; 2019 All rights reserved.</p>
-	</footer>
+	<div class="footer">
+		<footer class="container">
+			<p>&copy; 2019 All rights reserved.</p>
+		</footer>
+	</div>
 
 	<script src="../assets/js/main.js"></script>
 </body>
