@@ -25,7 +25,8 @@ const accountSeeder = () => {
       for (const data of acc) {
         Account.save(data).then(result => result.rows);
       }
-    });
+    })
+    .catch(err => `Could not seed database - ${err}`);
 };
 
 export default accountSeeder;

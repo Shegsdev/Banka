@@ -9,7 +9,8 @@ const userSeeder = () => {
       for (const data of user) {
         User.save(data).then(result => result.rows);
       }
-    });
+    })
+    .catch(err => `Could not seed database - ${err}`);
 };
 
 export default userSeeder;

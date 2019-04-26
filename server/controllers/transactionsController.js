@@ -1,146 +1,33 @@
 import Account from '../models/account';
 import Transaction from '../models/transaction';
-import validateTransactionInput from '../validation/transaction';
 
 const TransactionsController = {
   /**
-   * @description - Credit an account
+   * @description - Get all transactions of specific account
    *
    * @param  {object} req - request
    *
    * @param  {object} res - response
    *
-   * @return {json} - jsonObject containing status code and or error
+   * @return {json} - jsonObject containing status code and data or error
    *
-   * Route: POST: /transactions/:accountNumber/credit
-   *
-   * */
-  async creditAccount(req, res) {
-    const accountNumber = parseInt(req.params.accountNumber, 10);
-    let { amount } = req.body;
-    amount = parseFloat(amount);
-    const { error, isValid } = validateTransactionInput(req.body);
-    if (!isValid) {
-      return res.status(400).json({ status: 400, error });
-    }
-
-    if (req.user.isStaff) {
-      try {
-        const account = await Account.findOne('account_number', accountNumber);
-        const update = await Account.findOneAndUpdate('account_number', accountNumber, {
-          balance: amount + account.rows[0].balance,
-        });
-        const updatedAccount = update.rows[0];
-        const transactionDetail = {
-          type: 'credit',
-          account_number: accountNumber,
-          cashier: req.user.id,
-          amount,
-          old_balance: account.rows[0].balance,
-          new_balance: updatedAccount.balance,
-        };
-        const newTransaction = await Transaction.save(transactionDetail);
-        return res.status(201).json({
-          status: 201,
-          data: {
-            transactionId: newTransaction.rows[0].transaction_id,
-            accountNumber: newTransaction.rows[0].account_number,
-            amount: newTransaction.rows[0].amount,
-            cashier: newTransaction.rows[0].cashier,
-            transactionType: newTransaction.rows[0].type,
-            accountBalance: newTransaction.rows[0].new_balance,
-          },
-        });
-      } catch (err) {
-        res.status(500).json({
-          status: 500,
-          error: `There was an error making new transaction ${err}`,
-        });
-      }
-    }
-
-    return res.status(401).json({
-      status: 401,
-      error: 'Unauthorized access',
-    });
-  },
-
-  /**
-   * @description - Debit an account
-   *
-   * @param  {object} req - request
-   *
-   * @param  {object} res - response
-   *
-   * @return {json} - jsonObject containing status code and or error
-   *
-   * Route: POST: /transactions/:accountNumber/debit
+   * Route: POST: /accounts/:accountNumber/transactions
    *
    * */
-  async debitAccount(req, res) {
-    const accountNumber = parseInt(req.params.accountNumber, 10);
-    let { amount } = req.body;
-    amount = parseFloat(amount);
-    const { error, isValid } = validateTransactionInput(req.body);
-    if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+  async findAll(req, res) {
+    const { accountNumber } = req.params;
+    if (!accountNumber || accountNumber.toString().length < 13) {
+      return res.status(400).json({ status: 400, error: 'Invalid account number' });
     }
-
-    if (req.user.isStaff) {
-      try {
-        const account = await Account.findOne('account_number', accountNumber);
-
-        if (amount > account.rows[0].balance) {
-          return res.status(422).json({
-            status: 422,
-            error: 'Insuffient funds',
-          });
-        }
-        const update = await Account.findOneAndUpdate('account_number', accountNumber, {
-          balance: account.rows[0].balance - amount,
-        });
-        const updatedAccount = update.rows[0];
-        const transactionDetail = {
-          type: 'credit',
-          account_number: accountNumber,
-          cashier: req.user.id,
-          amount,
-          old_balance: account.rows[0].balance,
-          new_balance: updatedAccount.balance,
-        };
-        const newTransaction = await Transaction.save(transactionDetail);
-        return res.status(201).json({
-          status: 201,
-          data: {
-            transactionId: newTransaction.rows[0].transaction_id,
-            accountNumber: newTransaction.rows[0].account_number,
-            amount: newTransaction.rows[0].amount,
-            cashier: newTransaction.rows[0].cashier,
-            transactionType: newTransaction.rows[0].type,
-            accountBalance: newTransaction.rows[0].new_balance,
-          },
-        });
-      } catch (err) {
-        res.status(500).json({
-          status: 500,
-          error: `There was an error making new transaction ${err}`,
-        });
-      }
-    }
-
-    return res.status(401).json({
-      status: 401,
-      error: 'Unauthorized access',
-    });
-  },
-
-  async findByAccountNumber(req, res) {
-    const { account } = req.params;
     try {
-      const trans = await Transaction.findBy('account_number', parseInt(account, 10));
-      return res.status(201).json({ status: 201, data: trans.rows });
+      const account = await Account.findBy('account_number', parseInt(accountNumber, 10));
+      if (account.rows[0].owner !== req.user.id) {
+        return res.status(403).json({ status: 403, err: 'Unauthorized access' });
+      }
+      const transactions = await Transaction.findBy('account_number', parseInt(accountNumber, 10));
+      return res.status(201).json({ status: 201, data: transactions.rows });
     } catch (err) {
-      return res.status(404).json({ status: 404, error: 'Record not found' });
+      return res.status(500).json({ status: 500, error: `Something went wrong. Please try again - ${err}` });
     }
   },
 };

@@ -15,8 +15,8 @@ const Auth = {
       });
     }
 
-    const decoded = await jwt.verify(token, process.env.SECRET);
     try {
+      const decoded = await jwt.verify(token, process.env.SECRET);
       const user = await User.findById(decoded.id);
       if (user.rows[0].length < 1) {
         res.status(401).json({
@@ -32,7 +32,7 @@ const Auth = {
     } catch (error) {
       return res.status(500).json({
         status: 500,
-        error: `Something went wrong ${error}`,
+        error: `Something went wrong - ${error}`,
       });
     }
     next();
