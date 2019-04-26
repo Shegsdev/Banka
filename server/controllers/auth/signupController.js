@@ -39,7 +39,7 @@ const SignupController = {
 
     email = email.toLowerCase().trim();
 
-    User.findOne('email', email)
+    User.findBy('email', email)
       .then((result) => {
         if (result.rows.length > 0) {
           return res.status(409).json({
@@ -47,7 +47,11 @@ const SignupController = {
             error: 'Account already exists',
           });
         }
-      });
+      })
+      .catch(err => res.status(500).json({
+        status: 500,
+        error: `An error occured. Please try again - ${err}`,
+      }));
 
     hash(password).then((hashed) => {
       const newUser = {
@@ -58,11 +62,11 @@ const SignupController = {
         .then((result) => {
           const payload = result.rows[0];
           // eslint-disable-next-line consistent-return
-          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+          jwt.sign(payload, secret, { expiresIn: '6h' }, (err, token) => {
             if (err) {
-              return res.status(500).json({
-                status: 500,
-                error: `Error generating token ${err}`,
+              return res.status(403).json({
+                status: 403,
+                error: `Some error occured - ${err}`,
               });
             }
             return res.status(201).json({
@@ -79,7 +83,7 @@ const SignupController = {
         })
         .catch(err => res.status(500).json({
           status: 500,
-          error: `An occured while creating account. Please try again.\n${err}`,
+          error: `An occured while creating account. Please try again - ${err}`,
         }));
     });
   },

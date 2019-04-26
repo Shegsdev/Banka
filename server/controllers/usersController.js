@@ -32,7 +32,11 @@ const UsersController = {
           });
         }
         return res.status(200).json({ status: 200, data: user.rows });
-      });
+      })
+      .catch(err => res.status(500).json({
+        status: 500,
+        error: `Something went wrong. Please try again - ${err}`,
+      }));
   },
 
   /**
@@ -48,9 +52,13 @@ const UsersController = {
    *
    * */
   findAll(req, res) {
-    User.findAll().then(users => res.status(200).json({
+    User.findAllById().then(users => res.status(200).json({
       status: 200, data: users.rows,
-    }));
+    }))
+      .catch(err => res.status(500).json({
+        status: 500,
+        error: `Something went wrong. Please try again - ${err}`,
+      }));
   },
 
   /**
@@ -84,7 +92,7 @@ const UsersController = {
 
     email = email.toLowerCase().trim();
 
-    User.findOne('email', email)
+    User.findBy('email', email)
       .then((result) => {
         if (result.rows.length > 0) {
           return res.status(409).json({
@@ -112,11 +120,11 @@ const UsersController = {
           }
 
           // eslint-disable-next-line consistent-return
-          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+          jwt.sign(payload, secret, { expiresIn: '7h' }, (err, token) => {
             if (err) {
-              return res.status(500).json({
-                status: 500,
-                error: `Error generating token ${err}`,
+              return res.status(403).json({
+                status: 403,
+                error: `Some error occured - ${err}`,
               });
             }
             setAuthToken(req, token);
@@ -136,7 +144,7 @@ const UsersController = {
         })
         .catch(err => res.status(500).json({
           status: 500,
-          error: `Something went wrong ${err}. Please try again`,
+          error: `Something went wrong. Please try again - ${err}`,
         }));
     });
   },

@@ -30,8 +30,10 @@ const accountSeeder = () => {
           for (const data of acc) {
             Transaction.save(data).then(result => result.rows);
           }
-        });
-    });
+        })
+        .catch(err => `Could not seed database - ${err}`);
+    })
+    .catch(err => `Could not truncate database - ${err}`);
 };
 
 export default accountSeeder;

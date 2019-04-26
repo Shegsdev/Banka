@@ -39,16 +39,16 @@ const SigninController = {
 
     email = email.toLowerCase().trim();
 
-    User.findOne('email', email)
+    User.findBy('email', email)
       .then((result) => {
         bcrypt.compare(password, result.rows[0].password)
           .then((isMatch) => {
             if (isMatch) {
               const payload = result.rows[0];
-              jwt.sign(payload, secret, { expiresIn: '2h' }, (err, token) => {
+              jwt.sign(payload, secret, { expiresIn: '6h' }, (err, token) => {
                 if (err) {
-                  return res.status(500).json({
-                    status: 500,
+                  return res.status(403).json({
+                    status: 403,
                     error: `Some error occured - ${err}`,
                   });
                 }
@@ -69,12 +69,12 @@ const SigninController = {
                 error: 'Invalid login details.',
               });
             }
-          })
-          .catch(err => res.status(500).json({
-            status: 500,
-            error: `An error occured while signing in. Please try again.\n${err}`,
-          }));
-      });
+          });
+      })
+      .catch(err => res.status(500).json({
+        status: 500,
+        error: `An error occured. Please try again - ${err}`,
+      }));
   },
 };
 
