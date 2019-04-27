@@ -63,18 +63,23 @@ const accordion = document.getElementsByClassName('accordion');
 for (let acc of accordion) {
   acc.addEventListener('click', function () {
     const panel = this.nextElementSibling;
-    const options = acc.children[1];
-    if (panel.tagName !== 'TD') {
       if (panel.style.display === 'block') {
         panel.style.display = 'none';
-      } else {
-        panel.style.display = 'block';
       }
-    }
-      // Table on dashboard
+      else panel.style.display = 'block';
+  });
+}
+
+// More options pop-up
+const ellipsis = document.querySelectorAll('.ellipsis');
+
+for (let el of ellipsis) {
+  el.addEventListener('click', function () {
+    const options = document.querySelector('.more-options');
       if (options.style.display === 'block') {
         options.style.display = 'none';
-      } else {
+      }
+      else {
         options.style.display = 'block';
         options.style.position = 'absolute';
       }

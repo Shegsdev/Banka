@@ -526,16 +526,16 @@ input::placeholder {
 .panel a:hover {
 	text-decoration: underline !important;
 }
-.accordion .more-options {
+.ellipsis .more-options {
 	background: #fff;
 	border-radius: 8px;
 	box-shadow: 2px 4px 8px 0px rgba(0,0,0,0.2);
 	display: none;
 	padding: 20px;
 	top: 60px;
-	right: 120px;
+	right: 100px;
 }
-.accordion .more-options button {
+.ellipsis .more-options button {
 	margin-top: 10px;
 }
 
