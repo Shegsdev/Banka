@@ -1,9 +1,8 @@
-import debug from 'debug';
+/* eslint-disable eqeqeq */
 import { config } from 'dotenv';
 import DB from '../config/database';
 
 config();
-const log = debug('express:model');
 
 class Model {
   constructor(table) {
@@ -20,41 +19,65 @@ class Model {
       const result = await DB.query(text, values);
       return result;
     } catch (err) {
-      return err.stack;
+      throw new Error(err.stack.split(/\n/)[0]);
     }
   }
 
-  async findById(id) {
+  async findById(id, response) {
     try {
       const result = await DB.query(`SELECT * FROM ${this.table} WHERE id = ${id}`);
       return result;
     } catch (err) {
-      log(err.stack);
-      return err.stack;
+      if (err.code == '42P01') {
+        return response.status(500).json({
+          status: 500,
+          error: `${this.table} table does not exist`,
+        });
+      }
+      return response.status(500).json({
+        status: 500,
+        error: err.stack.split(/\n/)[0],
+      });
     }
   }
 
-  async findBy(column, param) {
+  async findBy(column, param, response) {
     try {
       const result = await DB.query(`SELECT * FROM ${this.table} WHERE ${column} = '${param}'`);
       return result;
     } catch (err) {
-      log(err.stack);
-      return err.stack;
+      if (err.code == '42P01') {
+        return response.status(500).json({
+          status: 500,
+          error: `${this.table} table does not exist`,
+        });
+      }
+      return response.status(500).send({
+        status: 500,
+        error: err.stack.split(/\n/)[0],
+      });
     }
   }
 
-  async findAllById() {
+  async findAllById(response) {
     try {
       const result = await DB.query(`SELECT * FROM ${this.table} ORDER BY id ASC`);
       return result;
     } catch (err) {
-      log(err.stack);
-      return err.stack;
+      if (err.code == '42P01') {
+        return response.status(500).json({
+          status: 500,
+          error: `${this.table} table does not exist`,
+        });
+      }
+      return response.status(500).json({
+        status: 500,
+        error: err.stack.split(/\n/)[0],
+      });
     }
   }
 
-  async findOneAndUpdate(column, field, data) {
+  async findOneAndUpdate(column, field, data, response) {
     const values = Object.values(data);
     const placeholders = Object.keys(data).map((k, i) => `${k}=$${i + 1}`).join(',');
     const text = `UPDATE ${this.table} SET ${placeholders} WHERE ${column} = '${field}' RETURNING *`;
@@ -62,17 +85,34 @@ class Model {
       const result = await DB.query(text, values);
       return result;
     } catch (err) {
-      log(err.stack);
-      return err.stack;
+      if (err.code == '42P01') {
+        return response.status(500).json({
+          status: 500,
+          error: `${this.table} table does not exist`,
+        });
+      }
+      return response.status(500).json({
+        status: 500,
+        error: err.stack.split(/\n/)[0],
+      });
     }
   }
 
-  async findOneAndDelete(column, field) {
+  async findOneAndDelete(column, field, response) {
     try {
       const result = await DB.query(`DELETE FROM ${this.table} WHERE ${column} = '${field}'`);
       return result;
     } catch (err) {
-      return err;
+      if (err.code == '42P01') {
+        return response.status(500).json({
+          status: 500,
+          error: `${this.table} table does not exist`,
+        });
+      }
+      return response.status(500).json({
+        status: 500,
+        error: err.stack.split(/\n/)[0],
+      });
     }
   }
 }

@@ -41,13 +41,13 @@ describe('Login user account', () => {
         });
     });
 
-    it('should return error for invalid login', (done) => {
+    it('should return error for invalid email', (done) => {
       api.post('/api/v1/auth/signin')
         .send(user[4])
         .end((_err, res) => {
-          expect(res.body.status).to.equal(401);
+          expect(res.body.status).to.equal(404);
           expect(res.body.error).to.be.a('string');
-          expect(res.body.error).to.equal('Invalid login details.');
+          expect(res.body.error).to.equal('User does not exist');
           done();
         });
     });

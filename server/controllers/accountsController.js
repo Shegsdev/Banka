@@ -17,10 +17,10 @@ const AccountsController = {
    * Route: POST: /accounts
    *
    * */
-  create(req, res) {
-    const { error, isValid } = validateCreateBankAccountInput(req.body);
+  async create(req, res) {
+    const { errors, isValid } = validateCreateBankAccountInput(req.body);
     if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(400).json({ status: 400, error: errors });
     }
 
     const {
@@ -37,23 +37,30 @@ const AccountsController = {
         type,
       };
 
-      return Account.save(accountDetail).then(result => result.rows[0])
-        .then(account => res.status(201).json({
+      try {
+        const account = await Account.save(accountDetail);
+        return res.status(201).json({
           status: 201,
           data: {
-            accountNumber: account.account_number,
+            accountNumber: account.rows[0].account_number,
             firstName,
             lastName,
             email,
-            type: account.type,
-            openingBalance: account.balance,
+            type: account.rows[0].type,
+            openingBalance: account.rows[0].balance,
           },
-        }))
-        .catch(err => res.status(500).json({
+        });
+      } catch (err) {
+        return res.status(500).json({
           status: 500,
           error: `Could not create account ${err}`,
-        }));
+        });
+      }
     }
+    return res.status(401).json({
+      status: 401,
+      error: 'Unauthorized access',
+    });
   },
 
   /**
@@ -69,11 +76,20 @@ const AccountsController = {
    *
    * */
   findAll(req, res) {
-    Account.findAllById().then(accounts => res.status(200).json({
-      status: 200, data: accounts.rows,
-    })).catch(err => res.status(500).json({
-      status: 500, error: `Could not fetch accounts. Please try again - ${err}`,
-    }));
+    Account.findAllById(res).then((accounts) => {
+      if (!accounts || accounts.rows.length < 1) {
+        return res.status(404).json({
+          status: 404,
+          error: 'No account found',
+        });
+      }
+      return res.status(200).json({
+        status: 200, data: accounts.rows,
+      });
+    })
+      .catch(err => res.status(500).json({
+        status: 500, error: `Could not fetch accounts. Please try again - ${err}`,
+      }));
   },
 
   /**
@@ -89,9 +105,9 @@ const AccountsController = {
    *
    * */
   findOne(req, res) {
-    Account.findBy('account_number', parseInt(req.params.accountNumber, 10))
+    Account.findBy('account_number', parseInt(req.params.accountNumber, 10), res)
       .then((account) => {
-        if (!account) {
+        if (!account || account.rows.length < 1) {
           return res.status(404).json({
             status: 404,
             error: 'Acount does not exist',
@@ -126,23 +142,24 @@ const AccountsController = {
       });
     }
 
-    return Account.findOneAndUpdate('account_number', parseInt(req.params.accountNumber, 10), { status })
-      .then(result => result.rows[0])
-      .then((account) => {
-        if (!account) {
+    return Account.findOneAndUpdate('account_number', parseInt(req.params.accountNumber, 10),
+      { status }, res)
+      .then((result) => {
+        if (result.rows.length < 1) {
           return res.status(404).json({
             status: 404,
             error: 'Account does not exist',
           });
         }
-        return res.status(200).json({
-          status: 200,
-          data: {
-            accountNumber: account.account_number,
-            status: account.status,
-          },
-        });
+        return result.rows[0];
       })
+      .then(account => res.status(200).json({
+        status: 200,
+        data: {
+          accountNumber: account.account_number,
+          status: account.status,
+        },
+      }))
       .catch(err => res.status(500).json({
         status: 500,
         error: `Error updating account ${err}`,
@@ -165,17 +182,23 @@ const AccountsController = {
     const accountNumber = parseInt(req.params.accountNumber, 10);
     let { amount } = req.body;
     amount = parseFloat(amount);
-    const { error, isValid } = validateTransactionInput(req.body);
+    const { errors, isValid } = validateTransactionInput(req.body);
     if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(400).json({ status: 400, error: errors });
     }
 
     if (req.user.isStaff) {
       try {
-        const account = await Account.findBy('account_number', accountNumber);
+        const account = await Account.findBy('account_number', accountNumber, res);
+        if (!account || account.rows.length < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Account does not exist',
+          });
+        }
         const update = await Account.findOneAndUpdate('account_number', accountNumber, {
           balance: amount + account.rows[0].balance,
-        });
+        }, res);
         const updatedAccount = update.rows[0];
         const transactionDetail = {
           type: 'credit',
@@ -234,7 +257,13 @@ const AccountsController = {
 
     if (req.user.isStaff) {
       try {
-        const account = await Account.findBy('account_number', accountNumber);
+        const account = await Account.findBy('account_number', accountNumber, res);
+        if (!account || account.rows.length < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Account does not exist',
+          });
+        }
 
         if (amount > account.rows[0].balance) {
           return res.status(422).json({
@@ -244,7 +273,7 @@ const AccountsController = {
         }
         const update = await Account.findOneAndUpdate('account_number', accountNumber, {
           balance: account.rows[0].balance - amount,
-        });
+        }, res);
         const updatedAccount = update.rows[0];
         const transactionDetail = {
           type: 'credit',
@@ -300,11 +329,19 @@ const AccountsController = {
       });
     }
 
-    Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10))
-      .then(result => res.status(204).json({
-        status: 204,
-        data: result.rows,
-      }))
+    Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10), res)
+      .then((result) => {
+        if (!result || result.rows.length < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'Account does not exist',
+          });
+        }
+        return res.status(204).json({
+          status: 204,
+          data: result.rows,
+        });
+      })
       .catch(err => res.status(500).json({
         status: 500,
         error: `Something went wrong. Please try again.${err}`,

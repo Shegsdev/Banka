@@ -4,7 +4,6 @@ import { expect } from 'chai';
 import supertest from 'supertest';
 
 import {
-  admin,
   staff,
   missingFirstname,
   missingLastname,
@@ -55,8 +54,8 @@ describe('Create bank account', () => {
       .send(missingFirstname)
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('First name cannot be blank');
+        expect(res.body.error).to.be.a('object');
+        expect(res.body.error.firstName).to.equal('First name cannot be blank');
         done();
       });
   });
@@ -68,8 +67,8 @@ describe('Create bank account', () => {
       .send(missingLastname)
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Last name cannot be blank');
+        expect(res.body.error).to.be.a('object');
+        expect(res.body.error.lastName).to.equal('Last name cannot be blank');
         done();
       });
   });
@@ -82,8 +81,8 @@ describe('Create bank account', () => {
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body).to.be.a('object');
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Email cannot be blank');
+        expect(res.body.error).to.be.a('object');
+        expect(res.body.error.email).to.equal('Email cannot be blank');
         done();
       });
   });
@@ -95,8 +94,8 @@ describe('Create bank account', () => {
       .send(invalidEmail)
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Email is invalid');
+        expect(res.body.error).to.be.a('object');
+        expect(res.body.error.email).to.equal('Email is invalid');
         done();
       });
   });
@@ -112,8 +111,8 @@ describe('Create bank account', () => {
       })
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
-        expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Please select an account type');
+        expect(res.body.error).to.be.a('object');
+        expect(res.body.error.type).to.equal('Please select a valid account type');
         done();
       });
   });
