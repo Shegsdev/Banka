@@ -13,8 +13,16 @@ const validateSignUpInput = (data) => {
     errors.firstName = 'First name cannot be blank';
   }
 
+  if (!Validator.isLength(data.firstName, { min: 3, max: 20 })) {
+    errors.firstName = 'Please enter a valid name';
+  }
+
   if (Validator.isEmpty(data.lastName)) {
     errors.lastName = 'Last name cannot be blank';
+  }
+
+  if (!Validator.isLength(data.lastName, { min: 3, max: 20 })) {
+    errors.lastName = 'Please enter a valid name';
   }
 
   if (!Validator.isEmail(data.email)) {
@@ -22,6 +30,10 @@ const validateSignUpInput = (data) => {
   }
 
   if (Validator.isEmpty(data.email)) {
+    errors.email = 'Email cannot be blank';
+  }
+
+  if (Validator.isLength(data.email, { min: 7 })) {
     errors.email = 'Email cannot be blank';
   }
 

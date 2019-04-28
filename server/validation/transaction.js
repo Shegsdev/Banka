@@ -14,6 +14,10 @@ const validateCreateBankAccountInput = (data) => {
     errors.amount = 'Please enter a valid amount';
   }
 
+  if (data.amount.includes('e') || data.amount.includes('f')) {
+    errors.amount = 'Please enter a valid amount';
+  }
+
   return {
     errors,
     isValid: isEmpty(errors),
