@@ -31,7 +31,7 @@ const Auth = {
       };
     } catch (error) {
       // eslint-disable-next-line eqeqeq
-      if (error == 'TokenExpiredError: jwt expired') {
+      if (error == 'TokenExpiredError: jwt expired' || error == 'invalid token') {
         return res.status(403).json({
           status: 403,
           error: 'Session expired. Please sign in again',
