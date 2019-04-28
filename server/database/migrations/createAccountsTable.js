@@ -10,7 +10,7 @@ const accountsSchema = {
         FOREIGN KEY (owner) REFERENCES users (id),
         type VARCHAR(30) NOT NULL,
         status VARCHAR(30) NOT NULL DEFAULT 'draft',
-        balance REAL NOT NULL DEFAULT 0.00,
+        balance NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
         created_at TIMESTAMP DEFAULT NOW()
       )`,
     );
