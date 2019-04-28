@@ -35,20 +35,6 @@ export const user = [
     email: 'no_mail@email.com',
     password: 'password',
   },
-  {
-    firstName: 'Admin',
-    lastName: 'Account',
-    email: 'admin@banka.com',
-    password: '$2b$10$yNBCruKSjV593RECsYeu7eddMlbLqN/LdTyJ0/VPlx4OiT01rXv06',
-    type: 'admin',
-  },
-  {
-    firstName: 'Staff',
-    lastName: 'Account',
-    email: 'staff@banka.com',
-    password: '$2b$10$yNBCruKSjV593RECsYeu7eddMlbLqN/LdTyJ0/VPlx4OiT01rXv06',
-    type: 'staff',
-  },
 ];
 
 export const missingFirstname = {
@@ -87,17 +73,11 @@ export const invalidEmail = {
 };
 
 export const admin = {
-  firstName: 'Admin',
-  lastName: 'Account',
   email: 'admin@banka.com',
   password: 'password',
-  type: 'admin',
 };
 
 export const staff = {
-  firstName: 'Staff',
-  lastName: 'Account',
   email: 'staff@banka.com',
   password: 'password',
-  type: 'staff',
 };

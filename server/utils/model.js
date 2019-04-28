@@ -52,7 +52,7 @@ class Model {
           error: `${this.table} table does not exist`,
         });
       }
-      return response.status(500).send({
+      return response.status(500).json({
         status: 500,
         error: err.stack.split(/\n/)[0],
       });

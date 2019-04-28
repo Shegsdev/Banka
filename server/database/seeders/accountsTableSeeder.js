@@ -12,7 +12,7 @@ const bankAccounts = [
 
 
 const accountSeeder = () => {
-  DB.query('TRUNCATE users CASCADE')
+  DB.query('TRUNCATE accounts CASCADE')
     .then(() => {
       DB.query('SELECT * FROM users')
         .then((result) => {

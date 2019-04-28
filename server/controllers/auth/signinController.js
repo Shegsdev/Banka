@@ -44,7 +44,7 @@ const SigninController = {
         if (result.rows.length < 1) {
           return res.status(404).json({
             status: 404,
-            error: 'User does not exist',
+            error: 'Account does not exist',
           });
         }
         bcrypt.compare(password, result.rows[0].password)

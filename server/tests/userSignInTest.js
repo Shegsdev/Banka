@@ -43,11 +43,14 @@ describe('Login user account', () => {
 
     it('should return error for invalid email', (done) => {
       api.post('/api/v1/auth/signin')
-        .send(user[4])
+        .send({
+          email: 'someemail@user.com',
+          password: 'anypassword',
+        })
         .end((_err, res) => {
           expect(res.body.status).to.equal(404);
           expect(res.body.error).to.be.a('string');
-          expect(res.body.error).to.equal('User does not exist');
+          expect(res.body.error).to.equal('Account does not exist');
           done();
         });
     });

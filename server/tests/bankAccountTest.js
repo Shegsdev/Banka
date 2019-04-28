@@ -55,7 +55,7 @@ describe('Create bank account', () => {
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('object');
-        expect(res.body.error.firstName).to.equal('First name cannot be blank');
+        expect(res.body.error.firstName).to.equal('Please enter a valid name');
         done();
       });
   });
@@ -68,7 +68,7 @@ describe('Create bank account', () => {
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('object');
-        expect(res.body.error.lastName).to.equal('Last name cannot be blank');
+        expect(res.body.error.lastName).to.equal('Please enter a valid name');
         done();
       });
   });
@@ -121,7 +121,7 @@ describe('Create bank account', () => {
 describe('Change bank account status', () => {
   let token;
   before((done) => {
-    api.post('/api/v1/admin/new')
+    api.post('/api/v1/auth/signin')
       .send(staff)
       .end((_err, res) => {
         token = res.body.data.token;

@@ -33,7 +33,7 @@ const validateSignUpInput = (data) => {
     errors.email = 'Email cannot be blank';
   }
 
-  if (Validator.isLength(data.email, { min: 7 })) {
+  if (!Validator.isLength(data.email, { min: 7 })) {
     errors.email = 'Email cannot be blank';
   }
 
