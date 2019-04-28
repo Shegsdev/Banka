@@ -60,6 +60,12 @@ const SignupController = {
 
       User.save(newUser)
         .then((result) => {
+          if (!result || result == 'undefined') {
+            return res.status(500).json({
+              status: 500,
+              error: 'An error occured. Please try again',
+            })
+          }
           const payload = result.rows[0];
           // eslint-disable-next-line consistent-return
           jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {

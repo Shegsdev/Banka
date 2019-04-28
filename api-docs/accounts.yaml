@@ -85,8 +85,8 @@ paths:
           type: integer
           required: true
       responses:
-        200:
-          description: Account deleted successfully
+        204:
+          description: No content
         403:
           description: Invalid token. Please sign in
     get:

@@ -55,7 +55,7 @@ describe('Create new user account', () => {
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');
           expect(res.body.status).to.equal(400);
-          expect(res.body.error.firstName).to.equal('First name cannot be blank');
+          expect(res.body.error.firstName).to.equal('Please enter a valid name');
           done();
         });
     });
@@ -65,7 +65,7 @@ describe('Create new user account', () => {
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');
           expect(res.body.status).to.equal(400);
-          expect(res.body.error.lastName).to.equal('Last name cannot be blank');
+          expect(res.body.error.lastName).to.equal('Please enter a valid name');
           done();
         });
     });
