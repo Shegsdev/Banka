@@ -135,17 +135,17 @@ const AccountsController = {
    * */
   changeStatus(req, res) {
     const { status } = req.body;
-    if (!req.params.accountNumber || status === undefined) {
+    if (status === undefined) {
       return res.status(400).json({
         status: 400,
-        error: 'Account number or status not provided',
+        error: 'Account status not provided',
       });
     }
 
     return Account.findOneAndUpdate('account_number', parseInt(req.params.accountNumber, 10),
       { status }, res)
       .then((result) => {
-        if (result.rows.length < 1) {
+        if (!result || result.rows.length < 1) {
           return res.status(404).json({
             status: 404,
             error: 'Account does not exist',
