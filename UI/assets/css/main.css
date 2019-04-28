@@ -58,6 +58,15 @@ select {
 	display: block;
 }
 
+.toast {
+	padding: 20px;
+	background-color: #b8fdb8;
+	border: 1px solid green;
+	color: green;
+	display: none;
+	text-align: center;
+}
+
 .header:first-letter {
 	border-top: 8px solid #4F4D53;
 	padding-top: 15px;	
@@ -193,15 +202,11 @@ select {
 	width: 70px;
 }
 .hero {
-	 height: 600px;
 	 width: 100%;	
 }
 
 .hero-landing {
 	background-color: teal;
-	/*background-image: url('../img/hero.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;*/
 }
 
 .main .account, .main .contact-us, .main .about-us {
@@ -213,7 +218,7 @@ select {
 	margin: 74px auto;
 	text-align: center;
 }
-.hero-copy h1, .hero-copy h2 {
+.hero-copy h1 {
 	font-size: 70px;
 	margin-bottom: 0;
 }
@@ -286,6 +291,7 @@ nav ul li:hover:not(:last-child) {
 	line-height: 1.6em;
 	max-width: 450px;
 	margin-left: 100px;
+	font-weight: 100;
 }
 
 .main .main-content img {
@@ -438,7 +444,7 @@ input::placeholder {
 }
 .ad-modal .actions {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	padding-top: 8vh;
 }
 .ad-modal button {
@@ -488,8 +494,8 @@ input::placeholder {
 	box-shadow: 2px 8px 16px 0px rgba(0,0,0,0.2);
 	border-radius: 5px;
 	position: absolute;
-	right: 20px;
-	top: 60px;
+	right: 30px;
+	top: 10px;
 	z-index: 1;
 }
 .dropdown-content a {
@@ -520,12 +526,16 @@ input::placeholder {
 .panel a:hover {
 	text-decoration: underline !important;
 }
-.accordion .more-options {
+.ellipsis .more-options {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 2px 4px 8px 0px rgba(0,0,0,0.2);
 	display: none;
-	top: 50px;
-	right: 0;
+	padding: 20px;
+	top: 60px;
+	right: 100px;
 }
-.accordion .more-options button {
+.ellipsis .more-options button {
 	margin-top: 10px;
 }
 
@@ -630,9 +640,9 @@ input::placeholder {
 .footer {
 	color: #fff;
 	background: teal;
-	/* height: 100px; */
 	padding: 10px 0;
 	text-align: center;
+	margin-top: 250px;
 }
 footer {
 	margin: 20px auto;

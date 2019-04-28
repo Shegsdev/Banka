@@ -39,7 +39,7 @@
 
 		<section class="container form">
 			<span class="back" onclick="window.history.back()">
-			    <i class="fas fa-arrow-left fa-2x"></i>
+			    <i class="fas fa-arrow-left"></i>
 			</span>
 			<header>
 				<h3>Log In</h3>
@@ -48,13 +48,13 @@
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="email">Email:</label>
-                        <input type="text" name="email">
+                        <input type="email" name="email" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="password">Password:</label>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required minlength="6">
                     </div>
                 </div>
                 <br>
@@ -70,7 +70,7 @@
 	                	<span><small>Click <a href="signup.html">here</a></small></span>
 	                </div>
 	                <div>
-	                	<span><small><a href="#">Forgot password?</a></small></span>
+	                	<!-- <span><small><a href="#">Forgot password?</a></small></span> -->
 	                </div>
 	            </div>
             </form>
@@ -85,10 +85,10 @@
 		const handleLogin = (e) => {
 			const { email, password } = e.target;
 			
-			if (/^admin$/.test(email.value)) {
+			if (/admin/.test(email.value)) {
 				location.assign('./admin/home.html');
 			}
-			else if (/^staff$/.test(email.value)) {
+			else if (/staff/.test(email.value)) {
 				location.assign('./staff/home.html');
 			}
 			else location.assign('profile.html');

@@ -29,8 +29,10 @@
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
-				<a href="home.html">My Profile</a>
-				<a href="../../index.html">Logout</a>
+				<a href="../../index.html">
+					<i class="fas fa-home"></i>
+					Logout
+				</a>
 			</div>
 		    <!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
@@ -43,7 +45,6 @@
 			<div id="side-menu" class="side-nav">
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="profile.html">Dashboard</a></li>
-				<li><a href="edit-profile.html">Edit Profile</a></li>
 				<li><a href="transactions.html">My transactions</a></li>
 				<li><a href="../../index.html">Logout</a></li>
 			</div>
@@ -54,7 +55,6 @@
 			<aside>
 				<ul>
 					<a href="profile.html"><li>Dashboard</li></a>
-					<a href="edit-profile.html"><li>Edit Profile</li></a>
 					<a href="transactions.html"><li>My transactions</li></a>
 					<a href="../../index.html"><li>Logout</li></a>
 				</ul>
@@ -62,6 +62,7 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">Success</div>
 			<header><h2 class="header">Transaction history</h2></header>
 			<div class="ad-main-content">
 				<table>
@@ -78,29 +79,6 @@
 						<td>Debit</td>
 						<td>Jan 9, 2010</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -108,29 +86,6 @@
 						<td>Debit</td>
 						<td>Feb 1, 2020</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 					<tr>
 						<td>3</td>
@@ -138,29 +93,6 @@
 						<td>Debit</td>
 						<td>Feb 1, 2020</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 					<tr>
 						<td>4</td>
@@ -168,29 +100,6 @@
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 					<tr>
 						<td>5</td>
@@ -198,29 +107,6 @@
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 					<tr>
 						<td>6</td>
@@ -228,40 +114,14 @@
 						<td>Credit</td>
 						<td>Feb 1, 2020</td>
 						<td><a href="transaction-single.html"><button>View</button></a></td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="blue">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end accordion -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="blue">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
 					</tr>
 				</table>
 			</div>
 		</section>
 	</div>
 
-	<footer>
-		<p>&copy; All rights reservered.</p>
-	</footer>
-	
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>

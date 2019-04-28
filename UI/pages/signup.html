@@ -40,7 +40,7 @@
 
 		<section class="container form">
             <span class="back" onclick="window.history.back()">
-                <i class="fas fa-arrow-left fa-2x"></i>
+                <i class="fas fa-arrow-left"></i>
             </span>
 			<header>
 				<h3>Sign Up</h3>
@@ -49,25 +49,25 @@
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="firstname">First name:</label>
-                        <input type="text" name="firstname">
+                        <input type="text" name="firstname" required minlength="3">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="lastname">Last name:</label>
-                        <input type="text" name="lastname">
+                        <input type="text" name="lastname" required minlength="3">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="email">Email:</label>
-                        <input type="text" name="email">
+                        <input type="email" name="email" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-input">
                     	<label for="password">Password:</label>
-                        <input type="password" name="password">
+                        <input type="password" name="password" required minlength="6">
                     </div>
                 </div>
                 <br>

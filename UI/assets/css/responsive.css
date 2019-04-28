@@ -37,9 +37,6 @@
     .nav-links ul {
         display: none;
     }
-    .hero {
-        height: 500px;
-    }
     .hero-copy {
         margin: 50px auto;
         max-width: 400px;
@@ -60,7 +57,7 @@
         text-align: center;
     }
     .main .landing article {
-        padding: 0;
+        padding: 20px;
         max-width: 100%;
         margin: 0;
     }
@@ -106,6 +103,19 @@
         display: none;
     }
 
+    .ad-modal {
+        right: 10%;
+        bottom: 50%;
+        left: 10%;
+        padding: 10px;
+    }
+    .ad-modal .modal-content { 
+        padding-top: 8vh;
+    }
+    .ad-modal button {
+        padding: 8px 30px;
+    }
+
     .ad-main {
         display: block;
         margin-bottom: 50px;
@@ -134,8 +144,8 @@
 
     /*All accounts*/
     .ad-main-content table {
-        font-size: 12px;
-        width: 80%;
+        font-size: 14px;
+        width: 100%;
     }
     .ad-main-content table .actions {
         display: none;
@@ -152,9 +162,6 @@
     .ad-main-content table button, .ad-main-content section button {
         font-size: 14px;
         padding: 4px 8px;
-    }
-    .ad-main-content table th:last-child, .ad-main-content table td:last-child {
-        padding-left: 8px;
     }
     .ad-main-content .transaction-form {
         width: 80%;
@@ -183,9 +190,6 @@
 	nav {
         padding: 10px !important;
     }
-    .hero {
-        height: 450px;
-    }
     .hero-copy {
         max-width: 200px;
     }
@@ -207,8 +211,23 @@
     }
 
     /*Admin*/
+    .ad-modal {
+        right: 5%;
+        left: 5%;
+        padding: 5px;
+    }
+    .ad-modal .actions {
+        padding-top: 3vh;
+    }
+    .ad-modal button {
+        font-size: 14px;
+        padding: 6px 20px;
+    }
+    .ad-main-content table {
+        font-size: 12px;
+    }
     .ad-main-content table th, .ad-main-content table td {
-        padding: 6px 8px;
+        padding: 4px 6px;
     }
     .ad-main-content table button, .ad-main-content section button {
         font-size: 12px;

@@ -28,8 +28,10 @@
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
-				<a href="home.html">My Profile</a>
-				<a href="../../../index.html">Logout</a>
+				<a href="../../../index.html">
+					<i class="fas fa-home"></i>
+					Logout
+				</a>
 			</div>
 			<!-- Hamburger links -->
 		    <a href="#" onclick="openSlideMenu()">
@@ -51,7 +53,7 @@
 				<div class="panel">
 					<a href="credit.html">Credit</a>
 					<a href="debit.html">Debit</a>
-				</div> <!-- end accordion content -->
+				</div> <!-- end ellipsis content -->
 				<li><a href="./UI/pages/login.html">Login</a></li>
 			</div>
 		</div>
@@ -77,6 +79,7 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">Success</div>
 			<header><h3>Accounts</h3></header>
 			<div class="ad-main-content">
 				<table>
@@ -99,10 +102,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -111,7 +114,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'deactivate')" class="gold">
 								Deactivate
@@ -134,10 +137,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -146,7 +149,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'activate')" class="green">
 								Activate
@@ -168,10 +171,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -180,7 +183,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'activate')" class="green">
 								Activate
@@ -202,10 +205,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -214,7 +217,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'deactivate')" class="gold">
 								Deactivate
@@ -236,10 +239,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -248,7 +251,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'activate')" class="green">
 								Activate
@@ -270,10 +273,10 @@
 								<button class="blue">View</button>
 							</a>
 						</td>
-						<!-- Accordion for mobile view -->
-						<td class="ellipsis accordion">
+						<!-- Ellipsis for mobile view -->
+						<td class="ellipsis">
 							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- Dropdown content -->
+							<!-- Ellipsis content -->
 							<div class="more-options">
 								<button onclick="modalOpen(true, 'deactivate')" class="gold">
 									Deactivate
@@ -282,7 +285,7 @@
 									Delete
 								</button>
 							</div>
-						</td> <!-- end accordion -->
+						</td> <!-- end ellipsis -->
 						<td class="actions">
 							<button onclick="modalOpen(true, 'activate')" class="green">
 								Activate
@@ -298,12 +301,9 @@
 			</div>
 		</section>
 	</div>
-	
-	<script>
-		let aside = document.querySelector('aside');
-		aside.style.height = window.innerHeight + "px";
-	</script>
+
 	<script src="../../assets/js/main.js"></script>
+	<script src="../../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>
