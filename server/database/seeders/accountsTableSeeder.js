@@ -12,21 +12,25 @@ const bankAccounts = [
 
 
 const accountSeeder = () => {
-  DB.query('SELECT * FROM users')
-    .then((result) => {
-      const addOwner = bankAccounts.map((acc, idx) => {
-        acc.owner = result.rows[idx].id;
-        return acc;
-      });
-      return addOwner;
+  DB.query('TRUNCATE users CASCADE')
+    .then(() => {
+      DB.query('SELECT * FROM users')
+        .then((result) => {
+          const addOwner = bankAccounts.map((acc, idx) => {
+            acc.owner = result.rows[idx].id;
+            return acc;
+          });
+          return addOwner;
+        })
+        .then((acc) => {
+          // eslint-disable-next-line no-restricted-syntax
+          for (const data of acc) {
+            Account.save(data).then(result => result.rows);
+          }
+        })
+        .catch(err => `Could not seed database - ${err}`);
     })
-    .then((acc) => {
-      // eslint-disable-next-line no-restricted-syntax
-      for (const data of acc) {
-        Account.save(data).then(result => result.rows);
-      }
-    })
-    .catch(err => `Could not seed database - ${err}`);
+    .catch(err => `Error truncating database - ${err}`);
 };
 
 export default accountSeeder;

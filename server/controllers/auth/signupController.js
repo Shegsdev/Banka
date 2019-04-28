@@ -29,17 +29,17 @@ const SignupController = {
     } = req.body;
 
     const {
-      error,
+      errors,
       isValid,
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(400).json({ status: 400, error: errors });
     }
 
     email = email.toLowerCase().trim();
 
-    User.findBy('email', email)
+    User.findBy('email', email, res)
       .then((result) => {
         if (result.rows.length > 0) {
           return res.status(409).json({
@@ -62,7 +62,7 @@ const SignupController = {
         .then((result) => {
           const payload = result.rows[0];
           // eslint-disable-next-line consistent-return
-          jwt.sign(payload, secret, { expiresIn: '6h' }, (err, token) => {
+          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
               return res.status(403).json({
                 status: 403,

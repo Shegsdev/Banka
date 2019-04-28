@@ -3,7 +3,7 @@ const Admin = {
     if (req.user.isAdmin === false) {
       return res.status(403).json({
         status: 403,
-        error: 'Unauthorized',
+        error: 'Forbidden',
       });
     }
     return next();
@@ -13,7 +13,7 @@ const Admin = {
     if (req.user.isStaff === false) {
       return res.status(403).json({
         status: 403,
-        error: 'Unauthorized',
+        error: 'Forbidden',
       });
     }
     return next();
@@ -23,7 +23,7 @@ const Admin = {
     if (req.user.isStaff === false && req.user.isAdmin === false) {
       return res.status(403).json({
         status: 403,
-        error: 'Unauthorized',
+        error: 'Forbidden',
       });
     }
     return next();

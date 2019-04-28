@@ -20,11 +20,17 @@ const TransactionsController = {
       return res.status(400).json({ status: 400, error: 'Invalid account number' });
     }
     try {
-      const account = await Account.findBy('account_number', parseInt(accountNumber, 10));
+      const account = await Account.findBy('account_number', parseInt(accountNumber, 10), res);
+      if (account.rows.length < 1) {
+        return res.status(404).json({
+          status: 404,
+          error: 'Account does not exist',
+        });
+      }
       if (account.rows[0].owner !== req.user.id) {
         return res.status(403).json({ status: 403, err: 'Unauthorized access' });
       }
-      const transactions = await Transaction.findBy('account_number', parseInt(accountNumber, 10));
+      const transactions = await Transaction.findBy('account_number', parseInt(accountNumber, 10), res);
       return res.status(201).json({ status: 201, data: transactions.rows });
     } catch (err) {
       return res.status(500).json({ status: 500, error: `Something went wrong. Please try again - ${err}` });

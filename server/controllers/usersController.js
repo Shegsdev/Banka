@@ -23,9 +23,9 @@ const UsersController = {
    *
    * */
   findOne(req, res) {
-    User.findBy('id', parseInt(req.params.id, 10))
+    User.findBy('id', parseInt(req.params.id, 10), res)
       .then((user) => {
-        if (!user) {
+        if (!user || user.rows.length < 1) {
           return res.status(404).json({
             status: 404,
             error: 'User does not exist',
@@ -52,9 +52,17 @@ const UsersController = {
    *
    * */
   findAll(req, res) {
-    User.findAllById().then(users => res.status(200).json({
-      status: 200, data: users.rows,
-    }))
+    User.findAllById(res).then((users) => {
+      if (!users || users.rows.length < 1) {
+        return res.status(404).json({
+          status: 404,
+          error: 'No user found',
+        });
+      }
+      return res.status(200).json({
+        status: 200, data: users.rows,
+      });
+    })
       .catch(err => res.status(500).json({
         status: 500,
         error: `Something went wrong. Please try again - ${err}`,
@@ -80,19 +88,19 @@ const UsersController = {
     } = req.body;
 
     const {
-      error, isValid,
+      errors, isValid,
     } = validateSignUpInput(req.body);
 
     if (!isValid) {
       return res.status(400).json({
         status: 400,
-        error,
+        errors,
       });
     }
 
     email = email.toLowerCase().trim();
 
-    User.findBy('email', email)
+    User.findBy('email', email, res)
       .then((result) => {
         if (result.rows.length > 0) {
           return res.status(409).json({
@@ -111,11 +119,11 @@ const UsersController = {
         .then((result) => {
           const payload = result.rows[0];
           if (type === 'staff') {
-            User.findOneAndUpdate('id', payload.id, { is_staff: true })
+            User.findOneAndUpdate('id', payload.id, { is_staff: true }, res)
               .then(() => {});
           }
           if (type === 'admin') {
-            User.findOneAndUpdate('id', payload.id, { is_admin: true })
+            User.findOneAndUpdate('id', payload.id, { is_admin: true }, res)
               .then(() => {});
           }
 
@@ -127,6 +135,7 @@ const UsersController = {
                 error: `Some error occured - ${err}`,
               });
             }
+
             setAuthToken(req, token);
             return res.status(201).json({
               status: 201,

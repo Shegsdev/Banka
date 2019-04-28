@@ -29,23 +29,29 @@ const SigninController = {
     } = req.body;
 
     const {
-      error,
+      errors,
       isValid,
     } = validateSignInInput(req.body);
 
     if (!isValid) {
-      return res.status(400).send({ status: 400, error });
+      return res.status(400).send({ status: 400, error: errors });
     }
 
     email = email.toLowerCase().trim();
 
-    User.findBy('email', email)
+    User.findBy('email', email, res)
       .then((result) => {
+        if (result.rows.length < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'User does not exist',
+          });
+        }
         bcrypt.compare(password, result.rows[0].password)
           .then((isMatch) => {
             if (isMatch) {
               const payload = result.rows[0];
-              jwt.sign(payload, secret, { expiresIn: '6h' }, (err, token) => {
+              jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
                 if (err) {
                   return res.status(403).json({
                     status: 403,

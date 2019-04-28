@@ -3,16 +3,24 @@ import Validator from 'validator';
 import isEmpty from './isEmpty';
 
 const validateCreateBankAccountInput = (data) => {
-  let error;
+  const errors = {};
   data.amount = !isEmpty(data.amount) ? data.amount : '';
 
   if (Validator.isEmpty(data.amount)) {
-    error = 'Amount field cannot be blank';
+    errors.amount = 'Amount field cannot be blank';
+  }
+
+  if (!Validator.isDecimal(data.amount)) {
+    errors.amount = 'Please enter a valid amount';
+  }
+
+  if (data.amount.includes('e') || data.amount.includes('f')) {
+    errors.amount = 'Please enter a valid amount';
   }
 
   return {
-    error,
-    isValid: isEmpty(error),
+    errors,
+    isValid: isEmpty(errors),
   };
 };
 

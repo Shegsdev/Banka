@@ -30,6 +30,13 @@ const Auth = {
         isAdmin: user.rows[0].is_admin,
       };
     } catch (error) {
+      // eslint-disable-next-line eqeqeq
+      if (error == 'TokenExpiredError: jwt expired') {
+        return res.status(403).json({
+          status: 403,
+          error: 'Session expired. Please sign in again',
+        });
+      }
       return res.status(500).json({
         status: 500,
         error: `Something went wrong - ${error}`,
