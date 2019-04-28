@@ -113,6 +113,9 @@ const AccountsController = {
             error: 'Acount does not exist',
           });
         }
+        if (account.rows[0].owner !== req.user.id) {
+          return res.status(403).json({ status: 403, err: 'Unauthorized access' });
+        }
         return res.status(200).json({ status: 200, data: account.rows });
       })
       .catch(err => res.status(500).json({
