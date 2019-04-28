@@ -1,6 +1,8 @@
 import debug from 'debug';
 import express from 'express';
 import bodyParser from 'body-parser';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
 
 import {
   authRoute,
@@ -14,6 +16,31 @@ const log = debug('express:server');
 const app = express();
 app.set('port', process.env.PORT || 5000);
 
+const swaggerDefinition = {
+  info: {
+    title: 'Banka API',
+    version: '1.0.0',
+    // eslint-disable-next-line comma-dangle
+    description: 'API docs for Banka Application'
+  },
+  securityDefinitions: {
+    bearerAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      scheme: 'bearer',
+      in: 'header',
+    },
+  },
+};
+
+const options = {
+  swaggerDefinition,
+  apis: ['./api-docs/*.yaml'],
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
 app.get('/api/v1', (req, res) => {
   res.status(200).send({
     status: 200,
@@ -21,11 +48,9 @@ app.get('/api/v1', (req, res) => {
   });
 });
 
-// bodyParser, parses the request body to be a readable json format
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// append /api to http requests
 app.use('/api/v1', [usersRoute, accountsRoute, authRoute, transactionsRoute]);
 
 // Custom 404 route

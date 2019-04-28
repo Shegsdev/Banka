@@ -1,0 +1,119 @@
+paths:
+  /api/v1/transactions/{accountNumber}/credit:
+    post:
+      tags:
+        - staff
+      summary: Create a new credit transaction
+      description: Credit the provided account number with the provided amount
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountNumber
+          required: true
+        - in: header
+          name: cashier
+        - in: body
+          name: amount
+          description: amount to be credited to account
+          required: true        
+          schema:
+            $ref: '#/definitions/transactions'
+      responses:
+        201:
+          description: Transaction successful
+        400:
+          description: Invalid transaction details
+        404:
+          description: Account does not exist
+        401:
+          description: CashierId provided not authorized
+
+  /api/v1/transactions/{accountNumber}/debit:
+    post:
+      tags:
+        - staff
+      summary: create a new debit transaction
+      description: debits the provided account number with the provided amount
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: amount
+          description: amount to be debited from account
+        - in: path
+          name: accountNumber
+        - in: header
+          name: cashier
+          schema:
+            $ref: '#/definitions/transactions'
+      responses:
+        201:
+          description: Transaction successful
+        400:
+          description: Invalid transaction details
+        404:
+          description: Account does not exist
+        401:
+          description: CashierId provided not authorized
+
+  /api/v1/accounts/{accountNumber}/transactions:
+    get:
+      tags:
+        - users
+        - client
+      summary: Get all transaction history of an account
+      description: Get all transaction history of the provided client
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountNumber
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Success
+        404:
+          description: Account does not exist
+        403:
+          description: User not authorized
+
+  /api/v1/transactions/{transactionId}:
+    get:
+      tags:
+        - users
+      summary: Gets a specific transaction of a particular account
+      description: Provides clients with a specific transaction performed on their account
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: transactionId
+          description: transaction id
+          type: integer
+          required: true
+      responses:
+        200:
+          description: success
+        403:
+          description: Forbidden
+
+definitions:
+  transactions:
+    type: object
+    required:
+      - amount
+      - accountNumber
+    properties:
+      amount:
+        type: integer
+        example: 2999.99

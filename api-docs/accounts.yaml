@@ -1,0 +1,160 @@
+paths:
+  /api/v1/accounts:
+    post:
+      tags:
+        - client
+      summary: Creates a new bank account for clients
+      description: When valid details are provided, a new bank account is created for the user
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: accountDetails
+          description: details account to be created
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        201:
+          description: Account created successfully
+        400:
+          description: Invalid details
+        401:
+          description: Unauthenticated user
+        500:
+          description: Internal server error
+    get:
+      tags:
+        - staff
+        - admin
+      summary: Gets all bank accounts
+      description: Allows staff and admin view all bank accounts
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+        403:
+          description: Forbidden
+  /api/v1/accounts/{accountNumber}:
+    patch:
+      tags:
+        - admin
+      summary: Changes an account's status
+      description: New accounts are draft by default. An authorized staff can alter the account status via this endpoint
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountNumber
+          description: account number to be modified
+          type: integer
+          required: true
+        - in: body
+          name: status
+          description: New account status
+          schema:
+            $ref: '#/definitions/status'
+      responses:
+        200:
+          description: Status changed successfully
+        404:
+          description: Account does not exist
+        403:
+          description: User not authorized.
+        400:
+          description: Status not provided
+    delete:
+      tags:
+        - staff
+        - admin
+      summary: Deletes an account
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: accountNumber
+          description: account number
+          type: integer
+          required: true
+      responses:
+        200:
+          description: Account deleted successfully
+        403:
+          description: Invalid token. Please sign in
+    get:
+      tags:
+      - users
+      summary: Gets the details of an account
+      description: Provides clients with details of their own account and staff with details of any account
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: accountNumber
+        description: account number
+        type: integer
+        required: true
+      responses:
+        200:
+          description: Success
+        403:
+          description: Forbidden
+
+  /api/v1/user/{userEmailAddress}/accounts:
+    get:
+      tags:
+        - staff
+        - admin
+      summary: Views all accounts owned by a specific user (client)
+      description: When an authorized user is signed in, a request can made to this route to get all bank accounts belonging to a particular client
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+        403:
+          description: Forbidden
+        500:
+          description: Internal server error
+
+definitions:
+  account:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - email
+    - type
+    properties:
+      firstName:
+        type: string
+        example: Joey
+      lastName:
+        type: string
+        example: Oscar
+      email:
+        type: string
+        example: j_oscar@swagger.com
+      type:
+        type: string
+        example: savings
+  status:
+    type: object
+    required:
+    - status
+    properties:
+      status:
+        type: string
+        example: active

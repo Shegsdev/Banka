@@ -1,0 +1,114 @@
+paths:
+  /api/v1/auth/signup:
+    post:
+      tags:
+        - users
+      summary: Creates a new user
+      description: |
+        By passing the required parameters, you can create a user account
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: User to be created
+          schema:
+            $ref: '#/definitions/signUp'
+      responses:
+        201:
+          description: User created
+        409:
+          description: Conflict, user with provided email already exists
+        500:
+          description: Internal server error
+
+  /api/v1/auth/signin:
+    post:
+      tags:
+        - users
+      summary: Signs in a user
+      description: By passing the required parameters, you can log a user in
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: signin
+          description: Sign in details
+          schema:
+            $ref: '#/definitions/signIn'
+      responses:
+        200:
+          description: User logged in
+        404:
+          description: Not found, user with provided email does not exist
+        500:
+          description: Internal server error
+
+  /api/v1/users:
+    get:
+      tags:
+        - users
+      summary: Get all registered users
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Success
+        500:
+          description: Internal server error
+
+  /api/v1/users/{id}:
+      get:
+        tags:
+          - admin
+          - staff
+        summary: Get a specific user
+        security:
+          - bearerAuth: []
+        produces:
+          - application/json
+        responses:
+          200:
+            description: Success
+          404:
+            description: Not found, user does not exist
+          500:
+            description: Internal server error
+
+definitions:
+  signUp:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+      - password
+    properties:
+      firstName:
+        type: string
+        example: Ave
+      lastName:
+        type: string
+        example: Maria
+      email:
+        type: string
+        example: taylor_otwell@laravel.com
+      password:
+        type: string
+        example: passphrase
+  signIn:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      email:
+        type: string
+        example: taylor_otwell@laravel.com
+      password:
+        type: string
+        example: passphrase

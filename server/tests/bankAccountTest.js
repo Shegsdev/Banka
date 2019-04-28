@@ -136,7 +136,7 @@ describe('Change bank account status', () => {
       .end((_err, res) => {
         expect(res.body.status).to.equal(400);
         expect(res.body.error).to.be.a('string');
-        expect(res.body.error).to.equal('Account number or status not provided');
+        expect(res.body.error).to.equal('Account status not provided');
         done();
       });
   });
