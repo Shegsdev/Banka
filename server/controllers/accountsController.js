@@ -76,20 +76,38 @@ const AccountsController = {
    *
    * */
   findAll(req, res) {
-    Account.findAllById(res).then((accounts) => {
-      if (!accounts || accounts.rows.length < 1) {
-        return res.status(404).json({
-          status: 404,
-          error: 'No account found',
+    const { status } = req.query;
+    console.log(req.query)
+    if (req.query = '{}') {
+      Account.findAllById(res).then((accounts) => {
+        if (!accounts || accounts.rows.length < 1) {
+          return res.status(404).json({
+            status: 404,
+            error: 'No account found',
+          });
+        }
+        return res.status(200).json({
+          status: 200, data: accounts.rows,
         });
-      }
-      return res.status(200).json({
-        status: 200, data: accounts.rows,
-      });
-    })
+      })
       .catch(err => res.status(500).json({
         status: 500, error: `Could not fetch accounts. Please try again - ${err}`,
       }));
+    } else {
+      Account.findBy('status', status, res)
+        .then((accounts) => {
+          if (!accounts || accounts.rows.length < 1) {
+            return res.status(404).json({
+              status: 404,
+              error: 'Account does not exist',
+            });
+          }
+          return res.status(200).json({ status: 200, data: accounts.rows });
+        })
+        .catch(err => res.status(500).json({
+          status: 500, error: `Could not fetch accounts. Please try again - ${err}`,
+        }));
+    }
   },
 
   /**
@@ -110,7 +128,7 @@ const AccountsController = {
         if (!account || account.rows.length < 1) {
           return res.status(404).json({
             status: 404,
-            error: 'Acount does not exist',
+            error: 'Account does not exist',
           });
         }
         if (account.rows[0].owner !== req.user.id) {
