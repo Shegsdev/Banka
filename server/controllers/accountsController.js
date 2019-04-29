@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+import User from '../models/user';
 import Account from '../models/account';
 import Transaction from '../models/transaction';
 import validateCreateBankAccountInput from '../validation/bankAccount';
@@ -77,7 +78,6 @@ const AccountsController = {
    * */
   findAll(req, res) {
     const { status } = req.query;
-    console.log(req.query)
     if (req.query = '{}') {
       Account.findAllById(res).then((accounts) => {
         if (!accounts || accounts.rows.length < 1) {
@@ -140,6 +140,41 @@ const AccountsController = {
         status: 500,
         error: `Could not find account ${err}`,
       }));
+  },
+
+  /**
+   * @description - Find all bank account of specific user
+   *
+   * @param  {object} req - request
+   *
+   * @param  {object} res - response
+   *
+   * @return {json} - jsonObject containing status code and or error
+   *
+   * Route: GET: /user/:email/accounts
+   *
+   * */
+  async findByEmail(req, res) {
+    try {
+      const user = await User.findBy('email', req.params.email, res);
+
+      Account.findBy('owner', user.rows[0].id, res)
+        .then((account) => {
+          if (!account || account.rows.length < 1) {
+            return res.status(404).json({
+              status: 404,
+              error: 'No record found',
+            });
+          }
+          return res.status(200).json({ status: 200, data: account.rows });
+        })
+        .catch(err => res.status(500).json({
+          status: 500,
+          error: `Could not find account ${err}`,
+        }));
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Error fetching accounts' });
+    }
   },
 
   /**
