@@ -123,7 +123,14 @@ const AccountsController = {
    *
    * */
   findOne(req, res) {
-    Account.findBy('account_number', parseInt(req.params.accountNumber, 10), res)
+    const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
+    Account.findBy('account_number', parseInt(accountNumber, 10), res)
       .then((account) => {
         if (!account || account.rows.length < 1) {
           return res.status(404).json({
@@ -166,6 +173,13 @@ const AccountsController = {
               error: 'No record found',
             });
           }
+          if (req.user.id !== account.rows[0].owner
+              && !req.user.isStaff && !req.user.isAdmin) {
+            return res.status(403).json({
+              status: 403,
+              error: 'You are not allowed to view this page'
+            });
+          }
           return res.status(200).json({ status: 200, data: account.rows });
         })
         .catch(err => res.status(500).json({
@@ -190,6 +204,13 @@ const AccountsController = {
    *
    * */
   changeStatus(req, res) {
+    const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
     const { status } = req.body;
     if (status === undefined) {
       return res.status(400).json({
@@ -198,7 +219,14 @@ const AccountsController = {
       });
     }
 
-    return Account.findOneAndUpdate('account_number', parseInt(req.params.accountNumber, 10),
+    if (status !== 'active' && status !== 'dormant') {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid option',
+      });
+    }
+
+    return Account.findOneAndUpdate('account_number', parseInt(accountNumber, 10),
       { status }, res)
       .then((result) => {
         if (!result || result.rows.length < 1) {
@@ -235,7 +263,13 @@ const AccountsController = {
    *
    * */
   async creditAccount(req, res) {
-    const accountNumber = parseInt(req.params.accountNumber, 10);
+    const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
     let { amount } = req.body;
     amount = parseFloat(amount);
     const { errors, isValid } = validateTransactionInput(req.body);
@@ -303,7 +337,13 @@ const AccountsController = {
    *
    * */
   async debitAccount(req, res) {
-    const accountNumber = parseInt(req.params.accountNumber, 10);
+    const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
     let { amount } = req.body;
     amount = parseFloat(amount);
     const { error, isValid } = validateTransactionInput(req.body);
@@ -378,14 +418,21 @@ const AccountsController = {
    *
    * */
   delete(req, res) {
-    if (!req.params.accountNumber) {
+    const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
+    if (!accountNumber) {
       res.status(400).json({
         status: 400,
         error: 'Account number not provided',
       });
     }
 
-    Account.findOneAndDelete('account_number', parseInt(req.params.accountNumber, 10), res)
+    Account.findOneAndDelete('account_number', parseInt(accountNumber, 10), res)
       .then((result) => {
         if (!result || result.rows.length < 1) {
           return res.status(404).json({

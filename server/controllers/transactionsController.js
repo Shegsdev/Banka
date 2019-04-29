@@ -16,6 +16,12 @@ const TransactionsController = {
    * */
   async findAll(req, res) {
     const { accountNumber } = req.params;
+    if (/[A-Za-z]+/g.test(accountNumber)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'Invalid account number',
+      });
+    }
     if (!accountNumber || accountNumber.toString().length < 13) {
       return res.status(400).json({ status: 400, error: 'Invalid account number' });
     }

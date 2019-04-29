@@ -50,8 +50,8 @@ const SigninController = {
         bcrypt.compare(password, result.rows[0].password)
           .then((isMatch) => {
             if (isMatch) {
-              const payload = result.rows[0];
-              jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+              const user = result.rows[0];
+              jwt.sign({ id: user.id, type: user.type }, secret, { expiresIn: '1h' }, (err, token) => {
                 if (err) {
                   return res.status(403).json({
                     status: 403,
@@ -62,10 +62,10 @@ const SigninController = {
                   status: 200,
                   data: {
                     token,
-                    id: payload.id,
-                    firstName: payload.firstname,
-                    lastName: payload.lastname,
-                    email: payload.email,
+                    id: user.id,
+                    firstName: user.firstname,
+                    lastName: user.lastname,
+                    email: user.email,
                   },
                 });
               });
