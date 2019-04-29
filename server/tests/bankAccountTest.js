@@ -141,3 +141,37 @@ describe('Change bank account status', () => {
       });
   });
 });
+
+describe('Get all accounts of a specific user', () => {
+  let token;
+  let email;
+  before((done) => {
+    api.post('/api/v1/auth/signin')
+      .send(staff)
+      .end((_err, res) => {
+        token = res.body.data.token;
+        done();
+      });
+  });
+  before((done) => {
+    api.get('/api/v1/users')
+      .set('x-access-token', token)
+      .end((_err, res) => {
+        email = res.body.data[4].email;
+        done();
+      });
+  });
+  it('should return all accounts of user', (done) => {
+    api.get(`/api/v1/user/${email}/accounts`)
+      .set('x-access-token', token)
+      .end((_err, res) => {
+        expect(res.body.status).to.equal(200);
+        expect(res.body.data[0]).to.have.property('owner');
+        expect(res.body.data[0]).to.have.property('type');
+        expect(res.body.data[0]).to.have.property('status');
+        expect(res.body.data[0]).to.have.property('balance');
+        expect(res.body.data[0]).to.have.property('account_number');
+        done();
+      });
+  });
+});
