@@ -66,9 +66,9 @@ const SignupController = {
               error: 'An error occured. Please try again',
             })
           }
-          const payload = result.rows[0];
+          const user = result.rows[0];
           // eslint-disable-next-line consistent-return
-          jwt.sign(payload, secret, { expiresIn: '1h' }, (err, token) => {
+          jwt.sign({ id: user.id, type: user.type }, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
               return res.status(403).json({
                 status: 403,
@@ -79,10 +79,10 @@ const SignupController = {
               status: 201,
               data: {
                 token,
-                id: payload.id,
-                firstName: payload.firstname,
-                lastName: payload.lastname,
-                email: payload.email,
+                id: user.id,
+                firstName: user.firstname,
+                lastName: user.lastname,
+                email: user.email,
               },
             });
           });

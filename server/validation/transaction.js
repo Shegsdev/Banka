@@ -2,9 +2,13 @@
 import Validator from 'validator';
 import isEmpty from './isEmpty';
 
-const validateCreateBankAccountInput = (data) => {
+const validateTransactionInput = (data) => {
   const errors = {};
   data.amount = !isEmpty(data.amount) ? data.amount : '';
+
+  if (parseFloat(data.amount, 10) < 0.1) {
+    errors.amount = 'Please enter a valid amount';
+  }
 
   if (Validator.isEmpty(data.amount)) {
     errors.amount = 'Amount field cannot be blank';
@@ -14,7 +18,7 @@ const validateCreateBankAccountInput = (data) => {
     errors.amount = 'Please enter a valid amount';
   }
 
-  if (data.amount.includes('e') || data.amount.includes('f')) {
+  if (/[A-Za-z]+/g.test(data.amount)) {
     errors.amount = 'Please enter a valid amount';
   }
 
@@ -24,4 +28,4 @@ const validateCreateBankAccountInput = (data) => {
   };
 };
 
-export default validateCreateBankAccountInput;
+export default validateTransactionInput;

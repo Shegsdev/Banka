@@ -87,6 +87,13 @@ const UsersController = {
       firstName, lastName, password, type,
     } = req.body;
 
+    if (!type || type === '') {
+      return res.status(400).json({
+        status: 400,
+        error: 'Please select user type',
+      });
+    }
+
     const {
       errors, isValid,
     } = validateSignUpInput(req.body);
@@ -117,18 +124,18 @@ const UsersController = {
 
       User.save(newStaff)
         .then((result) => {
-          const payload = result.rows[0];
+          const user = result.rows[0];
           if (type === 'staff') {
-            User.findOneAndUpdate('id', payload.id, { is_staff: true }, res)
+            User.findOneAndUpdate('id', user.id, { is_staff: true }, res)
               .then(() => {});
           }
           if (type === 'admin') {
-            User.findOneAndUpdate('id', payload.id, { is_admin: true }, res)
+            User.findOneAndUpdate('id', user.id, { is_admin: true }, res)
               .then(() => {});
           }
 
           // eslint-disable-next-line consistent-return
-          jwt.sign(payload, secret, { expiresIn: '7h' }, (err, token) => {
+          jwt.sign({ id: user.id, type: user.type }, secret, { expiresIn: '7h' }, (err, token) => {
             if (err) {
               return res.status(403).json({
                 status: 403,
@@ -141,12 +148,12 @@ const UsersController = {
               status: 201,
               data: {
                 token,
-                id: payload.id,
-                firstName: payload.firstname,
-                lastName: payload.lastname,
-                email: payload.email,
-                type: payload.type,
-                isAdmin: payload.isAdmin,
+                id: user.id,
+                firstName: user.firstname,
+                lastName: user.lastname,
+                email: user.email,
+                type: user.type,
+                isAdmin: user.isAdmin,
               },
             });
           });
