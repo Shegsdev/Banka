@@ -48,8 +48,8 @@ ___
 ___
 
 ## API Information
-The API for this application is documented using [Swagger](https://surebanka.herokuapp.com/api-docs)
-The API endpoints are hosted on Heroku - [Banka](https://surebanka.herokuapp.com/api/v1)
+- The API for this application is documented using [Swagger](https://surebanka.herokuapp.com/api/docs)
+- The API endpoints are hosted on Heroku - [Banka](https://surebanka.herokuapp.com/api/v1)
 
 |METHOD  |DESCRIPTION                             |ENDPOINT                                            |
 |------- |----------------------------------------|----------------------------------------------------|
