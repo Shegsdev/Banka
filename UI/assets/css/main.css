@@ -1,15 +1,18 @@
 body {
 	font-size: 18px;
-	font-family: 'Roboto';
+	font-family: -apple-system, 
+                  BlinkMacSystemFont,
+                  "Oxygen", "Laksaman",
+                  "Ubuntu", "Roboto", sans-serif;
 	margin: 0;
 }
 
-body a, ul a li, ul li {
- 	transition: 0.2s all;
-	-webkit-transition: 0.2s all;
-	-moz-transition: 0.2s all;
-	-o-transition: 0.2s all;
-}
+/*body a, ul a li, ul li {
+ 	transition: 0.1s all;
+	-webkit-transition: 0.1s all;
+	-moz-transition: 0.1s all;
+	-o-transition: 0.1s all;
+}*/
 
 h1 {
 	color: #e7e7e9;
@@ -59,12 +62,19 @@ select {
 }
 
 .toast {
-	padding: 20px;
-	background-color: #b8fdb8;
-	border: 1px solid green;
+	background-color: #fff;
+	border: none;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
 	color: green;
 	display: none;
+	padding: 20px;
+	position: absolute;
 	text-align: center;
+	top: 10px;
+	right: 10px;
+}
+.toast img {
+	width: 30%;
 }
 
 .header:first-letter {
@@ -207,7 +217,9 @@ select {
 }
 
 .hero-landing {
-	background-color: teal;
+	background-image: url('../img/hero.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 .main .account, .main .contact-us, .main .about-us {
@@ -222,6 +234,8 @@ select {
 .hero-copy h1 {
 	font-size: 70px;
 	margin-bottom: 0;
+	mix-blend-mode: overlay;
+	opacity: .8;
 }
 .hero-copy p {
 	color: #fff;
@@ -230,7 +244,7 @@ select {
 }
 
 .no-hero {
-	background-color: teal;
+	background: none;
 }
 
 nav {
@@ -243,6 +257,7 @@ nav ul li {
 	color: #e7e7e9;
 	cursor: pointer;
 	display: inline-flex;
+	font-weight: 600;
 	padding: 10px;
 	margin-right: 20px;
 	text-transform: uppercase;
@@ -254,13 +269,14 @@ nav ul li a {
 
 nav ul .active {
 	color: #f5f5f5;
-	border-bottom: 5px solid #e7e7e9;
+	border-bottom: 2px solid rgb(0, 124, 195);
 }
 
 nav ul li:last-child {
-	border: 1px solid #e7e7e9;
-	border-radius: 12px;
-	padding: 3px 18px;
+	background: rgb(0, 124, 195);
+	border: 1px solid rgb(0, 124, 195);
+	color: #e7e7e9;
+	padding: 10px 18px;
 
 }
 
@@ -269,7 +285,7 @@ nav ul li:last-child:hover {
 }
 
 nav ul li:hover:not(:last-child) {
-	border-bottom: 5px solid #e7e7e9;
+	border-bottom: 2px solid rgb(0, 124, 195);
 }
 
 .main section header {
@@ -279,9 +295,11 @@ nav ul li:hover:not(:last-child) {
 }
 
 .main .landing {
-	background-image: url(../img/img_1.jpg);
+	/*background-image: url(../img/img_1.jpg);*/
+	background-image: url(../img/laptop.jpg);
+	background-position: right;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	background-attachment: fixed;
 	height: 600px;
 }
@@ -301,7 +319,7 @@ nav ul li:hover:not(:last-child) {
 }
 
 .main .main-content article button {
-	background: teal;
+	background: rgb(0, 99, 156);
 	border: none;
 	color: #fff;
 	cursor: pointer;
@@ -311,7 +329,7 @@ nav ul li:hover:not(:last-child) {
 	padding: 15px 25px;
 }
 .main .main-content article button:hover {
-	background: rgb(0, 99, 156);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18);
 }
 
 .main-showcase {
@@ -348,9 +366,10 @@ nav ul li:hover:not(:last-child) {
 }
 
 .auth-page .banner {
-	background: teal;
-	font-size: 50px;
-	padding: 30px;
+	background-image: url('../img/undraw_access_account_99n5.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
 }
 
 .auth-page .banner #logo {
@@ -361,8 +380,8 @@ nav ul li:hover:not(:last-child) {
 	color: #fff;
 }
 
-.auth-page .banner p {
-	font-size: 25px;
+.auth-page .banner h1 {
+	padding-right: 78px;
 }
 
 .form {
@@ -550,7 +569,7 @@ input::placeholder {
 }
 
 .ad-main .card-content img {
-	width: 40%;
+	width: 50%;
 }
 
 .ad-main .card button {
@@ -640,7 +659,7 @@ input::placeholder {
 
 .footer {
 	color: #fff;
-	background: teal;
+	background: rgb(0, 124, 195);
 	padding: 10px 0;
 	text-align: center;
 	margin-top: 250px;

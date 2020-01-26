@@ -43,10 +43,13 @@
     }
     .hero-copy h1 {
         margin: 0;
+        color: #0d0d0d;
+        mix-blend-mode: color-burn;
     }
     .hero-copy p {
         font-size: 16px;
         margin-top: 5px;
+        color: #0d0d0d;
     }
     .main section header {
         margin: 80px auto;
@@ -78,8 +81,10 @@
         display: inline-block;
     }
     .auth-page .banner {
-        font-size: 40px;
         padding: 22px;
+    }
+    .auth-page .banner h1 {
+        display: none;
     }
 
     .back {

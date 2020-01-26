@@ -25,15 +25,8 @@ window.onscroll = function () {
     // nav-links list
     for (const l of Array.from(list)) {
       const el = l.children[0];
-      // Handle login link
-      if (el.tagName === 'LI') el.style.borderColor = 'rgb(0, 124, 195)';
-      el.style.color = 'rgb(0, 124, 195)';
-    }
-    // active link border-bottom
-    for (const l of list) {
-      if (l.className === 'active') {
-        l.style.borderColor = 'rgb(0, 124, 195)';
-      }
+      if (el.tagName === 'LI') el.style.color = '#e7e7e9';
+      else el.style.color = 'rgb(0, 124, 195)';
     }
   }
   if (window.scrollY < 50) {
@@ -43,18 +36,15 @@ window.onscroll = function () {
     nav.style.transition = 'none';
     nav.style.boxShadow = '0 0px 0px 0px rgb(255, 255, 255)';
 
-    bars.style.color = '#fff';
+    bars.style.color = 'rgb(0, 147, 221)';
 
     for (const l of Array.from(list)) {
       const el = l.children[0];
-      if (el.tagName === 'LI') el.style.borderColor = '#e7e7e9';
-      el.style.color = '#e7e7e9';
-    }
-
-    for (const l of list) {
-      if (l.className === 'active') {
-        l.style.borderColor = '#e7e7e9';
-      }
+      if (el.tagName === 'LI') {
+        el.style.background = 'rgb(0, 124, 195)';
+        el.style.borderColor = 'rgb(0, 124, 195)';
+        el.style.color = '#e7e7e9';}
+      else el.style.color = '#e7e7e9';
     }
   }
 };
