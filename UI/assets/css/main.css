@@ -276,7 +276,7 @@ nav ul li:last-child {
 	background: rgb(0, 124, 195);
 	border: 1px solid rgb(0, 124, 195);
 	color: #e7e7e9;
-	padding: 3px 18px;
+	padding: 10px 18px;
 
 }
 
@@ -295,9 +295,11 @@ nav ul li:hover:not(:last-child) {
 }
 
 .main .landing {
-	background-image: url(../img/img_1.jpg);
+	/*background-image: url(../img/img_1.jpg);*/
+	background-image: url(../img/laptop.jpg);
+	background-position: right;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: contain;
 	background-attachment: fixed;
 	height: 600px;
 }
