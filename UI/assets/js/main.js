@@ -11,7 +11,7 @@ const showToast = () => {
   setTimeout(() => {
     toast.style.display = 'none';
     window.location.reload();
-  }, 3000);
+  }, 2000);
 }
 
 function modalOpen(bool, action = 'undefined') {
