@@ -1,7 +1,12 @@
+@font-face {
+  font-family: laks;
+  src: url(../laksaman.ttf);
+}
+
 body {
 	font-size: 18px;
 	font-family: -apple-system, 
-                  BlinkMacSystemFont,
+                  BlinkMacSystemFont, laks,
                   "Oxygen", "Laksaman",
                   "Ubuntu", "Roboto", sans-serif;
 	margin: 0;
@@ -276,7 +281,7 @@ nav ul li:last-child {
 	background: rgb(0, 124, 195);
 	border: 1px solid rgb(0, 124, 195);
 	color: #e7e7e9;
-	padding: 10px 18px;
+	padding: 6px 15px;
 
 }
 
