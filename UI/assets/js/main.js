@@ -4,15 +4,33 @@
 const modal = document.querySelector('.ad-modal');
 const modalContent = document.querySelector('.modal-content');
 
-const showToast = () => {
+const showToast = (status, message = status) => {
   const toast = document.querySelector('.toast');
+  let tag;
+  if (toast.children.length === 1) {
+    tag = document.createElement('figcaption');
+  } else {
+    // eslint-disable-next-line prefer-destructuring
+    tag = toast.children[1];
+  }
+  tag.innerHTML = message;
+  if (status) {
+    toast.children[0].src = '../assets/img/check-mark.gif';
+    toast.classList.remove('toast-error');
+    toast.classList.add('toast-success');
+  }
+  if (!status) {
+    toast.children[0].src = '../assets/img/cross-mark.jpg';
+    toast.classList.remove('toast-success');
+    toast.classList.add('toast-error');
+  }
+  toast.appendChild(tag);
   toast.style.display = 'block';
-  modalOpen(false);
+  // modalOpen(false);
   setTimeout(() => {
     toast.style.display = 'none';
-    window.location.reload();
   }, 2000);
-}
+};
 
 function modalOpen(bool, action = 'undefined') {
   modalContent.innerHTML = '';

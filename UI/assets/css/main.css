@@ -72,14 +72,18 @@ select {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
 	color: green;
 	display: none;
+	max-width: 20%;;
 	padding: 20px;
 	position: absolute;
 	text-align: center;
 	top: 10px;
 	right: 10px;
 }
+.toast.toast-error {
+	color: red;
+}
 .toast img {
-	width: 30%;
+	width: 20%;
 }
 
 .header:first-letter {

@@ -38,6 +38,9 @@
 		</section>
 
 		<section class="container form">
+			<div class="toast">
+				<img src="../assets/img/check-mark.gif" alt="check-mark">
+			</div>
 			<span class="back" onclick="window.history.back()">
 			    <i class="fas fa-arrow-left"></i>
 			</span>
@@ -78,24 +81,54 @@
 	</div>
 	
 	<script>
-		let div = document.querySelector('.auth-page');
-		div.style.height = window.innerHeight + "px";
+		window.onload = function() {
+			let div = document.querySelector('.auth-page');
+			div.style.height = window.innerHeight + "px";
+
+			// Check if user is logged in
+			const token = localStorage.getItem('token');
+			if (token) redirect.home();
+		}
 
 		// handle login
 		const handleLogin = (e) => {
 			const { email, password } = e.target;
-			
-			if (/admin/.test(email.value)) {
-				location.assign('./admin/home.html');
+			const data = { email: email.value, password: password.value };
+			const config = {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data)
 			}
-			else if (/staff/.test(email.value)) {
-				location.assign('./staff/home.html');
-			}
-			else location.assign('profile.html');
+			const url = new URL('http://localhost:5000/api/v1');
+			const user = fetch(`${url.href}/auth/signin/`, config)
+							.then(response => response.json())
+							.then(json => {
+								if (json.status < 300) {
+									// store token/user data into the browser local storage
+									localStorage.setItem('token', json.data.token);
+									localStorage.setItem('user', JSON.stringify({
+										id: json.data.id,
+										firstName: json.data.firstName,
+										lastName: json.data.lastName,
+										email: json.data.email
+									}));
+									redirect.home();
+									showToast(true, 'Login success');
+								} else {
+									showToast(false, json.error);
+								}
+							}).
+							catch(error => {
+								showToast(false, 'Try again');
+							});
 			
-		}
+		}		
+		
 	</script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/utils.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>

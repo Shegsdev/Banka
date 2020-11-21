@@ -39,7 +39,7 @@
 					<li><a href="./UI/pages/contact-us.html">Contact</a></li>
 					<li><a href="./UI/pages/about.html">About</a></li>
 					<li><a href="./UI/pages/help.html">Help</a></li>
-					<li><a href="./UI/pages/profile.html">Profile</a></li>
+					<!-- <li><a href="./UI/pages/profile.html">Profile</a></li> -->
 					<li><a href="./UI/pages/new-account.html">Get started</a></li>
 				</div>
 			</div>
@@ -111,8 +111,21 @@
 	</div>
 
 	<script>
-		let hero = document.querySelector('.hero');
-		hero.style.height = `${window.innerHeight}px`;
+
+		window.onload = function() {
+			let hero = document.querySelector('.hero');
+			hero.style.height = `${window.innerHeight}px`;
+
+			// Check if user is logged in
+			const token = localStorage.getItem('token');
+			if (token) {
+				const nav = document.querySelector('#nav');
+				const list = nav.children[1].children[0].children;
+
+				list[list.length -1 ].attributes.href.textContent = './UI/pages/admin/home.html';
+				list[list.length - 1].firstChild.innerHTML = 'my account';
+			}
+		}
 	</script>
 	<script src="./UI/assets/js/main.js"></script>
 	<script src="./UI/assets/js/partials.js"></script>
