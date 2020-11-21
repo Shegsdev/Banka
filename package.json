@@ -6,11 +6,11 @@
   "scripts": {
     "start": "babel-node server/server.js",
     "test": "npm run migration:seed && nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 40000 ./server/tests/*.js --exit",
-    "dev": "DEBUG=express:server node_modules/.bin/nodemon server/server.js --exec babel-node --",
+    "dev": "babel-node build.js",
     "coveralls": "nyc report --reporter=text-lcov cat ./coverage/lcov.info | coveralls",
-    "migration:create": "DEBUG=express:migration babel-node server/utils/createTables",
-    "migration:drop": "DEBUG=express:migration babel-node server/utils/dropTables",
-    "migration:seed": "DEBUG=express:migration babel-node server/database/seeders"
+    "migration:create": "set DEBUG=express:migration & babel-node server/utils/createTables",
+    "migration:drop": "set DEBUG=express:migration & babel-node server/utils/dropTables",
+    "migration:seed": "set DEBUG=express:migration & babel-node server/database/seeders"
   },
   "repository": {
     "type": "git",
