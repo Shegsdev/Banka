@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 
 export const uniqueID = (array) => {
@@ -25,3 +26,15 @@ export function hash(password) {
     });
   });
 }
+
+// Command line display
+export const output = (stream) => {
+  if (stream == null) return;
+  if (typeof stream === 'string') console.log(stream);
+  else {
+    stream.stdout.on('data', (data) => { console.log(`stdout: ${data}`); });
+    stream.stderr.on('data', (data) => { console.log(`stderr: ${data}`); });
+    stream.on('error', (error) => { console.log(`error: ${error}`); });
+    stream.on('close', code => console.log(`child process exited with code ${code}`));
+  }
+};

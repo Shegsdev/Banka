@@ -1,16 +1,14 @@
 {
   "name": "banka",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A light-weight core banking application that powers banking operations.",
   "main": "server.js",
   "scripts": {
     "start": "babel-node server/server.js",
-    "test": "npm run migration:seed && nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 40000 ./server/tests/*.js --exit",
+    "test": "npm run migration seed && nyc --reporter=lcov --reporter=text mocha --require babel-register --timeout 40000 ./server/tests/*.js --exit",
     "dev": "babel-node build.js",
     "coveralls": "nyc report --reporter=text-lcov cat ./coverage/lcov.info | coveralls",
-    "migration:create": "set DEBUG=express:migration & babel-node server/utils/createTables",
-    "migration:drop": "set DEBUG=express:migration & babel-node server/utils/dropTables",
-    "migration:seed": "set DEBUG=express:migration & babel-node server/database/seeders"
+    "migration": "babel-node server/utils/env.js"
   },
   "repository": {
     "type": "git",
