@@ -7,13 +7,15 @@ import {
   missingEmail,
   missingPassword,
 } from '../database/factories/userFactory';
+import { getAppUrl } from '../utils/helpers';
 
-const api = supertest('http://localhost:5000');
+const url = getAppUrl();
+const api = supertest(url.origin);
 
 describe('Create new user account', () => {
-  describe('POST /api/v1/auth/signup', () => {
+  describe('POST /api/v2/auth/signup', () => {
     it('should return status code 201 on success', (next) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send({
           firstName: 'Joel',
           lastName: 'joel',
@@ -35,7 +37,7 @@ describe('Create new user account', () => {
         });
     });
     it('should return error due to registered email', (next) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send({
           firstName: 'Joi',
           lastName: 'joi',
@@ -44,13 +46,13 @@ describe('Create new user account', () => {
         })
         .end((err, res) => {
           expect(res.body.error).to.be.a('string');
-          expect(res.body.status).to.equal(409);
-          expect(res.body.error).to.equal('Account already exists');
+          expect(res.body.status).to.equal(422);
+          expect(res.body.error).to.equal('User already exists');
           next();
         });
     });
     it('should return return error due to missing firstname', (done) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send(missingFirstname)
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');
@@ -60,7 +62,7 @@ describe('Create new user account', () => {
         });
     });
     it('should return error due to missing lastname', (done) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send(missingLastname)
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');
@@ -70,7 +72,7 @@ describe('Create new user account', () => {
         });
     });
     it('should return error due to missing email', (done) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send(missingEmail)
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');
@@ -80,7 +82,7 @@ describe('Create new user account', () => {
         });
     });
     it('should return error due to missing password', (done) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send(missingPassword)
         .end((err, res) => {
           expect(res.body.error).to.be.a('object');

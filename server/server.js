@@ -19,7 +19,7 @@ app.set('port', process.env.PORT || 5000);
 const swaggerDefinition = {
   info: {
     title: 'Banka API',
-    version: '1.0.0',
+    version: '2.0.0',
     // eslint-disable-next-line comma-dangle
     description: 'API docs for Banka Application'
   },
@@ -41,17 +41,17 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
-app.get('/api/v1', (req, res) => {
+app.get('/api/v2', (req, res) => {
   res.status(200).send({
     status: 200,
-    data: 'Welcome to Banka API',
+    data: 'success',
   });
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/api/v1', [usersRoute, accountsRoute, authRoute, transactionsRoute]);
+app.use('/api/v2', [usersRoute, accountsRoute, authRoute, transactionsRoute]);
 
 // Custom 404 route
 app.use((req, res) => {

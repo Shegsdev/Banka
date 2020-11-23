@@ -58,9 +58,9 @@ const AccountsController = {
         });
       }
     }
-    return res.status(401).json({
-      status: 401,
-      error: 'Unauthorized access',
+    return res.status(403).json({
+      status: 403,
+      error: 'Account creation is for clients only.',
     });
   },
 
@@ -78,25 +78,23 @@ const AccountsController = {
    * */
   findAll(req, res) {
     const { status } = req.query;
-    if (req.query = '{}') {
+    if (req.query === '{}') {
       Account.findAllById(res).then((accounts) => {
-        if (!accounts || accounts.rows.length < 1) {
+        if (!accounts || !accounts.rows.length) {
           return res.status(404).json({
             status: 404,
             error: 'No account found',
           });
         }
-        return res.status(200).json({
-          status: 200, data: accounts.rows,
-        });
+        return res.status(200).json({ status: 200, data: accounts.rows });
       })
-      .catch(err => res.status(500).json({
-        status: 500, error: `Could not fetch accounts. Please try again - ${err}`,
-      }));
+        .catch(err => res.status(500).json({
+          status: 500, error: `Could not get accounts. Please try again - ${err}`,
+        }));
     } else {
       Account.findBy('status', status, res)
         .then((accounts) => {
-          if (!accounts || accounts.rows.length < 1) {
+          if (!accounts || !accounts.rows.length) {
             return res.status(404).json({
               status: 404,
               error: 'Account does not exist',
@@ -132,20 +130,20 @@ const AccountsController = {
     }
     Account.findBy('account_number', parseInt(accountNumber, 10), res)
       .then((account) => {
-        if (!account || account.rows.length < 1) {
-          return res.status(404).json({
-            status: 404,
+        if (!account || !account.rows.length) {
+          return res.status(401).json({
+            status: 401,
             error: 'Account does not exist',
           });
         }
         if (account.rows[0].owner !== req.user.id) {
-          return res.status(403).json({ status: 403, err: 'Unauthorized access' });
+          return res.status(403).json({ status: 403, err: 'You do not have the permission to this account.' });
         }
         return res.status(200).json({ status: 200, data: account.rows });
       })
       .catch(err => res.status(500).json({
         status: 500,
-        error: `Could not find account ${err}`,
+        error: `Could not find account, please try again - ${err}`,
       }));
   },
 
@@ -167,7 +165,7 @@ const AccountsController = {
 
       Account.findBy('owner', user.rows[0].id, res)
         .then((account) => {
-          if (!account || account.rows.length < 1) {
+          if (!account || !account.rows.length) {
             return res.status(404).json({
               status: 404,
               error: 'No record found',
@@ -177,14 +175,14 @@ const AccountsController = {
               && !req.user.isStaff && !req.user.isAdmin) {
             return res.status(403).json({
               status: 403,
-              error: 'You are not allowed to view this page'
+              error: 'Permission denied.',
             });
           }
           return res.status(200).json({ status: 200, data: account.rows });
         })
         .catch(err => res.status(500).json({
           status: 500,
-          error: `Could not find account ${err}`,
+          error: `Could not find account, please try again - ${err}`,
         }));
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Error fetching accounts' });
@@ -280,7 +278,7 @@ const AccountsController = {
     if (req.user.isStaff) {
       try {
         const account = await Account.findBy('account_number', accountNumber, res);
-        if (!account || account.rows.length < 1) {
+        if (!account || !account.rows.length) {
           return res.status(404).json({
             status: 404,
             error: 'Account does not exist',
@@ -354,7 +352,7 @@ const AccountsController = {
     if (req.user.isStaff) {
       try {
         const account = await Account.findBy('account_number', accountNumber, res);
-        if (!account || account.rows.length < 1) {
+        if (!account || !account.rows.length) {
           return res.status(404).json({
             status: 404,
             error: 'Account does not exist',
@@ -434,7 +432,7 @@ const AccountsController = {
 
     Account.findOneAndDelete('account_number', parseInt(accountNumber, 10), res)
       .then((result) => {
-        if (!result || result.rows.length < 1) {
+        if (!result || !result.rows.length) {
           return res.status(404).json({
             status: 404,
             error: 'Account does not exist',
