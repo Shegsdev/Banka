@@ -6,12 +6,17 @@ import { executer, output } from './helpers';
 const win = 'set DEBUG=express';
 const unix = 'DEBUG=express';
 
-// Get executed script
-const { original } = JSON.parse(process.env.npm_config_argv);
-const script = original[1];
+const scripts = {
+  migration: ['create', 'drop', 'seed'],
+};
 
-// Get command line args
+// Get script from command line
 const arg = process.argv[2];
+const scriptsArray = Object.keys(scripts);
+let script;
+scriptsArray.forEach((s) => {
+  if (scripts[s].includes(arg)) script = s;
+});
 
 if (script === 'migration') {
   let cmd;
@@ -22,11 +27,11 @@ if (script === 'migration') {
 
   switch (arg) {
     case 'create':
-      cmd = executer(prefix, script, 'babel-node', 'createTables');
+      cmd = executer(prefix, script, 'babel-node', 'server/utils/createTables');
       output(cmd);
       break;
     case 'drop':
-      cmd = executer(prefix, script, 'babel-node', 'dropTables');
+      cmd = executer(prefix, script, 'babel-node', 'server/utils/dropTables');
       output(cmd);
       break;
     case 'seed':
