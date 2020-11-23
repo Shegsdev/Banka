@@ -41,8 +41,9 @@ export const output = (stream) => {
 };
 
 export const getAppUrl = () => {
+  const url = process.env.APP_URL || 'http://localhost:5000/api/v2';
   config();
-  return new URL(process.env.APP_URL);
+  return new URL(url);
 };
 
 export const executer = (prefix, script, ...args) => {
