@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
+import os from 'os';
 import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
+
+const { spawn } = require('child_process');
 
 export const uniqueID = (array) => {
   if (array.length > 0) {
@@ -32,9 +36,17 @@ export const output = (stream) => {
   if (stream == null) return;
   if (typeof stream === 'string') console.log(stream);
   else {
-    stream.stdout.on('data', (data) => { console.log(`stdout: ${data}`); });
-    stream.stderr.on('data', (data) => { console.log(`stderr: ${data}`); });
-    stream.on('error', (error) => { console.log(`error: ${error}`); });
     stream.on('close', code => console.log(`child process exited with code ${code}`));
   }
+};
+
+export const getAppUrl = () => {
+  config();
+  return new URL(process.env.APP_URL);
+};
+
+export const executer = (prefix, script, ...args) => {
+  const options = { shell: true, stdio: 'inherit' };
+  if (os.type() === 'Windows_NT') args.unshift('&');
+  return spawn(`${prefix}:${script}`, args, options);
 };

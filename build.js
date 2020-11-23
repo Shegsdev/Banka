@@ -1,17 +1,21 @@
 import os from 'os';
-import { output } from './server/utils/helpers';
-
-const { spawn } = require('child_process');
+import { executer, output } from './server/utils/helpers';
 
 // OS specific prefix
-const win = 'set DEBUG=express:server';
-const unix = 'DEBUG=express:server';
+const win = 'set DEBUG=express:';
+const unix = 'DEBUG=express:';
+
+// Get executed script
+const { original } = JSON.parse(process.env.npm_config_argv);
+const script = original[1];
 
 // Execute script depending on OS
-if (os.type() === 'Linux' || os.type() === 'Darwin') {
-  const cmd = spawn(unix, ['node_modules/.bin/nodemon server/server.js --exec babel-node --'], { shell: true });
+if (script === 'dev' || script === 'start') {
+  let prefix;
+  if (os.type() === 'Windows_NT') prefix = win;
+  else if (os.type() === 'Linux' || os.type() === 'Darwin') prefix = unix;
+  else throw new Error(`Unsupported OS ${os.type()}`);
+
+  const cmd = executer(prefix, 'server', 'nodemon', 'server/server.js', '--exec', 'babel-node', '--');
   output(cmd);
-} else if (os.type() === 'Windows_NT') {
-  const cmd = spawn(win, ['& nodemon server/server.js --exec babel-node --'], { shell: true });
-  output(cmd);
-} else throw new Error(`Unsupported OS ${os.type()}`);
+}
