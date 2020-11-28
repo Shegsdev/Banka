@@ -151,17 +151,15 @@ describe('Get all accounts of a specific user', () => {
   before((done) => {
     api.post(`${url.pathname}/auth/signin`)
       .send(staff)
-      .end((_err, res) => {
+      .then((res) => {
         token = res.body.data.token;
-        done();
-      });
-  });
-  before((done) => {
-    api.get(`${url.pathname}/users`)
-      .set('x-access-token', token)
-      .end((_err, res) => {
-        email = res.body.data[4].email;
-        done();
+      }).then(() => {
+        api.get(`${url.pathname}/users`)
+          .set('x-access-token', token)
+          .end((_err, res) => {
+            email = res.body.data[4].email;
+            done();
+          });
       });
   });
   it('should return all accounts of user', (done) => {
