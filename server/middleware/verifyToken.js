@@ -9,8 +9,8 @@ const Auth = {
   async tokenVerify(req, res, next) {
     const token = req.headers['x-access-token'];
     if (!token) {
-      return res.status(403).json({
-        status: 403,
+      return res.status(401).json({
+        status: 401,
         error: 'Unable to verify token',
       });
     }
@@ -19,8 +19,8 @@ const Auth = {
       const decoded = await jwt.verify(token, process.env.SECRET);
       const user = await User.findById(decoded.id);
       if (user.rows[0].length < 1) {
-        res.status(401).json({
-          status: 401,
+        res.status(403).json({
+          status: 403,
           error: 'Invalid email or password',
         });
       }
@@ -32,8 +32,8 @@ const Auth = {
     } catch (error) {
       // eslint-disable-next-line eqeqeq
       if (error == 'TokenExpiredError: jwt expired' || error == 'invalid token') {
-        return res.status(403).json({
-          status: 403,
+        return res.status(401).json({
+          status: 401,
           error: 'Session expired. Please sign in again',
         });
       }

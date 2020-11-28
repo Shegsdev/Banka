@@ -1,4 +1,9 @@
+/* eslint-disable no-console */
+import os from 'os';
 import bcrypt from 'bcrypt';
+import { config } from 'dotenv';
+
+const { spawn } = require('child_process');
 
 export const uniqueID = (array) => {
   if (array.length > 0) {
@@ -25,3 +30,24 @@ export function hash(password) {
     });
   });
 }
+
+// Command line display
+export const output = (stream) => {
+  if (stream == null) return;
+  if (typeof stream === 'string') console.log(stream);
+  else {
+    stream.on('close', code => console.log(`child process exited with code ${code}`));
+  }
+};
+
+export const getAppUrl = () => {
+  const url = process.env.APP_URL || 'http://localhost:5000/api/v2';
+  config();
+  return new URL(url);
+};
+
+export const executer = (prefix, script, ...args) => {
+  const options = { shell: true, stdio: 'inherit' };
+  if (os.type() === 'Windows_NT') args.unshift('&');
+  return spawn(`${prefix}:${script}`, args, options);
+};

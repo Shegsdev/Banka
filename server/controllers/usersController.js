@@ -25,9 +25,9 @@ const UsersController = {
   findOne(req, res) {
     User.findBy('id', parseInt(req.params.id, 10), res)
       .then((user) => {
-        if (!user || user.rows.length < 1) {
-          return res.status(404).json({
-            status: 404,
+        if (!user || !user.rows.length) {
+          return res.status(403).json({
+            status: 403,
             error: 'User does not exist',
           });
         }
@@ -53,9 +53,9 @@ const UsersController = {
    * */
   findAll(req, res) {
     User.findAllById(res).then((users) => {
-      if (!users || users.rows.length < 1) {
-        return res.status(404).json({
-          status: 404,
+      if (!users || !users.rows.length) {
+        return res.status(403).json({
+          status: 403,
           error: 'No user found',
         });
       }
@@ -82,22 +82,18 @@ const UsersController = {
    *
    * */
   addStaff(req, res) {
-    let { email } = req.body;
     const {
-      firstName, lastName, password, type,
+      firstName, lastName, email, password, type,
     } = req.body;
 
-    if (!type || type === '') {
+    if (!type || type === '' || !type.length) {
       return res.status(400).json({
         status: 400,
         error: 'Please select user type',
       });
     }
 
-    const {
-      errors, isValid,
-    } = validateSignUpInput(req.body);
-
+    const { errors, isValid } = validateSignUpInput(req.body);
     if (!isValid) {
       return res.status(400).json({
         status: 400,
@@ -105,13 +101,13 @@ const UsersController = {
       });
     }
 
-    email = email.toLowerCase().trim();
+    const sanitizedEmail = email.toLowerCase().trim();
 
-    User.findBy('email', email, res)
+    User.findBy('email', sanitizedEmail, res)
       .then((result) => {
-        if (result.rows.length > 0) {
-          return res.status(409).json({
-            status: 409,
+        if (result.rows.length) {
+          return res.status(422).json({
+            status: 422,
             error: 'Account already exists',
           });
         }
@@ -119,7 +115,7 @@ const UsersController = {
 
     hash(password).then((hashed) => {
       const newStaff = {
-        email, firstName, lastName, password: hashed, type,
+        sanitizedEmail, firstName, lastName, password: hashed, type,
       };
 
       User.save(newStaff)
@@ -163,6 +159,60 @@ const UsersController = {
           error: `Something went wrong. Please try again - ${err}`,
         }));
     });
+  },
+
+  /**
+  * @description - Get user type
+  *
+  * @param  {object} req - request
+  *
+  * @param  {object} res - response
+  *
+  * @return {json} - jsonObject containing status and data
+  *
+  * Route: GET: /user/type
+  *
+  * */
+  async getType(req, res) {
+    const token = req.headers['x-access-token'];
+    if (!token) {
+      return res.status(401).json({
+        status: 401,
+        error: 'Unable to verify token',
+      });
+    }
+
+    try {
+      const decoded = await jwt.verify(token, process.env.SECRET);
+      const user = await User.findById(decoded.id, res);
+      if (!user.rows.length) {
+        res.status(403).json({
+          status: 403,
+          error: 'Unknown record, please sign in.',
+        });
+      }
+      return res.status(200).json({
+        status: 200,
+        data: {
+          id: user.rows[0].id,
+          type: user.rows[0].type,
+          isStaff: user.rows[0].is_staff,
+          isAdmin: user.rows[0].is_admin,
+        },
+      });
+    } catch (error) {
+      // eslint-disable-next-line eqeqeq
+      if (error == 'TokenExpiredError: jwt expired' || error == 'invalid token') {
+        return res.status(401).json({
+          status: 401,
+          error: 'Session expired. Please sign in again',
+        });
+      }
+      return res.status(500).json({
+        status: 500,
+        error: `Something went wrong - ${error}`,
+      });
+    }
   },
 };
 

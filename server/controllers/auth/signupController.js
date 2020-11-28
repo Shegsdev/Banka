@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../../models/user';
 import validateSignUpInput from '../../validation/authentication/signUp';
-import { hash /* setAuthToken */ } from '../../utils/helpers';
+import { hash } from '../../utils/helpers';
 
 config();
 
@@ -23,55 +23,50 @@ const SignupController = {
    *
    * */
   signup(req, res) {
-    let { email } = req.body;
     const {
-      firstName, lastName, password,
+      firstName, lastName, email, password,
     } = req.body;
-
-    const {
-      errors,
-      isValid,
-    } = validateSignUpInput(req.body);
+    const { errors, isValid } = validateSignUpInput(req.body);
 
     if (!isValid) {
       return res.status(400).json({ status: 400, error: errors });
     }
 
-    email = email.toLowerCase().trim();
+    const sanitizedEmail = email.toLowerCase().trim();
 
-    User.findBy('email', email, res)
+    User.findBy('email', sanitizedEmail, res)
       .then((result) => {
         if (result.rows.length > 0) {
-          return res.status(409).json({
-            status: 409,
-            error: 'Account already exists',
+          return res.status(422).json({
+            status: 422,
+            error: 'User already exists',
           });
         }
       })
-      .catch(err => res.status(500).json({
+      .catch(() => res.status(500).json({
         status: 500,
-        error: `An error occured. Please try again - ${err}`,
+        error: 'Please try again',
       }));
 
     hash(password).then((hashed) => {
       const newUser = {
-        firstName, lastName, email, password: hashed,
+        firstName, lastName, email: sanitizedEmail, password: hashed,
       };
 
       User.save(newUser)
         .then((result) => {
-          if (!result || result == 'undefined') {
+          if (!result || result === 'undefined') {
             return res.status(500).json({
               status: 500,
-              error: 'An error occured. Please try again',
-            })
+              error: 'Unable to create your account. Please try again',
+            });
           }
           const user = result.rows[0];
           // eslint-disable-next-line consistent-return
           jwt.sign({ id: user.id, type: user.type }, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
-              return res.status(403).json({
-                status: 403,
+              return res.status(401).json({
+                status: 401,
                 error: `Some error occured - ${err}`,
               });
             }

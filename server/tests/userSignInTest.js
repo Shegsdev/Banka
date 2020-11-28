@@ -1,9 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
 import supertest from 'supertest';
-import { user } from '../database/factories/userFactory';
+// import { user } from '../database/factories/userFactory';
+import { getAppUrl } from '../utils/helpers';
 
-const api = supertest('http://localhost:5000');
+const url = getAppUrl();
+const api = supertest(url.origin);
 
 const testUser = {
   firstName: 'mark',
@@ -13,16 +15,16 @@ const testUser = {
 };
 
 describe('Login user account', () => {
-  describe('POST /api/v1/auth/signin', () => {
+  describe('POST /api/v2/auth/signin', () => {
     before((done) => {
-      api.post('/api/v1/auth/signup')
+      api.post(`${url.pathname}/auth/signup`)
         .send(testUser)
         .end(() => {
           done();
         });
     });
     it('should return status code 200 on success', (done) => {
-      api.post('/api/v1/auth/signin')
+      api.post(`${url.pathname}/auth/signin`)
         .send({
           email: 'mark55@email.com',
           password: 'markhen',
@@ -42,15 +44,15 @@ describe('Login user account', () => {
     });
 
     it('should return error for invalid email', (done) => {
-      api.post('/api/v1/auth/signin')
+      api.post(`${url.pathname}/auth/signin`)
         .send({
           email: 'someemail@user.com',
           password: 'anypassword',
         })
         .end((_err, res) => {
-          expect(res.body.status).to.equal(404);
+          expect(res.body.status).to.equal(403);
           expect(res.body.error).to.be.a('string');
-          expect(res.body.error).to.equal('Account does not exist');
+          expect(res.body.error).to.equal('Sorry, that doesn\'t match any of our records');
           done();
         });
     });

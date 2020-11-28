@@ -11,12 +11,15 @@ import {
   invalidEmail,
 } from '../database/factories/userFactory';
 
-const api = supertest('http://localhost:5000');
+import { getAppUrl } from '../utils/helpers';
+
+const url = getAppUrl();
+const api = supertest(url.origin);
 
 describe('Create bank account', () => {
   let token;
   before((done) => {
-    api.post('/api/v1/auth/signup')
+    api.post(`${url.pathname}/auth/signup`)
       .send({
         firstName: 'Herman',
         lastName: 'Brook',
@@ -29,7 +32,7 @@ describe('Create bank account', () => {
       });
   });
   it('should create a bank account on success', (done) => {
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send({
         firstName: 'Herman',
@@ -49,7 +52,7 @@ describe('Create bank account', () => {
 
   it('should return error when first name is not provided', (done) => {
     missingFirstname.type = 'savings';
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send(missingFirstname)
       .end((_err, res) => {
@@ -62,7 +65,7 @@ describe('Create bank account', () => {
 
   it('should return error when last name is not provided', (done) => {
     missingLastname.type = 'savings';
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send(missingLastname)
       .end((_err, res) => {
@@ -75,7 +78,7 @@ describe('Create bank account', () => {
 
   it('should return error when email is not provided', (done) => {
     missingEmail.type = 'savings';
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send(missingEmail)
       .end((_err, res) => {
@@ -89,7 +92,7 @@ describe('Create bank account', () => {
 
   it('should return error when email is invalid', (done) => {
     invalidEmail.type = 'current';
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send(invalidEmail)
       .end((_err, res) => {
@@ -101,7 +104,7 @@ describe('Create bank account', () => {
   });
 
   it('should return error when type is not provided', (done) => {
-    api.post('/api/v1/accounts')
+    api.post(`${url.pathname}/accounts`)
       .set('x-access-token', token)
       .send({
         firstName: 'German',
@@ -121,7 +124,7 @@ describe('Create bank account', () => {
 describe('Change bank account status', () => {
   let token;
   before((done) => {
-    api.post('/api/v1/auth/signin')
+    api.post(`${url.pathname}/auth/signin`)
       .send(staff)
       .end((_err, res) => {
         token = res.body.data.token;
@@ -130,7 +133,7 @@ describe('Change bank account status', () => {
   });
   it('should return error when request details are incomplete', (done) => {
     const accountNumber = 1554798152466;
-    api.patch(`/api/v1/accounts/${accountNumber}`)
+    api.patch(`${url.pathname}/accounts/${accountNumber}`)
       .set('x-access-token', token)
       .send({})
       .end((_err, res) => {
@@ -146,23 +149,21 @@ describe('Get all accounts of a specific user', () => {
   let token;
   let email;
   before((done) => {
-    api.post('/api/v1/auth/signin')
+    api.post(`${url.pathname}/auth/signin`)
       .send(staff)
-      .end((_err, res) => {
+      .then((res) => {
         token = res.body.data.token;
-        done();
-      });
-  });
-  before((done) => {
-    api.get('/api/v1/users')
-      .set('x-access-token', token)
-      .end((_err, res) => {
-        email = res.body.data[4].email;
-        done();
+      }).then(() => {
+        api.get(`${url.pathname}/users`)
+          .set('x-access-token', token)
+          .end((_err, res) => {
+            email = res.body.data[4].email;
+            done();
+          });
       });
   });
   it('should return all accounts of user', (done) => {
-    api.get(`/api/v1/user/${email}/accounts`)
+    api.get(`${url.pathname}/user/${email}/accounts`)
       .set('x-access-token', token)
       .end((_err, res) => {
         expect(res.body.status).to.equal(200);

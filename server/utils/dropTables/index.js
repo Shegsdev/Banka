@@ -5,15 +5,26 @@ import transactionsSchema from '../../database/migrations/createTransactionsTabl
 
 const log = debug('express:migration');
 
+let progress;
 (function dropTables() {
-  return Promise.all([usersSchema.down(), accountsSchema.down(), transactionsSchema.down()])
-    .then(() => log('deleted users table successfully at', new Date()))
-    .then(setTimeout(() => {
-      log('deleted accounts table successfully at', new Date());
-    }, 2000))
-    .then(setTimeout(() => {
-      log('deleted transactions table successfully at', new Date());
-    }, 2000))
-    .catch(err => (err ? log('Error dropping table.', err)
-      : log('Migrations deleted successfully')));
+  try {
+    return Promise.all([usersSchema.down(), accountsSchema.down(), transactionsSchema.down()])
+      .then(() => {
+        log('deleted users table successfully at', new Date());
+        progress = 1;
+      })
+      .then(setTimeout(() => {
+        log('deleted accounts table successfully at', new Date());
+        progress = 2;
+      }, 2000))
+      .then(setTimeout(() => {
+        log('deleted transactions table successfully at', new Date());
+        progress = 3;
+      }, 2000))
+      .catch(err => (log('Error dropping table.', err)));
+  } finally {
+    if (progress === 3) {
+      log('Migrations deleted successfully');
+    }
+  }
 }());

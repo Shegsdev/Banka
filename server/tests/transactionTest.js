@@ -3,10 +3,11 @@
 import { expect } from 'chai';
 import supertest from 'supertest';
 
-import { admin, staff } from '../database/factories/userFactory';
+import { staff } from '../database/factories/userFactory';
+import { getAppUrl } from '../utils/helpers';
 
-
-const api = supertest('http://localhost:5000');
+const url = getAppUrl();
+const api = supertest(url.origin);
 
 describe('Get a specific transaction', () => {
   const userInfo = {
@@ -14,53 +15,53 @@ describe('Get a specific transaction', () => {
     lastName: 'Brook',
     email: 'brook@email.com',
     password: 'no_psswd',
-  }
+  };
 
   let userToken;
   let accountNumber;
   let transactionId;
   before((done) => {
-      api.post('/api/v1/auth/signup')
+    api.post(`${url.pathname}/auth/signup`)
       .send(userInfo)
       .then((res) => {
         userToken = res.body.data.token;
       })
       .then(() => {
-        api.post('/api/v1/accounts')
-        .set('x-access-token', userToken)
-        .send({
-          firstName: 'Herman',
-          lastName: 'Brook',
-          email: 'brook@email.com',
-          type: 'savings',
-        })
-        .then((res) => {
-          accountNumber = res.body.data.accountNumber;
-          done();
-        });
-      })
+        api.post(`${url.pathname}/accounts`)
+          .set('x-access-token', userToken)
+          .send({
+            firstName: 'Herman',
+            lastName: 'Brook',
+            email: 'brook@email.com',
+            type: 'savings',
+          })
+          .then((res) => {
+            accountNumber = res.body.data.accountNumber;
+            done();
+          });
+      });
   });
   before((done) => {
     let staffToken;
-    api.post('/api/v1/auth/signin')
+    api.post(`${url.pathname}/auth/signin`)
       .send(staff)
       .then((res) => {
         staffToken = res.body.data.token;
       })
       .then(() => {
-        api.post(`/api/v1/transactions/${accountNumber}/credit`)
+        api.post(`${url.pathname}/transactions/${accountNumber}/credit`)
           .set('x-access-token', staffToken)
           .send({
-            amount: '2999.99'
+            amount: '2999.99',
           })
           .end((_err, res) => {
             transactionId = res.body.data.transactionId;
             done();
-          })
-      })
+          });
+      });
   });
   it('should return a specific transaction', (done) => {
-    api.get(`/api/v1/transactions/${transactionId}`)
+    api.get(`${url.pathname}/transactions/${transactionId}`)
       .set('x-access-token', userToken)
       .end((_err, res) => {
         expect(res.body.status).to.equal(200);
