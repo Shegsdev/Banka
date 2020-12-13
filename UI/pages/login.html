@@ -101,7 +101,7 @@
 				},
 				body: JSON.stringify(data)
 			}
-			const url = new URL('http://localhost:5000/api/v1');
+			const url = new URL('http://localhost:5000/api/v2');
 			const user = fetch(`${url.href}/auth/signin/`, config)
 							.then(response => response.json())
 							.then(json => {

@@ -2,8 +2,8 @@ import os from 'os';
 import { executer, output } from './server/utils/helpers';
 
 // OS specific prefix
-const win = 'set DEBUG=express:';
-const unix = 'DEBUG=express:';
+const win = 'set DEBUG=express';
+const unix = 'DEBUG=express';
 
 // Execute script depending on OS
 let prefix;
