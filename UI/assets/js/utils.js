@@ -16,7 +16,7 @@ const redirect = {
 
   // To home page
   home() {
-    location.assign(location.origin);
+    setTimeout(() => location.assign(location.origin), 3000);
   },
 
   // To login page

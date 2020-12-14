@@ -101,7 +101,7 @@
 				},
 				body: JSON.stringify(data)
 			}
-			const url = new URL('http://localhost:5000/api/v1');
+			const url = new URL('http://localhost:5000/api/v2');
 			const user = fetch(`${url.href}/auth/signin/`, config)
 							.then(response => response.json())
 							.then(json => {
@@ -115,7 +115,7 @@
 										email: json.data.email
 									}));
 									redirect.home();
-									showToast(true, 'Login success');
+									showToast(true, 'Login successful');
 								} else {
 									showToast(false, json.error);
 								}
@@ -124,7 +124,7 @@
 								showToast(false, 'Try again');
 							});
 			
-		}		
+		}
 		
 	</script>
 	<script src="../assets/js/main.js"></script>
