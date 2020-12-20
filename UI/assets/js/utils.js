@@ -39,4 +39,4 @@ const env = {
     if (location.origin.match('localhost')) return DEV_API_URL;
     return PROD_API_URL;
   }
-}
+};
