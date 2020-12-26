@@ -28,7 +28,7 @@
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
-				<a href="../../../index.html">
+				<a href="#" onclick="event.preventDefault();return logout();">
 					<i class="fas fa-home"></i>
 					Logout
 				</a>
@@ -54,7 +54,7 @@
 					<a href="credit.html">Credit</a>
 					<a href="debit.html">Debit</a>
 				</div> <!-- end ellipsis content -->
-				<li><a href="./UI/pages/login.html">Login</a></li>
+				<li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
 			</div>
 		</div>
 	</nav>
@@ -73,7 +73,7 @@
 						<a href="credit.html">Credit</a>
 						<a href="debit.html">Debit</a>
 					</div>
-					<a href="../../../index.html"><li>Logout</li></a>
+					<a href="#"><li onclick="event.preventDefault();return logout();">Logout</li></a>
 				</ul>
 			</aside>
 		</section>
@@ -305,6 +305,11 @@
 		</section>
 	</div>
 
+	<script src="../../assets/js/middleware.js"></script>	
+	<script>
+		document.readyState = withAuth();
+	</script>
+	<script src="../../assets/js/utils.js"></script>
 	<script src="../../assets/js/main.js"></script>
 	<script src="../../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>

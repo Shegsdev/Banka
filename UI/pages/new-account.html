@@ -103,15 +103,12 @@
 		</footer>
 	</div>
 
-	<script src="../assets/js/utils.js"></script>
+	<script src="../assets/js/middleware.js"></script>	
 	<script>
-		// Check if user is not logged in
-		document.readyState  = (function() { 
-			const token = localStorage.getItem('token');
-			if (!token) redirect.toLogin();
-		}());
+		document.readyState = withAuth();
 	</script>
-	
+
+	<script src="../assets/js/utils.js"></script>
 	<script src="../assets/js/main.js"></script>
 	
 </body>

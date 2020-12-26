@@ -727,3 +727,11 @@ footer {
 	top: 20px;
 	visibility: hidden;
 }
+
+#logout {
+	background: rgba(236, 236, 236, 0.363);
+	border-radius: 7px;
+	color: #ff0000;
+	cursor: pointer;
+	padding: 6px;
+}
