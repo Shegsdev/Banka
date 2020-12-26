@@ -32,6 +32,11 @@
 					</span>
 				</a>
 
+				<!-- Toast -->
+				<div class="toast">
+					<img src="" alt="check-mark">
+				</div>
+
 				<!-- Side nav -->
 				<div id="side-menu" class="side-nav">
 				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
@@ -124,10 +129,20 @@
 
 				list[list.length - 1].attributes.href.textContent = './UI/pages/admin/home.html';
 				list[list.length - 1].firstChild.innerHTML = 'my account';
+
+				// Add logout button
+				const element = document.createElement('span');
+				const text = document.createElement('em');
+				text.innerHTML = 'Logout';
+				element.appendChild(text);
+				element.id = 'logout';
+				element.addEventListener('click', () => logout());
+				document.querySelector('.nav-links').children[0].appendChild(element);
 			}
 		}
 	</script>
 	<script src="./UI/assets/js/main.js"></script>
+	<script src="./UI/assets/js/middleware.js"></script>
 	<script src="./UI/assets/js/partials.js"></script>
 
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>

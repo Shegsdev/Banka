@@ -15,12 +15,12 @@ const showToast = (status, message = status) => {
   }
   tag.innerHTML = message;
   if (status) {
-    toast.children[0].src = '../assets/img/check-mark.gif';
+    toast.children[0].src = '/UI/assets/img/check-mark.gif';
     toast.classList.remove('toast-error');
     toast.classList.add('toast-success');
   }
   if (!status) {
-    toast.children[0].src = '../assets/img/cross-mark.jpg';
+    toast.children[0].src = '/UI/assets/img/cross-mark.jpg';
     toast.classList.remove('toast-success');
     toast.classList.add('toast-error');
   }
@@ -33,36 +33,37 @@ const showToast = (status, message = status) => {
 };
 
 function modalOpen(bool, action = 'undefined') {
-  modalContent.innerHTML = '';
-  // Delete form
-  const deleteForm = document.createElement('div');
-  deleteForm.innerHTML = `
-    <form action='#'>
-      <header><h2>Confirm delete</h2></header>
-      <div class='actions'>
-        <button onclick='showToast()' class='button-red'>Delete</button>
-        <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
-      </div>
-    </form>`;
+  if (bool) {
+    modal.style.display = 'block';
+    modalContent.innerHTML = '';
+    // Delete form
+    const deleteForm = document.createElement('div');
+    deleteForm.innerHTML = `
+      <form action='#'>
+        <header><h2>Confirm delete</h2></header>
+        <div class='actions'>
+          <button onclick='showToast(${true}, "Account deleted successfully.");return modalOpen(false)' class='button-red'>Delete</button>
+          <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
+        </div>
+      </form>`;
 
-  // Deactivate form
-  const deactivateForm = document.createElement('div');
-  deactivateForm.innerHTML = `
-    <form action='#'>
-      <header><h2>Confirm ${action}</h2></header>
-      <div class='actions'>
-        <button onclick='showToast()' class='button-red'>${action[0].toUpperCase() + action.slice(1)}</button>
-        <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
-      </div>
-    </form>`;
+    // Deactivate form
+    const deactivateForm = document.createElement('div');
+    deactivateForm.innerHTML = `
+      <form action='#'>
+        <header><h2>Confirm ${action}</h2></header>
+        <div class='actions'>
+          <button onclick='showToast(${true}, "${`Account ${action}d successfully.`}");return modalOpen(false)' class='button-red'>${action[0].toUpperCase() + action.slice(1)}</button>
+          <button onclick='modalOpen(false)' class='button-blue'>Cancel</button>
+        </div>
+      </form>`;
 
-  // Form display option
-  action === 'delete' ? modalContent.appendChild(deleteForm)
-    : modalContent.appendChild(deactivateForm);
-
-  // Modal display option
-  bool ? modal.style.display = 'block'
-    : modal.style.display = 'none';
+    // Form display option
+    action === 'delete' ? modalContent.appendChild(deleteForm)
+      : modalContent.appendChild(deactivateForm);
+  } else {
+    modal.style.display = 'none';
+  }
 }
 
 // Hamburger Menu
