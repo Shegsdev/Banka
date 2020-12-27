@@ -63,7 +63,7 @@ const SignupController = {
           }
           const user = result.rows[0];
           // eslint-disable-next-line consistent-return
-          jwt.sign({ id: user.id, type: user.type }, secret, { expiresIn: '1h' }, (err, token) => {
+          jwt.sign({ username: user.email, type: user.type }, secret, { expiresIn: '1h' }, (err, token) => {
             if (err) {
               return res.status(401).json({
                 status: 401,

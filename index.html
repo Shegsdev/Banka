@@ -138,6 +138,10 @@
 				element.id = 'logout';
 				element.addEventListener('click', () => logout());
 				document.querySelector('.nav-links').children[0].appendChild(element);
+
+				// end session after 15mins
+				let timer = setTimeout(() => localStorage.removeItem('token'), 900000);
+				clearTimeout(timer);
 			}
 		}
 	</script>

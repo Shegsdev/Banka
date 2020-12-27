@@ -37,7 +37,7 @@ const validateCreateBankAccountInput = (data) => {
     errors.type = 'Please select an account type';
   }
 
-  if (!Validator.equals(data.type, 'current') && !Validator.equals(data.type, 'savings')) {
+  if (!Validator.equals(data.type.toLowerCase(), 'current') && !Validator.equals(data.type.toLowerCase(), 'savings')) {
     errors.type = 'Please select a valid account type';
   }
 

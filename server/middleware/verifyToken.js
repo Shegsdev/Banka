@@ -16,8 +16,8 @@ const Auth = {
     }
 
     try {
-      const decoded = await jwt.verify(token, process.env.SECRET);
-      const user = await User.findById(decoded.id);
+      const decoded = jwt.verify(token, process.env.SECRET);
+      const user = await User.findBy('email', decoded.username);
       if (user.rows[0].length < 1) {
         res.status(403).json({
           status: 403,

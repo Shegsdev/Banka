@@ -35,7 +35,7 @@ const AccountsController = {
       const accountDetail = {
         account_number: accountNumber,
         owner: req.user.id,
-        type,
+        type: type.toLowerCase(),
       };
 
       try {

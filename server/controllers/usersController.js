@@ -184,7 +184,7 @@ const UsersController = {
 
     try {
       const decoded = await jwt.verify(token, process.env.SECRET);
-      const user = await User.findById(decoded.id, res);
+      const user = await User.findBy('email', decoded.username, res);
       if (!user.rows.length) {
         res.status(403).json({
           status: 403,
@@ -194,7 +194,6 @@ const UsersController = {
       return res.status(200).json({
         status: 200,
         data: {
-          id: user.rows[0].id,
           type: user.rows[0].type,
           isStaff: user.rows[0].is_staff,
           isAdmin: user.rows[0].is_admin,

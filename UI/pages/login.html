@@ -108,16 +108,11 @@
 								if (json.status < 300) {
 									// store token/user data into the browser local storage
 									localStorage.setItem('token', json.data.token);
-									localStorage.setItem('user', JSON.stringify({
-										id: json.data.id,
-										firstName: json.data.firstName,
-										lastName: json.data.lastName,
-										email: json.data.email
-									}));
+									localStorage.setItem('username', json.data.email);
 									redirect.home();
 									showToast(true, 'Login successful');
 								} else {
-									showToast(false, json.error);
+									showToast(false, errorResponse(json.error));
 								}
 							}).
 							catch(error => {
