@@ -43,3 +43,11 @@ function logout() {
   showToast(true, 'Logout successful');
   return redirect.home();
 }
+
+function getUser() {
+  return localStorage.getItem('username');
+}
+
+function getAuthToken() {
+  return localStorage.getItem('token');
+}

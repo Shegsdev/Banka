@@ -11,3 +11,8 @@ const env = {
     return PROD_API_URL;
   },
 };
+
+function errorResponse(error) {
+  if (typeof error === 'string') return error;
+  return Object.values(error)[0];
+}
