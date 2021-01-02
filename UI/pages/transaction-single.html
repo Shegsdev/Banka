@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:900,400,100" type="text/css">
 </head>
 <body>
+	<!-- Loader -->
+	<loader class="loader"></loader>
 	<nav id="ad-nav">
 		<a href="../../index.html">
 			<div id="logo">
@@ -67,23 +69,58 @@
 			</span>
 			<header><h2>Transaction details</h2></header>
 			<section class="single">
-				<p>Transaction ID: 1234</p>
-				<p>Date: 12, Jan 2020</p>
-				<p>Type: Credit</p>
-				<p>Amount: 9999.99</p>
-				<p>New balance: 9999999.99</p>
-				<br/>
 			</section>
 			<hr/>
 			
 		</section>
 	</div>
 
-	<script src="../assets/js/middleware.js"></script>	
 	<script>
-		document.readyState = withAuth();
+		document.addEventListener("DOMContentLoaded", () => {
+			withAuth();
+			const token = getAuthToken();
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': token
+				}
+			};
+			const email = getUser();
+
+			// Get specific transaction details
+			(function() {
+				const start = new Date();
+				const url = new URL(env.url());
+				const transactionId = sessionStorage.getItem('transactionId');
+				if (!transactionId) throw new Error('Can not fetch transaction details.');
+				fetch(`${url.href}/transactions/${transactionId}/`, config)
+					.then(response => response.json())
+					.then(json => {
+						if (json.status < 300) {
+							const transaction = json.data;
+							const date = new Date(transaction.createdOn);
+							const section = document.querySelector('.single');
+							section.innerHTML =
+							`<p>Transaction ID: ${transaction.transactionId}</p>
+							<p>Date: ${date.toUTCString()}</p>
+							<p>Type: ${transaction.type}</p>
+							<p>Amount: ${transaction.amount}</p>
+							<p>New balance: ${transaction.newBalance}</p>
+							`;
+						} else {
+							showToast(false, errorResponse(json.error));
+						}
+					}).
+					catch(error => {
+						showToast(false, 'Try again');
+					});
+					return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds(), true);
+			})();
+		});
 	</script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/utils.js"></script>
+	<script src="../assets/js/middleware.js"></script>
 	<script src="../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>

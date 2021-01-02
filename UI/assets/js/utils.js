@@ -16,3 +16,19 @@ function errorResponse(error) {
   if (typeof error === 'string') return error;
   return Object.values(error)[0];
 }
+
+function handleLoadingComplete(duration, status) {
+  const animationName = 'loading';
+  const styles = `
+    from{ 
+      width: 5%;
+    }
+    to{
+      width: 100%;
+    }`;
+  const loader = document.querySelector('loader');
+  const styleTag = document.createElement('style');
+  document.head.appendChild(styleTag);
+  styleTag.sheet.insertRule(`@keyframes ${animationName} {${styles}}`, styleTag.length);
+  loader.style.animation = `${animationName} ${duration}s alternate`;
+}

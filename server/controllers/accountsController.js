@@ -370,7 +370,7 @@ const AccountsController = {
         }, res);
         const updatedAccount = update.rows[0];
         const transactionDetail = {
-          type: 'credit',
+          type: 'debit',
           account_number: accountNumber,
           cashier: req.user.id,
           amount,

@@ -69,7 +69,7 @@ function modalOpen(bool, action = 'undefined') {
 // Hamburger Menu
 
 function openSlideMenu() {
-  document.getElementById('side-menu').style.width = `${window.innerWidth}px`;
+  document.getElementById('side-menu').style.width = '85%';
 }
 
 function closeSlideMenu() {
