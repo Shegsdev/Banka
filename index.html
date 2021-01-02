@@ -116,8 +116,9 @@
 	</div>
 
 	<script>
+		let linkHref = 'profile';
 
-		window.onload = function() {
+		document.addEventListener("DOMContentLoaded", function() {
 			let hero = document.querySelector('.hero');
 			hero.style.height = `${window.innerHeight}px`;
 
@@ -127,7 +128,24 @@
 				const nav = document.querySelector('#nav');
 				const list = nav.children[1].children[0].children;
 
-				list[list.length - 1].attributes.href.textContent = './UI/pages/admin/home.html';
+				const url = new URL(env.url());
+				fetch(`${url.href}/user/type/`, {
+					headers: {
+						'Content-Type': 'application/json',
+						'x-access-token': token
+					}
+				})
+				.then(response => response.json())
+				.then(json => {
+					if (!json.error) {
+						if (json.data.type !== 'client') linkHref = 'admin/home';
+					}
+				})
+				.catch(error => showToast(false, 'Please log in again.'));
+				list[list.length - 1].addEventListener("click", () => {
+					location.assign(`${ghPagesUrlRedirect(location.origin)}/UI/pages/${linkHref}.html`);
+				})
+				list[list.length - 1].attributes.href.textContent = '#';
 				list[list.length - 1].firstChild.innerHTML = 'my account';
 
 				// Add logout button
@@ -140,12 +158,17 @@
 				document.querySelector('.nav-links').children[0].appendChild(element);
 
 				// end session after 15mins
-				let timer = setTimeout(() => localStorage.removeItem('token'), 900000);
+				let timer = setTimeout(() => {
+					localStorage.removeItem('token');
+					redirect.home();
+				}, 900000);
 				clearTimeout(timer);
 			}
 		}
+	)
 	</script>
 	<script src="./UI/assets/js/main.js"></script>
+	<script src="./UI/assets/js/utils.js"></script>
 	<script src="./UI/assets/js/middleware.js"></script>
 	<script src="./UI/assets/js/partials.js"></script>
 

@@ -501,6 +501,8 @@ input::placeholder {
 #ad-nav {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 	padding: 0 40px;
+	position: sticky;
+	top: 0;
 }
 
 #ad-nav #logo {
@@ -589,6 +591,8 @@ input::placeholder {
 .ad-main aside {
 	background: linear-gradient(45deg, #00a2a2 0, teal 100%);
 	padding: 20px 0;
+	position: fixed;
+	width: 18%;
 }
 
 .ad-main aside ul {
@@ -734,4 +738,13 @@ footer {
 	color: #ff0000;
 	cursor: pointer;
 	padding: 6px;
+}
+
+.loader {
+	background-color: teal;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 4px;
 }

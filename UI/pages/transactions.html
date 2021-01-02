@@ -15,6 +15,8 @@
 		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
 		<div class="modal-content center"></div>
 	</div>
+	<!-- Loader -->
+	<loader class="loader"></loader>
 	<nav id="ad-nav">
 		<a href="../../index.html">
 			<div id="logo">
@@ -71,65 +73,99 @@
 			<header><h2 class="header">Transaction history</h2></header>
 			<div class="ad-main-content">
 				<table>
-					<tr>
-						<th>ID</th>
-						<th>Account No.</th>
-						<th>Type</th>
-						<th>Date</th>
-						<th></th>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>1234567890</td>
-						<td>Debit</td>
-						<td>Jan 9, 2010</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>2345678901</td>
-						<td>Debit</td>
-						<td>Feb 1, 2020</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>3456789012</td>
-						<td>Debit</td>
-						<td>Feb 1, 2020</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>1234567890</td>
-						<td>Credit</td>
-						<td>Feb 1, 2020</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>2345678901</td>
-						<td>Credit</td>
-						<td>Feb 1, 2020</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>0987654321</td>
-						<td>Credit</td>
-						<td>Feb 1, 2020</td>
-						<td><a href="transaction-single.html"><button>View</button></a></td>
-					</tr>
+					<tbody>
+						<tr>
+							<th>ID</th>
+							<th>Account No.</th>
+							<th>Type</th>
+							<th>Date</th>
+							<th></th>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</section>
 	</div>
 
-	<script src="../assets/js/middleware.js"></script>	
 	<script>
-		document.readyState = withAuth();
+		const handleSelectedTransaction = (id) => {
+			sessionStorage.setItem('transactionId', id);
+			location.assign(`${ghPagesUrlRedirect(location.origin)}/UI/pages/transaction-single.html`);
+		}
+	</script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			withAuth();
+			const token = getAuthToken();
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					'x-access-token': token
+				}
+			};
+			const email = getUser();
+
+			// Get all user's transactions
+			(function() {
+				const start = new Date();
+				const url = new URL(env.url());
+				fetch(`${url.href}/user/${email}/accounts/`, config)
+					.then(response => response.json())
+					.then(json => {
+						if (json.status === 401) {
+							localStorage.clear();
+							showToast(false, errorResponse(json.error))
+							return redirect.home();
+						}
+						if (json.status < 300) {
+							let trx = [];
+							// loop through accounts and fetch transactions for each
+							json.data.map(async (account) => {
+								fetch(`${url.href}/accounts/${account.account_number}/transactions`, config)
+									.then(response => response.json())
+									.then(json_ => {
+										if (json_.status < 300) {
+											const tableBody = document.querySelector('tbody');
+											json_.data.map((transaction) => {
+												const date = new Date(transaction.created_at);
+												let tableRow = document.createElement('tr');
+												tableRow.innerHTML = `
+													<td>${transaction.transaction_id}</td>
+													<td>${transaction.account_number}</td>
+													<td>${transaction.type[0].toUpperCase()}${transaction.type.slice(1)}</td>
+													<td>${date.toDateString()}</td>
+													<td><a href="#"><button onclick="handleSelectedTransaction(${transaction.transaction_id})">View</button></a></td>
+												`;
+												tableBody.appendChild(tableRow);
+											});
+										} else if (json.status === 401) {
+											responseStatus = false;
+											localStorage.clear();
+											showToast(false, errorResponse(json.error))
+											return redirect.home();
+										} else {
+											showToast(false, 'Unable to fetch data');
+										}
+									})
+									.catch(error => {
+										showToast(false, 'Try again');
+									})
+							});
+						} else {
+							showToast(false, errorResponse(json.error));
+						}
+					}).
+					catch(error => {
+						showToast(false, 'Try again');
+					});
+					return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds(), true);
+			})();
+		});
 	</script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/utils.js"></script>
+	<script src="../assets/js/middleware.js"></script>
 	<script src="../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
