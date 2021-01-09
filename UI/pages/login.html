@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100" type="text/css">
 </head>
 <body>
+	<!-- Loader -->
+	<loader class="loader"></loader>
 	<div class="auth-page">
 		<span class="nav right">
 			<a href="#" onclick="openSlideMenu()">
@@ -38,8 +40,11 @@
 		</section>
 
 		<section class="container form">
-			<div class="toast">
+			<div class="toast success">
 				<img src="../assets/img/check-mark.gif" alt="check-mark">
+			</div>
+			<div class="toast error">
+				<img src="../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 			<span class="back" onclick="window.history.back()">
 			    <i class="fas fa-arrow-left"></i>
@@ -63,7 +68,7 @@
                 <br>
                 <div class="form-row">
                     <div class="form-input login-button">
-						<input class="button-blue" type="submit" value="Login">
+						<input id="login" class="button-blue" type="submit" value="Login">
                     </div>
                 </div>
                 <!-- Navigate -->
@@ -92,6 +97,13 @@
 
 		// handle login
 		const handleLogin = (e) => {
+			const start = new Date();
+			// Disable button
+			const button = document.querySelector('#login');
+			button.setAttribute('disabled', 'disabled');
+			button.style.opacity = '0.5';
+			button.style.cursor = 'none';
+
 			const { email, password } = e.target;
 			const data = { email: email.value, password: password.value };
 			const config = {
@@ -103,22 +115,29 @@
 			}
 			const url = new URL(env.url());
 			const user = fetch(`${url.href}/auth/signin/`, config)
-							.then(response => response.json())
-							.then(json => {
-								if (json.status < 300) {
-									// store token/user data into the browser local storage
-									localStorage.setItem('token', json.data.token);
-									localStorage.setItem('username', json.data.email);
-									redirect.home();
-									showToast(true, 'Login successful');
-								} else {
-									showToast(false, errorResponse(json.error));
-								}
-							}).
-							catch(error => {
-								showToast(false, 'Try again');
-							});
-			
+				.then(response => response.json())
+				.then(json => {
+					if (json.status < 300) {
+						// store token/user data into the browser local storage
+						localStorage.setItem('token', json.data.token);
+						localStorage.setItem('username', json.data.email);
+						redirect.home();
+						showToast(true, 'Login successful');
+					} else {
+						showToast(false, errorResponse(json.error));
+					}
+				})
+				.catch(error => {
+					showToast(false, 'Try again');
+				});
+			// Enable button
+			const duration = new Date().getMilliseconds() - start.getMilliseconds();
+			setTimeout(() => {
+				button.removeAttribute('disabled');
+				button.style.opacity = 1;
+				button.style.cursor = 'pointer';
+			}, duration * 2 * 1000);
+			return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds());
 		}
 		
 	</script>

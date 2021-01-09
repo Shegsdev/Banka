@@ -5,8 +5,11 @@ const modal = document.querySelector('.ad-modal');
 const modalContent = document.querySelector('.modal-content');
 
 const showToast = (status, message = status) => {
-  const toast = document.querySelector('.toast');
+  const successToast = document.querySelector('.success');
+  const errorToast = document.querySelector('.error');
   let tag;
+  if (status) toast = successToast;
+  else toast = errorToast;
   if (toast.children.length === 1) {
     tag = document.createElement('figcaption');
   } else {
@@ -14,16 +17,6 @@ const showToast = (status, message = status) => {
     tag = toast.children[1];
   }
   tag.innerHTML = message;
-  if (status) {
-    toast.children[0].src = '/UI/assets/img/check-mark.gif';
-    toast.classList.remove('toast-error');
-    toast.classList.add('toast-success');
-  }
-  if (!status) {
-    toast.children[0].src = '/UI/assets/img/cross-mark.jpg';
-    toast.classList.remove('toast-success');
-    toast.classList.add('toast-error');
-  }
   toast.appendChild(tag);
   toast.style.display = 'block';
   // modalOpen(false);

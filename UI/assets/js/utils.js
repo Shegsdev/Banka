@@ -17,7 +17,7 @@ function errorResponse(error) {
   return Object.values(error)[0];
 }
 
-function handleLoadingComplete(duration, status) {
+function handleLoadingComplete(duration) {
   const animationName = 'loading';
   const styles = `
     from{ 
@@ -31,4 +31,7 @@ function handleLoadingComplete(duration, status) {
   document.head.appendChild(styleTag);
   styleTag.sheet.insertRule(`@keyframes ${animationName} {${styles}}`, styleTag.length);
   loader.style.animation = `${animationName} ${duration}s alternate`;
+  setTimeout(() => {
+    document.head.removeChild(styleTag);
+  }, duration * 1000);
 }
