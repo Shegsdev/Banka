@@ -44,8 +44,11 @@
 			 </a>
 
 			 <!-- Toast -->
-			<div class="toast">
-				<img src="" alt="check-mark">
+			 <div class="toast success">
+				<img src="../assets/img/check-mark.gif" alt="check-mark">
+			</div>
+			<div class="toast error">
+				<img src="../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 
 			<!-- Side nav -->
@@ -119,9 +122,8 @@
 							return redirect.home();
 						}
 						if (json.status < 300) {
-							let trx = [];
 							// loop through accounts and fetch transactions for each
-							json.data.map(async (account) => {
+							json.data.map((account) => {
 								fetch(`${url.href}/accounts/${account.account_number}/transactions`, config)
 									.then(response => response.json())
 									.then(json_ => {
@@ -139,8 +141,7 @@
 												`;
 												tableBody.appendChild(tableRow);
 											});
-										} else if (json.status === 401) {
-											responseStatus = false;
+										} else if (json_.status === 401) {
 											localStorage.clear();
 											showToast(false, errorResponse(json.error))
 											return redirect.home();
@@ -159,7 +160,7 @@
 					catch(error => {
 						showToast(false, 'Try again');
 					});
-					return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds(), true);
+					return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds());
 			})();
 		});
 	</script>

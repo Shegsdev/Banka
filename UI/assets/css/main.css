@@ -5,19 +5,11 @@
 
 body {
 	font-size: 18px;
-	font-family: -apple-system, 
-                  BlinkMacSystemFont, laks,
-                  "Oxygen", "Laksaman",
+	font-family: laks,
+                  "Times New Roman", "Oxygen", "Laksaman",
                   "Ubuntu", "Roboto", sans-serif;
 	margin: 0;
 }
-
-/*body a, ul a li, ul li {
- 	transition: 0.1s all;
-	-webkit-transition: 0.1s all;
-	-moz-transition: 0.1s all;
-	-o-transition: 0.1s all;
-}*/
 
 h1 {
 	color: #e7e7e9;
@@ -79,7 +71,7 @@ select {
 	top: 10px;
 	right: 10px;
 }
-.toast.toast-error {
+.toast.error {
 	color: red;
 }
 .toast img {

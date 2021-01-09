@@ -33,8 +33,11 @@
 				</a>
 
 				<!-- Toast -->
-				<div class="toast">
-					<img src="" alt="check-mark">
+				<div class="toast success">
+					<img src="./UI/assets/img/check-mark.gif" alt="check-mark">
+				</div>
+				<div class="toast error">
+					<img src="./UI/assets/img/cross-mark.jpg" alt="cross-mark">
 				</div>
 
 				<!-- Side nav -->
@@ -138,7 +141,15 @@
 				.then(response => response.json())
 				.then(json => {
 					if (!json.error) {
-						if (json.data.type !== 'client') linkHref = 'admin/home';
+						switch(json.data.type) {
+							case 'admin':
+								linkHref = 'admin/home';
+								break;
+							case 'staff':
+								linkHref = 'staff/home';
+								break;
+							default: linkHref = 'profile';
+						}
 					}
 				})
 				.catch(error => showToast(false, 'Please log in again.'));
