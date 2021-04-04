@@ -229,19 +229,19 @@ select {
 }
 
 .hero-copy {
-	margin: 74px auto;
-	text-align: center;
+	margin-top: 50px;
+	margin-left: 50px;
 }
 .hero-copy h1 {
-	font-size: 70px;
-	margin-bottom: 0;
-	mix-blend-mode: overlay;
-	opacity: .8;
+	color: #4F4D53;
+	display: inline-block;
+	font-size: 64px;
+	line-height: 1.5em;
+	margin: 0;
 }
 .hero-copy p {
-	color: #fff;
 	font-size: 18px;
-	margin-top: 5px;
+	margin-top: 2.5px;
 }
 
 .no-hero {
