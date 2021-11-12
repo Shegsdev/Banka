@@ -27,7 +27,6 @@
             <li><a href="contact-us.html">Contact</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="help.html">Help</a></li>
-            <li><a href="profile.html">Profile</a></li>
             <li><a href="new-account.html">Get started</a></li>
         </div>
 		<section class="banner">
@@ -39,7 +38,7 @@
 			<h1 class="center">Welcome Back!</h1>
 		</section>
 
-		<section class="container form">
+		<section class="form">
 			<div class="toast success">
 				<img src="../assets/img/check-mark.gif" alt="check-mark">
 			</div>
@@ -68,7 +67,7 @@
                 <br>
                 <div class="form-row">
                     <div class="form-input login-button">
-						<input id="login" class="button-blue" type="submit" value="Login">
+						<input id="login" class="button button-blue" type="submit" value="Login">
                     </div>
                 </div>
                 <!-- Navigate -->
@@ -103,6 +102,8 @@
 			button.setAttribute('disabled', 'disabled');
 			button.style.opacity = '0.5';
 			button.style.cursor = 'none';
+			// Loader
+			const loader = document.querySelector('.loader');
 
 			const { email, password } = e.target;
 			const data = { email: email.value, password: password.value };
@@ -125,10 +126,12 @@
 						showToast(true, 'Login successful');
 					} else {
 						showToast(false, errorResponse(json.error));
+						return handleLoadingComplete(true, 2)
 					}
 				})
-				.catch(error => {
-					showToast(false, 'Try again');
+				.catch(err => {
+					showToast(false, 'Please check your network and try again');
+					return handleLoadingComplete(true, 2)
 				});
 			// Enable button
 			const duration = new Date().getMilliseconds() - start.getMilliseconds();
@@ -137,7 +140,7 @@
 				button.style.opacity = 1;
 				button.style.cursor = 'pointer';
 			}, duration * 2 * 1000);
-			return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds());
+			return handleLoadingComplete(false, new Date().getMilliseconds() - start.getMilliseconds());
 		}
 		
 	</script>

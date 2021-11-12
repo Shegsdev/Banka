@@ -42,8 +42,6 @@ window.onscroll = function () {
     for (const l of Array.from(list)) {
       const el = l.children[0];
       if (el.tagName === 'LI') {
-        el.style.background = 'rgb(0, 124, 195)';
-        el.style.borderColor = 'rgb(0, 124, 195)';
         el.style.color = '#e7e7e9';
       } else if (el.tagName === 'EM') el.style.color = '#ff0000';
       else el.style.color = '#e7e7e9';
