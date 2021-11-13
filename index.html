@@ -6,24 +6,24 @@
 	<title>Banka | Home</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100" type="text/css">
-	<link rel="stylesheet" type="text/css" href="./UI/assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="./UI/assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="./client/assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="./client/assets/css/responsive.css">
 </head>
 <body>
 	<div class="hero hero-landing">
 		<nav id="nav">
 			<div id="logo">
 				<a href="index.html">
-					<img src="./UI/assets/img/logo.png" alt="logo">
+					<img src="./client/assets/img/logo.png" alt="logo">
 				</a>
 			</div>
 			<div class="nav-links">
 				<ul>
 					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="./UI/pages/contact-us.html">Contact</a></li>
-					<li><a href="./UI/pages/about.html">About</a></li>
-					<li><a href="./UI/pages/help.html">Help</a></li>
-					<a href="./UI/pages/new-account.html"><li>Get started</li></a>
+					<li><a href="./client/views/contact-us.html">Contact</a></li>
+					<li><a href="./client/views/about.html">About</a></li>
+					<li><a href="./client/views/help.html">Help</a></li>
+					<a href="./client/views/new-account.html"><li class="button button-blue">Get started</li></a>
 				</ul>
 				<!-- Hamburger links -->
 			    <a onclick="openSlideMenu()">
@@ -34,21 +34,22 @@
 
 				<!-- Toast -->
 				<div class="toast success">
-					<img src="./UI/assets/img/check-mark.gif" alt="check-mark">
+					<img src="./client/assets/img/check-mark.gif" alt="check-mark">
 				</div>
 				<div class="toast error">
-					<img src="./UI/assets/img/cross-mark.jpg" alt="cross-mark">
+					<img src="./client/assets/img/cross-mark.jpg" alt="cross-mark">
 				</div>
 
 				<!-- Side nav -->
 				<div id="side-menu" class="side-nav">
 				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				    <li class="active"><a href="index.html">Home</a></li>
-					<li><a href="./UI/pages/contact-us.html">Contact</a></li>
-					<li><a href="./UI/pages/about.html">About</a></li>
-					<li><a href="./UI/pages/help.html">Help</a></li>
-					<!-- <li><a href="./UI/pages/profile.html">Profile</a></li> -->
-					<li><a href="./UI/pages/new-account.html">Get started</a></li>
+					<li><a href="./client/views/contact-us.html">Contact</a></li>
+					<li><a href="./client/views/about.html">About</a></li>
+					<li><a href="./client/views/help.html">Help</a></li>
+					<li id="account-link"><a href="./client/views/profile.html">My account</a></li>
+					<li><a href="./client/views/new-account.html">Get started</a></li>
+					<li id="logout-link"><a href="#">Logout</a></li>
 				</div>
 			</div>
 		</nav>
@@ -60,21 +61,27 @@
 	</div> <!-- end hero -->
 	<div class="main">
 		<section>
-			<header>
-				<h2 class="center">Let's bank</h2>
-			</header>
+			<div class="justify-center">
+				<div class="main-content header">
+					<header>
+						<h2 class="center">Let's bank</h2>
+					</header>
+				</div>
+			</div>
 			<div class="main-content landing">
 				<article>
 					<h2>Get an account that suits you!</h2>
 					<p>We believe that the beauty of life lies in the little things that give us a better expression of ourselves, make us more social and connect emotionally.</p>
-					<a href="./UI/pages/new-account.html"><button>GET STARTED TODAY</button></a>
+					<a href="./client/views/new-account.html">
+						<button class="button button-brown">GET STARTED TODAY</button>
+					</a>
 				</article>
 			</div>
 		</section>
 
 		<section class="main-showcase container">
 			<header>
-				<h2 class="center">Why use Banka?</h2>
+				<h2 class="center">Why choose Banka?</h2>
 			</header>
 			<div class="main-showcase-content three-equal-sized-columns grid">
 				<div class="why-us center">
@@ -128,6 +135,17 @@
 			// Check if user is logged in
 			const token = localStorage.getItem('token');
 			if (token) {
+				// side nav link
+				const accountLink = document.querySelector('#account-link');
+				accountLink.style.display = 'inline-flex';
+
+				const logoutLink = document.querySelector('#logout-link');
+				logoutLink.style.display = 'inline-flex';
+				logoutLink.addEventListener('click', (e) => {
+					closeSlideMenu()
+					return logout(e)
+				});
+
 				const nav = document.querySelector('#nav');
 				const list = nav.children[1].children[0].children;
 
@@ -141,6 +159,7 @@
 				.then(response => response.json())
 				.then(json => {
 					if (!json.error) {
+						console.log(json.data)
 						switch(json.data.type) {
 							case 'admin':
 								linkHref = 'admin/home';
@@ -154,7 +173,7 @@
 				})
 				.catch(error => showToast(false, 'Please log in again.'));
 				list[list.length - 1].addEventListener("click", () => {
-					location.assign(`${ghPagesUrlRedirect(location.origin)}/UI/pages/${linkHref}.html`);
+					location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/${linkHref}.html`);
 				})
 				list[list.length - 1].attributes.href.textContent = '#';
 				list[list.length - 1].firstChild.innerHTML = 'my account';
@@ -165,7 +184,7 @@
 				text.innerHTML = 'Logout';
 				element.appendChild(text);
 				element.id = 'logout';
-				element.addEventListener('click', () => logout());
+				element.addEventListener('click', (e) => logout(e));
 				document.querySelector('.nav-links').children[0].appendChild(element);
 
 				// end session after 15mins
@@ -178,10 +197,10 @@
 		}
 	)
 	</script>
-	<script src="./UI/assets/js/main.js"></script>
-	<script src="./UI/assets/js/utils.js"></script>
-	<script src="./UI/assets/js/middleware.js"></script>
-	<script src="./UI/assets/js/partials.js"></script>
+	<script src="./client/assets/js/main.js"></script>
+	<script src="./client/assets/js/utils.js"></script>
+	<script src="./client/assets/js/middleware.js"></script>
+	<script src="./client/assets/js/partials.js"></script>
 
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>

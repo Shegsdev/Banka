@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | Contact us</title>
+	<title>Banka | About us</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
@@ -26,10 +26,10 @@
 			<div class="nav-links">
 				<ul>
 					<li><a href="../../index.html">Home</a></li>
-					<li class="active"><a href="contact-us.html">Contact</a></li>
-					<li><a href="about.html">About</a></li>
+					<li><a href="contact-us.html">Contact</a></li>
+					<li class="active"><a href="about.html">About</a></li>
 					<li><a href="help.html">Help</a></li>
-					<a href="new-account.html"><li>Get started</li></a>
+					<a href="new-account.html"><li class="button button-blue">Get started</li></a>
 				</ul>
 				<!-- Hamburger links -->
 			    <a href="#" onclick="openSlideMenu()">
@@ -53,37 +53,20 @@
 	</div> <!-- end no-hero -->
 	<div class="main">
 		<section>
-			<div class="toast">
-				<img src="../assets/img/check-mark.gif" alt="check-mark">
-				<figcaption>Your message has been sent!</figcaption>
-			</div>
 			<header>
-				<h2 class="center">Contact us</h2>
+				<h2 class="center">About</h2>
 			</header>
-			<div class="main-content contact-us">
-				<div class="contact-us-form">
-					<form onsubmit="event.preventDefault(); window.scroll(0,0); return showToast(true)">
-		                <div class="form-row">
-		                    <div class="form-input">
-		                    	<label for="title">Please enter message title</label>
-		                        <input type="text" name="title" required>
-		                    </div>
-		                </div>
-		                <div class="form-row">
-		                    <div class="form-input">
-		                    	<label for="message">Your message</label>
-		                        <input type="text" name="message" style="padding-bottom: 100px" required />
-		                    </div>
-		                </div>
-		                <br>
-		                <div class="form-row">
-		                    <div class="form-input">
-		                        <input class="button-blue" type="submit" value="Submit">
-		                    </div>
-		                </div>
-			            </div>
-		            </form>
-				</div>
+			<div class="main-content about-us">
+				<p>Banka is a light-weight core banking application that powers
+					banking operations like account creation, customer deposit and
+					withdrawals and helps you manage your account(s) using your device.
+					Banka only supports a single bank at the moment but might expand later in
+					the future. 
+				</p>
+				<p>
+					Banka was developed in early 2019 to solve a problem in the banking sector
+					at the time. Its core features includes personalized account, managing transactions via the web and most importantly security.
+				</p>
 			</div>
 		</section>
 	</div> <!-- end main-->

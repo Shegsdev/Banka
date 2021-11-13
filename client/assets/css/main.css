@@ -4,6 +4,7 @@
 }
 
 body {
+	background: aliceblue;
 	font-size: 18px;
 	font-family: laks,
                   "Times New Roman", "Oxygen", "Laksaman",
@@ -61,15 +62,16 @@ select {
 .toast {
 	background-color: #fff;
 	border: none;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
+	box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.18);
 	color: green;
 	display: none;
 	max-width: 20%;;
-	padding: 20px;
+	padding: 10px;
 	position: absolute;
 	text-align: center;
 	top: 10px;
 	right: 10px;
+	z-index: 9999;
 }
 .toast.error {
 	color: red;
@@ -94,6 +96,11 @@ select {
 	grid-template-columns: 1fr;
 }
 
+.justify-center {
+	display: flex;
+	justify-content: center;
+}
+
 .two-equal-sized-columns {
 	grid-template-columns: 1fr 1fr;
 }
@@ -108,7 +115,11 @@ select {
 
 /*Buttons*/
 .button {
+	border-radius:  6px;
     cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 0.2em;
 }
 .button:hover {
 	color: #e9e9e9;
@@ -116,12 +127,19 @@ select {
 }
 
 .button-blue {
-	border: 0;
-    background: rgb(0, 147, 221) !important;
+    background: rgb(0, 147, 221);
     color: #fff;
 }
 .button-blue:hover {
 	background: rgb(0, 124, 195) !important;
+    color: #fff;
+}
+
+.button-brown {
+	color: #fff;
+    background: chocolate;
+}
+.button-brown:hover {
     color: #fff;
 }
 
@@ -225,22 +243,28 @@ select {
 
 .main .account, .main .contact-us, .main .about-us {
 	margin: 0 auto;
-	width: 40%;
+	width: 50%;
 }
 
 .hero-copy {
+	background: #ffffffb0;
+	border-radius: 40px;
+	display: inline-block;
+	padding:  5em;
 	margin-top: 50px;
 	margin-left: 50px;
 }
 .hero-copy h1 {
-	color: #4F4D53;
-	display: inline-block;
-	font-size: 64px;
+	color: teal;
+	font-size: 68px;
+	font-weight: 900;
+	letter-spacing: -4px;
 	line-height: 1.5em;
 	margin: 0;
 }
 .hero-copy p {
 	font-size: 18px;
+	font-style: italic;
 	margin-top: 2.5px;
 }
 
@@ -252,6 +276,10 @@ nav {
 	padding: 14px 40px;
 	display: flex;
 	justify-content: space-between;
+}
+
+nav #account-link, nav #logout-link {
+	display: none;
 }
 
 nav ul li {
@@ -270,12 +298,10 @@ nav ul li a {
 
 nav ul .active {
 	color: #f5f5f5;
-	border-bottom: 2px solid rgb(0, 124, 195);
+	border-bottom: 2px solid rgb(0, 147, 221);
 }
 
 nav ul li:last-child {
-	background: rgb(0, 124, 195);
-	border: 1px solid rgb(0, 124, 195);
 	color: #e7e7e9;
 	padding: 6px 15px;
 
@@ -286,23 +312,34 @@ nav ul li:last-child:hover {
 }
 
 nav ul li:hover:not(:last-child) {
-	border-bottom: 2px solid rgb(0, 124, 195);
+	border-bottom: 2px solid rgb(0, 147, 221);
 }
 
 .main section header {
-	margin: 100px auto;
-	font-size: 40px;
-	font-weight: 100;
+	font-size: 58px;
+}
+
+.main section header h2 {
+	letter-spacing: -6px;
+	margin: 0;
+}
+
+.main .header {
+	background: #ffffffb0;
+	border-radius: 40px;
+	display: inline-flex;
+	margin-top: 5em;
+	margin-bottom: -3em;
+	padding: 4em;
 }
 
 .main .landing {
-	/*background-image: url(../img/img_1.jpg);*/
-	background-image: url(../img/laptop.jpg);
+	background-image: url(../img/about.jpg);
 	background-position: right;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: cover;
 	background-attachment: fixed;
-	height: 600px;
+	height: 800px;
 }
 
 .main .landing article {
@@ -320,13 +357,13 @@ nav ul li:hover:not(:last-child) {
 }
 
 .main .main-content article button {
-	background: rgb(0, 99, 156);
 	border: none;
 	color: #fff;
 	cursor: pointer;
-	display: block;
-	font-size: 14px;
-	margin: 30px auto;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 30px;
 	padding: 15px 25px;
 }
 .main .main-content article button:hover {
@@ -337,8 +374,12 @@ nav ul li:hover:not(:last-child) {
 	margin: 120px auto;
 }
 .main-showcase .why-us {
+	background-color: #ffffffb0;
+	border-radius: 28px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
 	font-size: 24px;
-	margin: 0 auto 30px;
+	margin: 2em 1em;
+	padding: 1em;
 	max-width: 480px;
 }
 .main-showcase .why-us p {
@@ -394,19 +435,27 @@ nav ul li:hover:not(:last-child) {
 	font-size: 30px;
 }
 
-.form-row {
+.frow {
     max-width: 100%;
 }
 
 input {
     font-size: 18px;
-    border: 1px solid lightgrey;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     padding-left: 10px;
     padding-top: 14px;
     padding-bottom: 14px;    
     margin: 5px auto 15px;
     width: 100%;
+}
+
+select {
+	border: none;
+	outline: none;
+	box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
 input:not([type=submit]):focus {
@@ -733,10 +782,9 @@ footer {
 }
 
 .loader {
-	background-color: teal;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 0%;
-	height: 4px;
+	height: 2px;
 }

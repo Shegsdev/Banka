@@ -17,7 +17,9 @@ function errorResponse(error) {
   return Object.values(error)[0];
 }
 
-function handleLoadingComplete(duration) {
+function handleLoadingComplete(error, duration) {
+  let bg = 'teal';
+  if (error) bg = 'red';
   const animationName = 'loading';
   const styles = `
     from{ 
@@ -30,6 +32,7 @@ function handleLoadingComplete(duration) {
   const styleTag = document.createElement('style');
   document.head.appendChild(styleTag);
   styleTag.sheet.insertRule(`@keyframes ${animationName} {${styles}}`, styleTag.length);
+  loader.style.backgroundColor = bg;
   loader.style.animation = `${animationName} ${duration}s alternate`;
   setTimeout(() => {
     document.head.removeChild(styleTag);

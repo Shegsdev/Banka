@@ -3,12 +3,12 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | About us</title>
+	<title>Banka | Help</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100" type="text/css">
-
+	
 	<style>
 		nav ul li a {
 			color: rgb(0, 124, 195);
@@ -27,9 +27,9 @@
 				<ul>
 					<li><a href="../../index.html">Home</a></li>
 					<li><a href="contact-us.html">Contact</a></li>
-					<li class="active"><a href="about.html">About</a></li>
-					<li><a href="help.html">Help</a></li>
-					<a href="new-account.html"><li>Get started</li></a>
+					<li><a href="about.html">About</a></li>
+					<li class="active"><a href="help.html">Help</a></li>
+					<a href="new-account.html"><li class="button button-blue">Get started</li></a>
 				</ul>
 				<!-- Hamburger links -->
 			    <a href="#" onclick="openSlideMenu()">
@@ -45,7 +45,7 @@
 					<li><a href="contact-us.html">Contact</a></li>
 					<li><a href="about.html">About</a></li>
 					<li><a href="help.html">Help</a></li>
-					<li><a href="profile.html">Profile</a></li>
+					<li id="account-link"><a href="profile.html">My account</a></li>
 					<li><a href="new-account.html">Get started</a></li>
 				</div>
 			</div>
@@ -53,24 +53,32 @@
 	</div> <!-- end no-hero -->
 	<div class="main">
 		<section>
-			<div>
-				<img src="../assets/img/about.jpg"
-					 style="width: 100%;">
-			</div>
 			<header>
-				<h2 class="center">About Banka</h2>
+				<h2 class="center">FAQ</h2>
 			</header>
-			<div class="main-content about-us">
-				<p>Banka is a light-weight core banking application that powers
-					banking operations like account creation, customer deposit and
-					withdrawals and helps you manage your account(s) using your device.
-					Banka only supports a single bank at the moment but might expand later in
-					the future. 
-				</p>
-				<p>
-					Banka was developed in early 2019 to solve a problem in the banking sector
-					at the time. Its core features includes personalized account, managing transactions via the web and most importantly security.
-				</p>
+			<div class="main-content help container">
+				<div class="question">
+					<h4>How can I open an account?</h4>
+					<p>Here are the steps to follow:
+						<ul>
+							<li>Visit the homepage by clicking this
+								<a href="../../index.html">link.</a>
+							</li>
+							<li>Click the Login button at the top right corner.</li>
+							<li>Enter your email and password or navigate to the sign up page to
+								register if haven't already.
+							</li>
+							<li>After successfully registration navigate back to the homepage.</li>
+							<li>Scroll down to the middle of the page and click the get started
+								button.
+							</li>
+							<li>Fill in your details in the form on the new page and submit.</li>
+						</ul>
+				</div>
+				<div class="question">
+					<h4>Can my account be dormant?</h4>
+					<p>Yes, your account can be dormant if not used.</p>
+				</div>
 			</div>
 		</section>
 	</div> <!-- end main-->
