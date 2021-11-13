@@ -9,6 +9,8 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
 </head>
 <body>
+	<!-- Loader -->
+	<loader class="loader"></loader>
 	<div class="ad-modal">
 		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
 		<div class="modal-content center"></div>
@@ -23,7 +25,8 @@
 			<img id="avatar"
 				onclick="openDropDown(true)" 
 				class="dropbtn"
-				src="../../assets/img/avatar.png" 
+				src="../../assets/img/avatar.png"
+				alt="profile pic"
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
@@ -37,9 +40,7 @@
 			    <span class="open-slide" style="color: #000">
 				    <i class="fas fa-bars fa-2x"></i>
 				</span>
-			 </a>
-
-			 <!-- Toast -->
+			</a>
 			<!-- Toast -->
 			<div class="toast success">
 				<img src="../../assets/img/check-mark.gif" alt="check-mark">
@@ -52,8 +53,17 @@
 			<div id="side-menu" class="side-nav">
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
-				<li><a href="accounts.html">All accounts</a></li>
-				<li><a href="new-staff.html">Add new staff</a></li>
+			    <li><a href="users.html">Users</a></li>
+				<li><a href="accounts.html">Accounts</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div> <!-- end ellipsis content -->
 				<li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
 			</div>
 		</div>
@@ -63,8 +73,17 @@
 			<aside>
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
-					<a href="accounts.html"><li style="background: #076969">All accounts</li></a>
-					<a href="new-staff.html"><li>Add new staff</li></a>
+					<a href="users.html"><li>Users</li></a>
+					<a href="accounts.html"><li style="background: #076969">Accounts</li></a>
+					<li class="accordion">
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="#"><li onclick="event.preventDefault();return logout();">Logout</li></a>
 				</ul>
 			</aside>
@@ -79,227 +98,133 @@
 			<div class="ad-main-content">
 				<table>
 					<tr>
-						<th>S/No</th>
-						<th>Account name</th>
+						<th>Data created</th>
+						<th>Owner ID</th>
 						<th>Account type</th>
 						<th>Status</th>
 						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>John Smith</td>
-						<td>Savings</td>
-						<td>Active</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'deactivate')" class="gold">
-								Deactivate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
-
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>John Smith</td>
-						<td>Savings</td>
-						<td>Dormant</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="green">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>John Smith</td>
-						<td>Current</td>
-						<td>Dormant</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="green">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>John Smith</td>
-						<td>Savings</td>
-						<td>Active</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'deactivate')" class="gold">
-								Deactivate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td class="actions">
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>John Smith</td>
-						<td>Savings</td>
-						<td>Dormant</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="green">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>John Smith</td>
-						<td>Current</td>
-						<td>Dormant</td>
-						<td>
-							<a href="account-single.html">
-								<button class="blue">View</button>
-							</a>
-						</td>
-						<!-- Ellipsis for mobile view -->
-						<td class="ellipsis">
-							<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-							<!-- ellipsis content -->
-							<div class="more-options">
-								<button onclick="modalOpen(true, 'deactivate')" class="gold">
-									Deactivate
-								</button>
-								<button onclick="modalOpen(true, 'delete')" class="red">
-									Delete
-								</button>
-							</div>
-						</td> <!-- end ellipsis -->
-						<td class="actions">
-							<button onclick="modalOpen(true, 'activate')" class="green">
-								Activate
-							</button>
-						</td>
-						<td class="actions">
-							<button onclick="modalOpen(true, 'delete')" class="red">
-								Delete
-							</button>
-						</td>
-					</tr>
 				</table>
 			</div>
 		</section>
 	</div>
 
-	<script src="../../assets/js/middleware.js"></script>	
+	<script src="../../assets/js/middleware.js"></script>
 	<script>
-		document.readyState = withAuth();
+        const handleSelectedAccount = (id) => {
+            sessionStorage.setItem('id', id);
+            location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/account-single.html`);
+        }
+    </script>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+            withAuth();
+            const token = getAuthToken();
+            const url = new URL(env.url());
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': token
+                }
+            };
+
+            // Get user type
+            fetch(`${url.href}/user/type/`, config)
+            .then(response => response.json())
+            .then(json => {
+                if (!json.error) {
+                    // Remove side nav links based on user
+                    const accordion = document.querySelectorAll('.accordion');
+                    const panel = document.querySelectorAll('.panel');
+                    if (json.data.type == 'admin') {
+                        accordion.forEach((acc) => acc.style.display = 'none');
+                        panel.forEach((pnl) => pnl.style.display = 'none');
+                    }
+                }
+                return null;
+            })
+            .catch(error => showToast(false, 'Please log in again.'));
+
+            // Get all accounts
+            (function() {
+                fetch(`${url.href}/accounts/`, config)
+                    .then(response => response.json())
+                    .then(json => {
+                        if (json.status === 401) {
+                            localStorage.clear();
+                            showToast(false, errorResponse(json.error))
+                            handleLoadingComplete(true, 1);
+                            return redirect.home();
+                        }
+                        if (json.status < 300) {
+                            const table = document.querySelector('table');
+                            json.data.map((account) => {
+                                const tableRow = document.createElement('tr');
+                                tableRow.innerHTML = `
+                                    <tr key=${account.id}>
+                                        <td>${formatDate(account.created_at)}</td>
+                                        <td>${account.owner}</td>
+                                        <td>${account.type}</td>
+                                        <td>${account.status}</td>
+                                        <td>
+                                            <a href="account-single.html">
+                                                <button
+                                                    class="blue"
+                                                    onclick="handleSelectedAccount(${account.account_number})"
+                                                >
+                                                    View
+                                                </button>
+                                            </a>
+                                        </td>
+										<!-- Ellipsis for mobile view -->
+										<td class="ellipsis">
+											<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+											<!-- Ellipsis content -->
+											<div class="more-options">
+												<button onclick="modalOpen(true, 'deactivate')" class="gold"
+												>
+													Deactivate
+												</button>
+												<button onclick="modalOpen(true, 'delete')" class="red"
+												>
+													Delete
+												</button>
+											</div>
+										</td> <!-- end ellipsis -->
+										<td class="actions">
+											<button onclick="modalOpen(true, 'deactivate')" class="gold"
+											>
+												Deactivate
+											</button>
+										</td>
+										<td class="actions">
+											<button onclick="modalOpen(true, 'delete')" class="red"
+											>
+												Delete
+											</button>
+										</td>
+                                    </tr>`;
+                                table.appendChild(tableRow);
+                            });
+                            return handleLoadingComplete(false, 1);
+                        } else {
+                            showToast(false, 'Unable to fetch data');
+                            return handleLoadingComplete(true, 1)
+                        }
+                    })
+                    .catch(error => {
+                        showToast(false, 'Try again');
+                        return handleLoadingComplete(true, 1);
+                    }).
+                    catch(error => {
+                        showToast(false, 'Try again');
+                        return handleLoadingComplete(true, 1);
+                    });
+                    return null;
+            })();
+        });
 	</script>
 	<script src="../../assets/js/utils.js"></script>
 	<script src="../../assets/js/main.js"></script>

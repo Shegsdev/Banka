@@ -28,6 +28,11 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
+    @media only screen and (max-width : 768px) {
+    	.loader {
+    		left: 45%;
+    	}
+    }
 </style>
 <body>
 	<div id="app">
@@ -44,7 +49,7 @@
 						<li><a href="./client/views/contact-us.html">Contact</a></li>
 						<li><a href="./client/views/about.html">About</a></li>
 						<li><a href="./client/views/help.html">Help</a></li>
-						<a href="./client/views/new-account.html"><li class="button button-green">Login</li></a>
+						<a href="./client/views/login.html"><li class="button button-green">Login</li></a>
 					</ul>
 					<!-- Hamburger links -->
 				    <a onclick="openSlideMenu()">
@@ -198,7 +203,7 @@
 								linkHref = 'admin/home';
 								break;
 							case 'staff':
-								linkHref = 'staff/home';
+								linkHref = 'admin/staff/home';
 								break;
 							default: linkHref = 'profile';
 						}
