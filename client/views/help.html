@@ -7,11 +7,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100" type="text/css">
 	
 	<style>
 		nav ul li a {
-			color: rgb(0, 124, 195);
+			color: teal;
 		}
 	</style>
 </head>
@@ -29,7 +28,7 @@
 					<li><a href="contact-us.html">Contact</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="active"><a href="help.html">Help</a></li>
-					<a href="new-account.html"><li class="button button-blue">Get started</li></a>
+					<a href="new-account.html"><li class="button button-green">Get started</li></a>
 				</ul>
 				<!-- Hamburger links -->
 			    <a href="#" onclick="openSlideMenu()">
@@ -42,11 +41,11 @@
 				<div id="side-menu" class="side-nav">
 				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				    <li><a href="../../index.html">Home</a></li>
+				    <li id="account-link"><a href="profile.html">My account</a></li>
 					<li><a href="contact-us.html">Contact</a></li>
 					<li><a href="about.html">About</a></li>
-					<li><a href="help.html">Help</a></li>
-					<li id="account-link"><a href="profile.html">My account</a></li>
 					<li><a href="new-account.html">Get started</a></li>
+					<li id="logout-link"><a href="#">Logout</a></li>
 				</div>
 			</div>
 		</nav>
@@ -56,7 +55,7 @@
 			<header>
 				<h2 class="center">FAQ</h2>
 			</header>
-			<div class="main-content help container">
+			<div class="main-content help">
 				<div class="question">
 					<h4>How can I open an account?</h4>
 					<p>Here are the steps to follow:
@@ -89,7 +88,27 @@
 		</footer>
 	</div>
 
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Check if user is logged in
+			const token = localStorage.getItem('token');
+			if (token) {
+				// side nav link
+				const accountLink = document.querySelector('#account-link');
+				accountLink.style.display = 'inline-flex';
+
+				const logoutLink = document.querySelector('#logout-link');
+				logoutLink.style.display = 'inline-flex';
+				logoutLink.addEventListener('click', (e) => {
+					closeSlideMenu();
+					return logout(e);
+				});
+			}
+		});
+	</script>
+
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/middleware.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>

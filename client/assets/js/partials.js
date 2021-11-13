@@ -27,7 +27,7 @@ window.onscroll = function () {
       const el = l.children[0];
       if (el.tagName === 'LI') el.style.color = '#e7e7e9';
       else if (el.tagName === 'EM') el.style.color = '#ff0000';
-      else el.style.color = 'rgb(0, 124, 195)';
+      else el.style.color = 'teal';
     }
   }
   if (window.scrollY < 50) {
