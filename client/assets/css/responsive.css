@@ -19,7 +19,9 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-    
+    .main .main-content article button {
+        padding: 10px 18px;   
+    }
 }
 
 /* Medium Devices, Tablets */
@@ -76,7 +78,7 @@
     }
 	.main .landing {
         background: #ffffff;
-        height: 400px;
+        height: 500px;
         text-align: center;
     }
     .main .landing article {
@@ -85,7 +87,6 @@
         margin: 0;
     }
     .main-showcase .why-us {
-        border-bottom: 1px dotted #3b719f;
         font-size: 20px !important;
     }
 
@@ -192,8 +193,8 @@
         display: block;
     }
 
-    /*Account opening page / Contact*/
-    .main .account, .main .contact-us, .main .about-us {
+    /*Account opening page / Contact /Help*/
+    .main .account, .main .contact-us, .main .about-us, .main .help {
         margin: 0 auto;
         width: 90%;
     }
@@ -222,10 +223,11 @@
         height: 100%;
         align-items: center;
         justify-content: center;
-        padding: 3em;
+        padding: 0;
+        margin: 0;
     }
     .hero-copy h1 {
-        color: sandybrown;
+        color: wheat;
         font-size: 42px;
     }
     .hero-copy p {
