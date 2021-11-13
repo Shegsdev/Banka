@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | Staff</title>
+	<title>Banka | Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/css/responsive.css">
 </head>
 <body>
 	<div class="ad-modal">
@@ -15,15 +15,15 @@
 	</div>
 	<nav id="ad-nav">
 		<div id="logo">
-			<a href="../../../index.html">
-				<img src="../../assets/img/logo.png" alt="logo">
+			<a href="../../../../index.html">
+				<img src="../../../assets/img/logo.png" alt="logo">
 			</a>
 		</div>
 		<div class="ad-nav-right">
 			<img id="avatar"
 				onclick="openDropDown(true)" 
 				class="dropbtn"
-				src="../../assets/img/avatar.png" 
+				src="../../../assets/img/avatar.png" 
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
@@ -40,17 +40,18 @@
 			</a>
 			<!-- Toast -->
 			<div class="toast success">
-				<img src="../../assets/img/check-mark.gif" alt="check-mark">
+				<img src="../../../assets/img/check-mark.gif" alt="check-mark">
 			</div>
 			<div class="toast error">
-				<img src="../../assets/img/cross-mark.jpg" alt="cross-mark">
+				<img src="../../../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
-				<li><a href="accounts.html">All accounts</a></li>
+			    <li><a href="users.html">Users</a></li>
+				<li><a href="accounts.html">Accounts</a></li>
 				<li class="accordion">
 					<a href="#">New transaction</a>
 					<i class="fa fa-caret-down right"></i>
@@ -69,8 +70,9 @@
 			<aside>
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
-					<a href="accounts.html"><li style="background: #076969">All accounts</li></a>
-					<li class="accordion">
+					<a href="users.html"><li>Users</li></a>
+					<a href="accounts.html"><li>Accounts</li></a>
+					<li class="accordion" style="background: #076969">
 						<a href="#">New transaction</a>
 						<i class="fa fa-caret-down right"></i>
 					</li>
@@ -85,31 +87,46 @@
 		</section>
 
 		<section class="ad-main-showcase">
+			<div class="toast">
+				<img src="../../../assets/img/check-mark.gif" alt="check-mark">
+					<figcaption>Transaction successful!</figcaption>
+			</div>
+			<header><h3>New Transaction</h3></header>
 			<div class="ad-main-content">
-				<span class="back" onclick="window.history.back()">
-					<i class="fas fa-arrow-left fa-2x"></i>
-				</span>
-				<section class="single">
-					<header><h2>Account info</h2></header>
-					<p>Holder's Name: John Doe</p>
-					<p>Account Number: 1234567890</p>
-					<p>Account Type: Savings</p>
-					<p>Balance: 999999.99</p>
-					<p>Status: Active</p>
-					<br/>
-				</section>
-				<hr/>
+				<div class="transaction-form">
+					<form onsubmit="event.preventDefault(); return showToast()">
+		                <div class="form-row">
+		                    <div class="form-input">
+		                    	<label for="account_number">Enter account number:</label>
+		                        <input type="text" name="account_number" required minlength="13">
+		                    </div>
+		                </div>
+		                <div class="form-row">
+		                    <div class="form-input">
+		                    	<label for="amount">Enter amount:</label>
+		                        <input type="number" name="amount" required>
+		                    </div>
+		                </div>
+		                <br>
+		                <div class="form-row">
+		                    <div class="form-input">
+		                        <input class="button button-green" type="submit" value="Debit">
+		                    </div>
+		                </div>
+			            </div>
+		            </form>
+				</div>
 			</div>
 		</section>
 	</div>
 
-	<script src="../../assets/js/middleware.js"></script>	
+	<script src="../../../assets/js/middleware.js"></script>	
 	<script>
 		document.readyState = withAuth();
 	</script>
-	<script src="../../assets/js/utils.js"></script>
-	<script src="../../assets/js/main.js"></script>
-	<script src="../../assets/js/dashboard.js"></script>
+	<script src="../../../assets/js/utils.js"></script>
+	<script src="../../../assets/js/main.js"></script>
+	<script src="../../../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>

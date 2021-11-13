@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Banka | Staff</title>
+	<title>Banka | Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/css/responsive.css">
 </head>
 <body>
 	<div class="ad-modal">
@@ -15,15 +15,15 @@
 	</div>
 	<nav id="ad-nav">
 		<div id="logo">
-			<a href="../../../index.html">
-				<img src="../../assets/img/logo.png" alt="logo">
+			<a href="../../../../index.html">
+				<img src="../../../assets/img/logo.png" alt="logo">
 			</a>
 		</div>
 		<div class="ad-nav-right">
 			<img id="avatar"
 				onclick="openDropDown(true)" 
 				class="dropbtn"
-				src="../../assets/img/avatar.png" 
+				src="../../../assets/img/avatar.png" 
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
@@ -40,17 +40,18 @@
 			</a>
 			<!-- Toast -->
 			<div class="toast success">
-				<img src="../../assets/img/check-mark.gif" alt="check-mark">
+				<img src="../../../assets/img/check-mark.gif" alt="check-mark">
 			</div>
 			<div class="toast error">
-				<img src="../../assets/img/cross-mark.jpg" alt="cross-mark">
+				<img src="../../../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
 			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="home.html">Dashboard</a></li>
-				<li><a href="accounts.html">All accounts</a></li>
+			    <li><a href="../users.html">Users</a></li>
+				<li><a href="../accounts.html">Accounts</a></li>
 				<li class="accordion">
 					<a href="#">New transaction</a>
 					<i class="fa fa-caret-down right"></i>
@@ -69,7 +70,8 @@
 			<aside>
 				<ul>
 					<a href="home.html"><li>Dashboard</li></a>
-					<a href="accounts.html"><li>All accounts</li></a>
+					<a href="../users.html"><li>Users</li></a>
+					<a href="../accounts.html"><li>Accounts</li></a>
 					<li class="accordion" style="background: #076969">
 						<a href="#">New transaction</a>
 						<i class="fa fa-caret-down right"></i>
@@ -86,7 +88,7 @@
 
 		<section class="ad-main-showcase">
 			<div class="toast">
-				<img src="../../assets/img/check-mark.gif" alt="check-mark">
+				<img src="../../../assets/img/check-mark.gif" alt="check-mark">
 					<figcaption>Transaction successful!</figcaption>
 			</div>
 			<header><h3>New Transaction</h3></header>
@@ -118,13 +120,13 @@
 		</section>
 	</div>
 
-	<script src="../../assets/js/middleware.js"></script>	
+	<script src="../../../assets/js/middleware.js"></script>	
 	<script>
 		document.readyState = withAuth();
 	</script>
-	<script src="../../assets/js/utils.js"></script>
-	<script src="../../assets/js/main.js"></script>
-	<script src="../../assets/js/dashboard.js"></script>
+	<script src="../../../assets/js/utils.js"></script>
+	<script src="../../../assets/js/main.js"></script>
+	<script src="../../../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>
