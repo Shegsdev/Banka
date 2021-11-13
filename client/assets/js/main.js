@@ -98,3 +98,17 @@ for (let el of ellipsis) {
       }
   });
 }
+
+// Loader
+function renderLoader(el, display) {
+  const loader = document.createElement("div");
+  loader.setAttribute("class", "loader");
+
+  document.body.append(loader);
+  setTimeout(() => {
+    if (document.readyState == 'complete') {
+      document.body.removeChild(loader);
+      el.style.display = display;
+    }
+  }, 3000);
+}

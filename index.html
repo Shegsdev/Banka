@@ -8,137 +8,163 @@
 	<link rel="stylesheet" type="text/css" href="./client/assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="./client/assets/css/responsive.css">
 </head>
+<style>
+	#app {
+		display: none;
+	}
+	.loader {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid teal;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        animation: spin 1s linear infinite;
+        position: absolute;
+        top: 40%;
+        left: 48%;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+</style>
 <body>
-	<div class="hero hero-landing">
-		<nav id="nav">
-			<div id="logo">
-				<a href="index.html">
-					<img src="./client/assets/img/logo.png" alt="logo">
-				</a>
-			</div>
-			<div class="nav-links">
-				<ul>
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a href="./client/views/contact-us.html">Contact</a></li>
-					<li><a href="./client/views/about.html">About</a></li>
-					<li><a href="./client/views/help.html">Help</a></li>
-					<a href="./client/views/new-account.html"><li class="button button-green">Login</li></a>
-				</ul>
-				<!-- Hamburger links -->
-			    <a onclick="openSlideMenu()">
-				    <span class="open-slide" style="color: rgb(0, 147, 221)">
-					    <i class="fas fa-bars fa-2x"></i>
-					</span>
-				</a>
-
-				<!-- Toast -->
-				<div class="toast success">
-					<img src="./client/assets/img/check-mark.gif" alt="check-mark">
-				</div>
-				<div class="toast error">
-					<img src="./client/assets/img/cross-mark.jpg" alt="cross-mark">
-				</div>
-
-				<!-- Side nav -->
-				<div id="side-menu" class="side-nav">
-				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
-				    <li class="active"><a href="index.html">Home</a></li>
-				    <li id="account-link"><a href="./client/views/profile.html">My account</a></li>
-					<li><a href="./client/views/contact-us.html">Contact</a></li>
-					<li><a href="./client/views/about.html">About</a></li>
-					<li><a href="./client/views/help.html">Help</a></li>
-					<li><a href="./client/views/login.html">Login</a></li>
-					<li id="logout-link"><a href="#">Logout</a></li>
-				</div>
-			</div>
-		</nav>
-		<div class="hero-copy">
-			<h1>We've got you...</h1>
-			<p>Open a secure account today with Banka.</p>
-			<div>
-				<a
-					href="./client/views/new-account.html"
-					class="button button-green"
-					style="padding: 0.3em 1em;font-weight: 200;"
-				>
-					Create account
-				</a>
-			</div>
-		</div>
-		
-	</div> <!-- end hero -->
-	<div class="main">
-		<section>
-			<div class="justify-center">
-				<div class="main-content header">
-					<header>
-						<h2 class="center">Let's bank</h2>
-					</header>
-				</div>
-			</div>
-			<div class="main-content landing">
-				<article>
-					<h2>Get an account that suits you!</h2>
-					<p>We believe that the beauty of life lies in the little things that give us a better expression of ourselves, make us more social and connect emotionally.</p>
-					<a href="./client/views/new-account.html">
-						<button class="button button-brown">GET STARTED TODAY</button>
+	<div id="app">
+		<div class="hero hero-landing">
+			<nav id="nav">
+				<div id="logo">
+					<a href="index.html">
+						<img src="./client/assets/img/logo.png" alt="logo">
 					</a>
-				</article>
+				</div>
+				<div class="nav-links">
+					<ul>
+						<li class="active"><a href="index.html">Home</a></li>
+						<li><a href="./client/views/contact-us.html">Contact</a></li>
+						<li><a href="./client/views/about.html">About</a></li>
+						<li><a href="./client/views/help.html">Help</a></li>
+						<a href="./client/views/new-account.html"><li class="button button-green">Login</li></a>
+					</ul>
+					<!-- Hamburger links -->
+				    <a onclick="openSlideMenu()">
+					    <span class="open-slide" style="color: rgb(0, 147, 221)">
+						    <i class="fas fa-bars fa-2x"></i>
+						</span>
+					</a>
+
+					<!-- Toast -->
+					<div class="toast success">
+						<img src="./client/assets/img/check-mark.gif" alt="check-mark">
+					</div>
+					<div class="toast error">
+						<img src="./client/assets/img/cross-mark.jpg" alt="cross-mark">
+					</div>
+
+					<!-- Side nav -->
+					<div id="side-menu" class="side-nav">
+					    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
+					    <li class="active"><a href="index.html">Home</a></li>
+					    <li id="account-link"><a href="./client/views/profile.html">My account</a></li>
+						<li><a href="./client/views/contact-us.html">Contact</a></li>
+						<li><a href="./client/views/about.html">About</a></li>
+						<li><a href="./client/views/help.html">Help</a></li>
+						<li><a href="./client/views/login.html">Login</a></li>
+						<li id="logout-link"><a href="#">Logout</a></li>
+					</div>
+				</div>
+			</nav>
+			<div class="hero-copy">
+				<h1>We've got you...</h1>
+				<p>Open a secure account today with Banka.</p>
+				<div>
+					<a
+						href="./client/views/new-account.html"
+						class="button button-green"
+						style="padding: 0.3em 1em;font-weight: 200;"
+					>
+						Create account
+					</a>
+				</div>
 			</div>
-		</section>
-
-		<section class="main-showcase container">
-			<header>
-				<h2 class="center">Why choose Banka?</h2>
-			</header>
-			<div class="main-showcase-content three-equal-sized-columns grid">
-				<div class="why-us center">
-					<span style="color: #3f4446">
-						<i class="fas fa-tachometer-alt fa-3x"></i>
-					</span>
+			
+		</div> <!-- end hero -->
+		<div class="main">
+			<section>
+				<div class="justify-center">
+					<div class="main-content header">
+						<header>
+							<h2 class="center">Let's bank</h2>
+						</header>
+					</div>
+				</div>
+				<div class="main-content landing">
 					<article>
-						<h3>Quick & Easy</h3>
-						<p>Get an account in the shortest amount of time in just two steps.
-							<em>Banka</em> provides an elegant
-							user interface that makes it all simple.</p>
+						<h2>Get an account that suits you!</h2>
+						<p>We believe that the beauty of life lies in the little things that give us a better expression of ourselves, make us more social and connect emotionally.</p>
+						<a href="./client/views/new-account.html">
+							<button class="button button-brown">GET STARTED TODAY</button>
+						</a>
 					</article>
 				</div>
-				<div class="why-us center">
-					<span style="color: #3f4446">
-						<i class="fas fa-universal-access fa-3x"></i>
-					</span>
-					<article>
-						<h3>Accessible</h3>
-						<p>Manage your account from anywhere, at anytime.
-						You are in full control.</p>
-					</article>
+			</section>
+
+			<section class="main-showcase container">
+				<header>
+					<h2 class="center">Why choose Banka?</h2>
+				</header>
+				<div class="main-showcase-content three-equal-sized-columns grid">
+					<div class="why-us center">
+						<span style="color: #3f4446">
+							<i class="fas fa-tachometer-alt fa-3x"></i>
+						</span>
+						<article>
+							<h3>Quick & Easy</h3>
+							<p>Get an account in the shortest amount of time in just two steps.
+								<em>Banka</em> provides an elegant
+								user interface that makes it all simple.</p>
+						</article>
+					</div>
+					<div class="why-us center">
+						<span style="color: #3f4446">
+							<i class="fas fa-universal-access fa-3x"></i>
+						</span>
+						<article>
+							<h3>Accessible</h3>
+							<p>Manage your account from anywhere, at anytime.
+							You are in full control.</p>
+						</article>
+					</div>
+					<div class="why-us center">
+						<span style="color: #3f4446">
+							<i class="fas fa-shield-alt fa-3x"></i>
+						</span>
+						<article>
+							<h3>Secure <i class="fas fa-percent"></i></h3>
+							<p>With <em style="color: rgb(0, 124, 195)"><b>Banka</b></em> customers' confidentiality is not taken lightly. Our concern about security is topnotch.</p>
+						</article>
+					</div>
 				</div>
-				<div class="why-us center">
-					<span style="color: #3f4446">
-						<i class="fas fa-shield-alt fa-3x"></i>
-					</span>
-					<article>
-						<h3>Secure <i class="fas fa-percent"></i></h3>
-						<p>With <em style="color: rgb(0, 124, 195)"><b>Banka</b></em> customers' confidentiality is not taken lightly. Our concern about security is topnotch.</p>
-					</article>
-				</div>
-			</div>
-		</section>
-	</div> <!-- end main-->
+			</section>
+		</div> <!-- end main-->
 
 
-	<div class="footer">
-		<footer class="container">
-			<p>&copy; 2019 All rights reserved.</p>
-		</footer>
+		<div class="footer">
+			<footer class="container">
+				<p>&copy; 2019 All rights reserved.</p>
+			</footer>
+		</div>
 	</div>
 
 	<script>
 		let linkHref = 'profile';
+		const pageContent = document.querySelector('#app')
 
 		document.addEventListener("DOMContentLoaded", function() {
 			let hero = document.querySelector('.hero');
 			hero.style.height = `${window.innerHeight}px`;
+
+			renderLoader(pageContent, "block")
 
 			// Check if user is logged in
 			const token = localStorage.getItem('token');
