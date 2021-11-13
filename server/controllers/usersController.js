@@ -2,6 +2,7 @@
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
 import User from '../models/user';
+import UsersResource from '../resources/usersResource';
 import { hash, setAuthToken } from '../utils/helpers';
 import validateSignUpInput from '../validation/authentication/signUp';
 
@@ -59,8 +60,16 @@ const UsersController = {
           error: 'No user found',
         });
       }
+      const { isStaff, isAdmin } = req.user;
+      if (isStaff) {
+        const filteredData = UsersResource(users.rows.filter(({ is_admin, is_staff }) => !is_admin && !is_staff));
+        return res.status(200).json({
+        status: 200, data: filteredData,
+      });
+      }
       return res.status(200).json({
-        status: 200, data: users.rows,
+        status: 200,
+        data: UsersResource(users.row),
       });
     })
       .catch(err => res.status(500).json({

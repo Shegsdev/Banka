@@ -78,7 +78,7 @@ const AccountsController = {
    * */
   findAll(req, res) {
     const { status } = req.query;
-    if (req.query === '{}') {
+    if (JSON.stringify(req.query) == '{}') {
       Account.findAllById(res).then((accounts) => {
         if (!accounts || !accounts.rows.length) {
           return res.status(404).json({
@@ -137,9 +137,13 @@ const AccountsController = {
           });
         }
         if (account.rows[0].owner !== req.user.id) {
-          return res.status(403).json({ status: 403, err: 'You do not have the permission to this account.' });
+          if (req.user.isStaff || req.user.isAdmin) {
+            return res.status(200).json({ status: 200, data: account.rows[0] });
+          } else {
+            return res.status(403).json({ status: 403, err: 'You do not have the permission to this account.' });
+          }
         }
-        return res.status(200).json({ status: 200, data: account.rows });
+        return res.status(200).json({ status: 200, data: account.rows[0] });
       })
       .catch(err => res.status(500).json({
         status: 500,

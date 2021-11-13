@@ -110,5 +110,5 @@ function renderLoader(el, display) {
       document.body.removeChild(loader);
       el.style.display = display;
     }
-  }, 3000);
+  }, 2500);
 }

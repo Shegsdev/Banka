@@ -38,3 +38,20 @@ function handleLoadingComplete(error, duration) {
     document.head.removeChild(styleTag);
   }, duration * 1000);
 }
+
+function formatDate(date, separator=' ') {
+  const stringArray = new Date(date).toDateString().split(' ');
+  /*
+    toDateString() returns: 'Mon Dec 14 2020'
+  */
+  return stringArray.slice(1).join(separator);
+}
+
+function formatCurrency(value=0) {
+  return new Intl.NumberFormat(
+    'en-US',
+    {
+      minimumFractionDigits: 2
+    }
+  ).format(value)
+}
