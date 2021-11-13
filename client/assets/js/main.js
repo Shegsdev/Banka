@@ -5,6 +5,7 @@ const modal = document.querySelector('.ad-modal');
 const modalContent = document.querySelector('.modal-content');
 
 const showToast = (status, message = status) => {
+  window.scrollTo(null, 0);
   const successToast = document.querySelector('.success');
   const errorToast = document.querySelector('.error');
   let tag;
@@ -17,12 +18,12 @@ const showToast = (status, message = status) => {
     tag = toast.children[1];
   }
   tag.innerHTML = message;
+  tag.style.fontSize = '13px';
   toast.appendChild(tag);
   toast.style.display = 'block';
-  // modalOpen(false);
   setTimeout(() => {
     toast.style.display = 'none';
-  }, 2000);
+  }, 2500);
 };
 
 function modalOpen(bool, action = 'undefined') {

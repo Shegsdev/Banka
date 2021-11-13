@@ -29,7 +29,7 @@ const redirect = {
 
   // To login page
   toLogin() {
-    location.assign(`${ghPagesUrlRedirect(location.origin)}/UI/pages/login.html`);
+    location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/login.html`);
   },
 };
 
@@ -38,7 +38,8 @@ function withAuth() {
   if (!token) redirect.toLogin();
 }
 
-function logout() {
+function logout(e) {
+  if (e) e.preventDefault();
   localStorage.clear();
   showToast(true, 'Logout successful');
   return redirect.home();

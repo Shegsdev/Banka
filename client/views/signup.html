@@ -27,7 +27,6 @@
             <li><a href="contact-us.html">Contact</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="help.html">Help</a></li>
-            <li><a href="profile.html">Profile</a></li>
             <li><a href="new-account.html">Get started</a></li>
         </div>
 		<section class="banner">
@@ -81,7 +80,7 @@
                 <br>
                 <div class="form-row">
                     <div class="form-input login-button">
-                        <input id="login" class="button-blue" type="submit" value="Continue">
+                        <input id="login" class="button button-blue" type="submit" value="Continue">
                     </div>
                 </div>
                 <!-- Navigate -->
@@ -101,6 +100,8 @@
 	<script>
 
         window.onload = function() {
+            if (document.readyState == 'complete')
+                setTimeout(() => document.querySelector('#signupForm').reset(), 1000);
             let div = document.querySelector('.auth-page');
             div.style.height = window.innerHeight + "px";
 
@@ -141,10 +142,12 @@
                         showToast(true, 'Signup successful');
                     } else {
                         showToast(false, errorResponse(json.error));
+                        return handleLoadingComplete(true, 2);
                     }
                 }).
                 catch(error => {
                     showToast(false, 'Try again');
+                    return handleLoadingComplete(true, 2);
                 });
                 // Enable button
                 const duration = new Date().getMilliseconds() - start.getMilliseconds();
@@ -153,9 +156,12 @@
                     button.style.opacity = 1;
                     button.style.cursor = 'pointer';
                 }, duration * 2 * 1000);
-                return handleLoadingComplete(new Date().getMilliseconds() - start.getMilliseconds());
+                return handleLoadingComplete(false, new Date().getMilliseconds() - start.getMilliseconds());
             
         }
+    </script>
+    <script>
+        // if (document.readyState == 'complete') 
     </script>
     <script src="../assets/js/middleware.js"></script>
     <script src="../assets/js/main.js"></script>
