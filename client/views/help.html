@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | Help</title>
+	<link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
@@ -31,15 +32,14 @@
 					<a href="new-account.html"><li class="button button-green">Get started</li></a>
 				</ul>
 				<!-- Hamburger links -->
-			    <a href="#" onclick="openSlideMenu()">
-				    <span class="open-slide" style="color: #ffffff">
-					    <i class="fas fa-bars fa-2x"></i>
+			    <a href="#" onclick="event.preventDefault();openSlideMenu(this)">
+				    <span class="open-slide">
+					    <i class="fas fa-align-right fa-2x"></i>
 					</span>
-				 </a>
+				</a>
 
 				<!-- Side nav -->
 				<div id="side-menu" class="side-nav">
-				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				    <li><a href="../../index.html">Home</a></li>
 				    <li id="account-link"><a href="profile.html">My account</a></li>
 					<li><a href="contact-us.html">Contact</a></li>
@@ -95,10 +95,10 @@
 			if (token) {
 				// side nav link
 				const accountLink = document.querySelector('#account-link');
-				accountLink.style.display = 'inline-flex';
+				accountLink.style.display = 'list-item';
 
 				const logoutLink = document.querySelector('#logout-link');
-				logoutLink.style.display = 'inline-flex';
+				logoutLink.style.display = 'list-item';
 				logoutLink.addEventListener('click', (e) => {
 					closeSlideMenu();
 					return logout(e);

@@ -62,8 +62,20 @@ function modalOpen(bool, action = 'undefined') {
 
 // Hamburger Menu
 
-function openSlideMenu() {
-  document.getElementById('side-menu').style.width = '85%';
+function openSlideMenu(el) {
+  const hmbg = el.firstElementChild.firstElementChild;
+  // Replace icon
+  const classList = hmbg.classList;
+  if (classList.contains('fa-align-right')) {
+    hmbg.style.color = '#fff';
+    hmbg.classList.replace('fa-align-right', 'fa-times');
+    document.getElementById('side-menu').style.width = '100%';
+    return;
+  }
+  hmbg.style.color = '#4F4D53';
+  hmbg.classList.replace('fa-times', 'fa-align-right');
+  document.getElementById('side-menu').style.width = '0';
+  return;
 }
 
 function closeSlideMenu() {
@@ -84,20 +96,24 @@ for (let acc of accordion) {
 }
 
 // More options pop-up
-const ellipsis = document.querySelectorAll('.ellipsis');
+const addEvent = async () => {
+  const ellipsis = await document.querySelectorAll('.ellipsis');
 
-for (let el of ellipsis) {
-  el.addEventListener('click', function () {
-    const options = document.querySelector('.more-options');
-      if (options.style.display === 'block') {
-        options.style.display = 'none';
-      }
-      else {
-        options.style.display = 'block';
-        options.style.position = 'absolute';
-      }
-  });
-}
+  for (let el of ellipsis) {
+    el.addEventListener('click', function () {
+      const options = document.querySelector('.more-options');
+        if (options.style.display === 'block') {
+          options.style.display = 'none';
+        }
+        else {
+          options.style.display = 'block';
+          options.style.position = 'absolute';
+        }
+    });
+  }
+};
+
+setTimeout(addEvent, 5000);
 
 // Loader
 function renderLoader(el, display) {
@@ -112,3 +128,19 @@ function renderLoader(el, display) {
     }
   }, 2500);
 }
+
+// Dropdown menu
+function openDropDown(bool) {
+  const dropdown = document.getElementById('dropdown');
+  if (!dropdown) return;
+  // Dropdow display option
+  bool ? dropdown.style.display = 'block'
+    : dropdown.style.display = 'none';
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function (e) {
+  if (!e.target.matches('.dropbtn')) {
+    openDropDown(false);
+  }
+};

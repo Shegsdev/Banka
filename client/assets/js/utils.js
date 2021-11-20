@@ -17,8 +17,9 @@ function errorResponse(error) {
   return Object.values(error)[0];
 }
 
-function handleLoadingComplete(error, duration) {
+function handleLoadingComplete(error, duration, color='') {
   let bg = 'teal';
+  if (color) bg = color
   if (error) bg = 'red';
   const animationName = 'loading';
   const styles = `
@@ -28,12 +29,12 @@ function handleLoadingComplete(error, duration) {
     to{
       width: 100%;
     }`;
-  const loader = document.querySelector('loader');
+  const progress = document.querySelector('.progress-bar');
   const styleTag = document.createElement('style');
   document.head.appendChild(styleTag);
   styleTag.sheet.insertRule(`@keyframes ${animationName} {${styles}}`, styleTag.length);
-  loader.style.backgroundColor = bg;
-  loader.style.animation = `${animationName} ${duration}s alternate`;
+  progress.style.backgroundColor = bg;
+  progress.style.animation = `${animationName} ${duration}s alternate`;
   setTimeout(() => {
     document.head.removeChild(styleTag);
   }, duration * 1000);

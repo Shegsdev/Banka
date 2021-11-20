@@ -54,7 +54,15 @@
                     <li><a href="home.html">Dashboard</a></li>
                     <li><a href="users.html">Users</a></li>
                     <li><a href="accounts.html">Accounts</a></li>
-                    <li><a href="new-staff.html">Add new staff</a></li>
+                    <li class="accordion">
+                        <a href="#">New transaction</a>
+                        <i class="fa fa-caret-down right" style="margin-top:1em"></i>
+                    </li>
+                    <!-- Accordion content -->
+                    <div class="panel">
+                        <a href="credit.html">Credit</a>
+                        <a href="debit.html">Debit</a>
+                    </div>
                     <li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
                 </div>
             </div>
@@ -64,10 +72,10 @@
                 <aside>
                     <ul>
                         <a href="home.html">
-                        <li>
-                            <i class="fas fa-chart-line"></i>
-                            Dashboard
-                        </li>
+                            <li>
+                                <i class="fas fa-chart-line"></i>
+                                Dashboard
+                            </li>
                         </a>
                         <a href="users.html">
                             <li style="background: #076969">
@@ -81,12 +89,16 @@
                                 Accounts
                             </li>
                         </a>
-                        <a href="new-staff.html">
-                            <li>
-                                <i class="fas fa-plus"></i>
-                                Add new staff
-                            </li>
-                        </a>
+                        <li class="accordion">
+                            <i class="fa fa-history"></i>
+                            New transaction
+                            <i class="fas fa-caret-down right"></i>
+                        </li>
+                        <!-- Accordion content -->
+                        <div class="panel">
+                            <a href="credit.html">Credit</a>
+                            <a href="debit.html">Debit</a>
+                        </div>
                         <a href="#">
                             <li onclick="event.preventDefault();return logout();">
                                 <i class="fas fa-info-circle"></i>
@@ -102,7 +114,7 @@
                 <img src="../../assets/img/check-mark.gif" alt="check-mark">
                     <figcaption>Success!</figcaption>
             </div>
-                <header><h3>Users</h3></header>
+                <header><h3 class="header">Users</h3></header>
                 <div class="ad-main-content">
                     <table>
                         <tbody>
@@ -128,7 +140,7 @@
         <script>
             const handleSelectedUser = (id) => {
                 sessionStorage.setItem('userId', id);
-                location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/admin/user-single.html`);
+                location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/staff/user-single.html`);
             }
         </script>
         <script>

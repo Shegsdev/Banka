@@ -4,9 +4,10 @@
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | My Account</title>
+	<link rel="icon" type="image/x-icon" href="../../assets/img/logo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
-	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
 </head>
 <body>
 	<!-- Modal -->
@@ -14,45 +15,44 @@
 		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
 		<div class="modal-content center"></div>
 	</div>
-	<!-- Loader -->
-	<loader class="loader"></loader>
+	<!-- Progress -->
+	<span class="progress-bar"></span>
 	<nav id="ad-nav">
-		<a href="../../index.html">
+		<a href="../../../index.html">
 			<div id="logo">
-				<img src="../assets/img/logo.png" alt="logo">
+				<img src="../../assets/img/logo.png" alt="logo">
 			</div>
 		</a>
 		<div class="ad-nav-right">
 			<img id="avatar"
 				onclick="openDropDown(true)" 
 				class="dropbtn"
-				src="../assets/img/avatar.png" 
+				src="../../assets/img/avatar.png" 
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
 				<a href="#" onclick="event.preventDefault();return logout();">
-					<i class="fas fa-home"></i>
+					<i class="fas fa-info-circle"></i>
 					Logout
 				</a>
 			</div>
 		    <!-- Hamburger links -->
-		    <a href="#" onclick="openSlideMenu()">
-			    <span class="open-slide" style="color: #000">
-				    <i class="fas fa-bars fa-2x"></i>
+		    <a href="#" onclick="event.preventDefault();openSlideMenu(this)">
+			    <span class="open-slide">
+				    <i class="fas fa-align-right fa-2x"></i>
 				</span>
-			 </a>
+			</a>
 
 			 <!-- Toast -->
 			 <div class="toast success">
-				<img src="../assets/img/check-mark.gif" alt="check-mark">
+				<img src="../../assets/img/check-mark.gif" alt="check-mark">
 			</div>
 			<div class="toast error">
-				<img src="../assets/img/cross-mark.jpg" alt="cross-mark">
+				<img src="../../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
-			    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 			    <li><a href="profile.html">Dashboard</a></li>
 				<li><a href="transactions.html">My transactions</a></li>
 				<li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
@@ -63,9 +63,24 @@
 		<section>
 			<aside>
 				<ul>
-					<a href="profile.html"><li>Dashboard</li></a>
-					<a href="transactions.html"><li style="background: #076969">My transactions</li></a>
-					<a href="#"><li onclick="event.preventDefault();return logout();">Logout</li></a>
+					<a href="profile.html">
+						<li>
+							<i class="fas fa-chart-line"></i>
+							Dashboard
+						</li>
+					</a>
+					<a href="transactions.html">
+						<li style="background: #076969">
+							<i class="fas fa-history"></i>
+							My transactions
+						</li>
+					</a>
+					<a href="#">
+						<li onclick="event.preventDefault();return logout();">
+							<i class="fas fa-info-circle"></i>
+							Logout
+						</li>
+					</a>
 				</ul>
 			</aside>
 		</section>
@@ -77,7 +92,7 @@
 				<table>
 					<tbody>
 						<tr>
-							<th>ID</th>
+							<th>REF/ID</th>
 							<th>Account No.</th>
 							<th>Type</th>
 							<th>Date</th>
@@ -92,7 +107,7 @@
 	<script>
 		const handleSelectedTransaction = (id) => {
 			sessionStorage.setItem('transactionId', id);
-			location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/transaction-single.html`);
+			location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/user/transaction-single.html`);
 		}
 	</script>
 
@@ -130,18 +145,21 @@
 										if (json_.status < 300) {
 											const tableBody = document.querySelector('tbody');
 											json_.data.map((transaction) => {
-												const date = new Date(transaction.created_at);
+												const { created_at, account_number, transaction_id } = transaction;
+												const date = new Date(created_at);
 												let tableRow = document.createElement('tr');
 												tableRow.innerHTML = `
-													<td>${transaction.transaction_id}</td>
-													<td>${transaction.account_number}</td>
+													<td>
+														${String(account_number).slice(-3) + transaction_id}
+													</td>
+													<td>${account_number}</td>
 													<td>${transaction.type[0].toUpperCase()}${transaction.type.slice(1)}</td>
 													<td>${date.toDateString()}</td>
-													<td><a href="#"><button onclick="handleSelectedTransaction(${transaction.transaction_id})">View</button></a></td>
+													<td><a href="#"><button onclick="handleSelectedTransaction(${transaction_id})">View</button></a></td>
 												`;
 												tableBody.appendChild(tableRow);
 											});
-											return handleLoadingComplete(false, 1)
+											return handleLoadingComplete(false, 1, '#fff')
 										} else if (json_.status === 401) {
 											localStorage.clear();
 											showToast(false, errorResponse(json.error))
@@ -157,6 +175,9 @@
 										return handleLoadingComplete(true, 1)
 									})
 							});
+						} else if (json.status == 404){
+							showToast(false, errorResponse(json.error));
+							return handleLoadingComplete(false, 1, '#fff')
 						} else {
 							showToast(false, errorResponse(json.error));
 							return handleLoadingComplete(true, 1)
@@ -170,10 +191,10 @@
 			})();
 		});
 	</script>
-	<script src="../assets/js/main.js"></script>
-	<script src="../assets/js/utils.js"></script>
-	<script src="../assets/js/middleware.js"></script>
-	<script src="../assets/js/dashboard.js"></script>
+	<script src="../../assets/js/main.js"></script>
+	<script src="../../assets/js/utils.js"></script>
+	<script src="../../assets/js/middleware.js"></script>
+	<script src="../../assets/js/dashboard.js"></script>
 	<script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
 </body>
 </html>
