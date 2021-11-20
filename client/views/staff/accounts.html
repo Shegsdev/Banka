@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
 </head>
 <body>
-	<!-- Progress BAr -->
+	<!-- Progress Bar -->
 	<span class="progress-bar"></span>
 	<!-- Reveal -->
 	<div class="ad-modal">
@@ -57,9 +57,20 @@
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
 			    <li><a href="home.html">Dashboard</a></li>
-				<li><a href="users.html">Users</a></li>
+			    <li><a href="users.html">Users</a></li>
 				<li><a href="accounts.html">Accounts</a></li>
-				<li><a href="new-staff.html">Add new staff</a></li>
+				<li class="accordion">
+					<a href="#">
+						New transaction
+						<i class="fa fa-caret-down right"></i>
+					</a>
+					
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div>
 				<li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
 			</div>
 		</div>
@@ -86,12 +97,16 @@
 							Accounts
 						</li>
 					</a>
-					<a href="new-staff.html">
-						<li>
-							<i class="fas fa-plus"></i>
-							Add new staff
-						</li>
-					</a>
+					<li class="accordion">
+						<i class="fas fa-book-open"></i>
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="#">
 						<li onclick="event.preventDefault();return logout();">
 							<i class="fas fa-info-circle"></i>
@@ -107,7 +122,7 @@
 				<img src="../../assets/img/check-mark.gif" alt="check-mark">
 					<figcaption>Success!</figcaption>
 			</div>
-			<header><h2 class="header">Accounts</h2></header>
+			<header><h3 class="header">Accounts</h3></header>
 			<div class="ad-main-content">
 				<table>
 					<tr>
@@ -134,7 +149,7 @@
 	<script>
         const handleSelectedAccount = (id) => {
             sessionStorage.setItem('id', id);
-            location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/admin/account-single.html`);
+            location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/staff/account-single.html`);
         }
     </script>
 	<script>
@@ -154,7 +169,13 @@
             .then(response => response.json())
             .then(json => {
                 if (!json.error) {
-                    //
+                    // Remove side nav links based on user
+                    const accordion = document.querySelectorAll('.accordion');
+                    const panel = document.querySelectorAll('.panel');
+                    if (json.data.type == 'admin') {
+                        accordion.forEach((acc) => acc.style.display = 'none');
+                        panel.forEach((pnl) => pnl.style.display = 'none');
+                    }
                 }
                 return null;
             })
@@ -183,9 +204,9 @@
                                         <td>${account.status}</td>
                                         <td>
                                             <a href="#"
-                                               onclick="handleSelectedAccount(${account.account_number})"
-                                            >
-                                               View
+                                                onclick="handleSelectedAccount(${account.account_number})"
+                                        	>
+                                            	View
                                             </a>
                                         </td>
 										<!-- Ellipsis for mobile view -->
@@ -204,8 +225,7 @@
 											</div>
 										</td> <!-- end ellipsis -->
 										<td class="actions">
-											<a
-												href="#"
+											<a href="#"
 												class="gold"
 												onclick="modalOpen(true, 'deactivate')"
 											>
@@ -215,11 +235,11 @@
 										<td class="actions">
 											<a
 												href="#"
-												onclick="modalOpen(true, 'delete')"
 												class="red"
+												onclick="modalOpen(true, 'delete')"
 											>
 												Delete
-											</a>
+											</button>
 										</td>
                                     </tr>`;
                                 table.appendChild(tableRow);

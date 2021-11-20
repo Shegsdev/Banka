@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | New Account</title>
+	<link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
@@ -31,23 +32,6 @@
 					<li><a href="help.html">Help</a></li>
 					<a href="login.html"><li>Login</li></a>
 				</ul>
-				<!-- Hamburger links -->
-			    <a href="#" onclick="openSlideMenu()">
-				    <span class="open-slide" style="color: #ffffff">
-					    <i class="fas fa-bars fa-2x"></i>
-					</span>
-				 </a>
-
-				<!-- Side nav -->
-				<div id="side-menu" class="side-nav">
-				    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
-				    <li><a href="../../index.html">Home</a></li>
-					<li><a href="contact-us.html">Contact</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="help.html">Help</a></li>
-					<li id="account-link"><a href="profile.html">My account</a></li>
-					<li><a href="login.html">Login</a></li>
-				</div>
 			</div>
 		</nav>
 	</div> <!-- end no-hero -->
@@ -60,7 +44,7 @@
 				<img src="../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
 			<header>
-				<h2 class="center">New Account Opening</h2>
+				<h2 class="center">Open Account</h2>
 			</header>
 			<div class="main-content account">
 				<div class="account-form">
@@ -96,7 +80,7 @@
 		                <br>
 		                <div class="form-row">
 		                    <div class="form-input">
-		                        <input class="button-green" type="submit" value="Continue">
+		                        <input class="button button-green" type="submit" value="Continue">
 		                    </div>
 		                </div>
 			            </div>
@@ -146,14 +130,17 @@
 								if (json.status < 300) {
 									showToast(true, 'Account created successfully');
 									if (json.data.accountNumber) {
-										return renderCongratulatoryMessage(json.data);
+										renderCongratulatoryMessage(json.data);
+										return handleLoadingComplete(false, 2)
 									}
 								} else {
 									showToast(false, errorResponse(json.error));
+									return handleLoadingComplete(true, 1)
 								}
 							}).
 							catch(error => {
 								showToast(false, 'Try again');
+								return handleLoadingComplete(true, 2)
 							});
 		}
 

@@ -38,6 +38,12 @@ function withAuth() {
   if (!token) redirect.toLogin();
 }
 
+function isAdmin() {}
+
+function isStaff() {}
+
+function isUser() {}
+
 function logout(e) {
   if (e) e.preventDefault();
   localStorage.clear();

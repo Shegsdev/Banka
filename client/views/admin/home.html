@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | Admin</title>
+	<link rel="icon" type="image/x-icon" href="../../assets/img/logo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
@@ -28,14 +29,14 @@
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
 				<a href="#" onclick="event.preventDefault();return logout();">
-					<i class="fas fa-home"></i>
+					<i class="fas fa-info-circle"></i>
 					Logout
 				</a>
 			</div>
 			<!-- Hamburger links -->
-			<a href="#" onclick="openSlideMenu()">
-				<span class="open-slide" style="color: #000">
-					<i class="fas fa-bars fa-2x"></i>
+			<a href="#" onclick="event.preventDefault();openSlideMenu(this)">
+			    <span class="open-slide">
+				    <i class="fas fa-align-right fa-2x"></i>
 				</span>
 			</a>
 
@@ -49,7 +50,6 @@
 
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
-				<button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 				<li><a href="home.html">Dashboard</a></li>
 				<li><a href="users.html">Users</a></li>
 				<li><a href="accounts.html">Accounts</a></li>
@@ -62,17 +62,42 @@
 		<section>
 			<aside>
 				<ul>
-					<a href="home.html"><li style="background: #076969">Dashboard</li></a>
-					<a href="users.html"><li>Users</li></a>
-					<a href="accounts.html"><li>Accounts</li></a>
-					<a href="new-staff.html"><li>Add new staff</li></a>
-					<a href="#"><li onclick="event.preventDefault();return logout();">Logout</li></a>
+					<a href="home.html">
+						<li style="background: #076969">
+							<i class="fas fa-chart-line"></i>
+							Dashboard
+						</li>
+					</a>
+					<a href="users.html">
+						<li>
+							<i class="fas fa-users"></i>
+							Users
+						</li>
+					</a>
+					<a href="accounts.html">
+						<li>
+							<i class="fas fa-folder"></i>
+							Accounts
+						</li>
+					</a>
+					<a href="new-staff.html">
+						<li>
+							<i class="fas fa-plus"></i>
+							Add new staff
+						</li>
+					</a>
+					<a href="#">
+						<li onclick="event.preventDefault();return logout();">
+							<i class="fas fa-info-circle"></i>
+							Logout
+						</li>
+					</a>
 				</ul>
 			</aside>
 		</section>
 
 		<section class="ad-main-showcase">
-			<header><h3>Dashboard</h3></header>
+			<!-- <header><h3>Dashboard</h3></header> -->
 			<div class="ad-main-content three-equal-sized-columns grid">
 				<div class="card center">
 					<div class="card-media users">

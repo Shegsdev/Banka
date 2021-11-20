@@ -98,10 +98,12 @@
         display: inline-block;
     }
     .auth-page .banner {
-        padding: 22px;
+        background: none;
+        padding: 22px 22px 0;
     }
     .auth-page .banner h1 {
-        display: none;
+        font-size: 24px;
+        letter-spacing: -1px;
     }
 
     .back {
@@ -157,7 +159,6 @@
 
     .ad-main-showcase {
         box-sizing: border-box;
-        margin: 10px 10px 0;
     }
 
     .ad-main-content {
@@ -176,6 +177,7 @@
         cursor: pointer;
         display: block;
         border: 0 none;
+        position: relative;
     }
 
     .ad-main-content table th, .ad-main-content table td {
