@@ -61,6 +61,7 @@ const UsersController = {
         });
       }
       const { isStaff, isAdmin } = req.user;
+      console.log(users.rows)
       if (isStaff) {
         const filteredData = UsersResource(users.rows.filter(({ is_admin, is_staff }) => !is_admin && !is_staff));
         return res.status(200).json({
@@ -69,7 +70,7 @@ const UsersController = {
       }
       return res.status(200).json({
         status: 200,
-        data: UsersResource(users.row),
+        data: UsersResource(users.rows),
       });
     })
       .catch(err => res.status(500).json({

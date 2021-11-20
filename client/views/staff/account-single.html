@@ -10,16 +10,12 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/css/responsive.css">
 </head>
 <body>
-	<!-- Progress BAr -->
+	<!-- Progress Bar -->
 	<span class="progress-bar"></span>
-	<!-- Reveal -->
 	<div class="ad-modal">
-		<span onclick="modalOpen(false)" class="modal-close">
-			<i class="fas fa-times fa-2x"></i>
-		</span>
+		<button onclick="modalOpen(false)" class="modal-close">&times;</button>
 		<div class="modal-content center"></div>
 	</div>
-	<!-- End Reveal -->
 	<nav id="ad-nav">
 		<div id="logo">
 			<a href="../../../index.html">
@@ -30,8 +26,7 @@
 			<img id="avatar"
 				onclick="openDropDown(true)" 
 				class="dropbtn"
-				src="../../assets/img/avatar.png"
-				alt="profile pic"
+				src="../../assets/img/avatar.png" 
 			/>
 			<!-- Dropdown content -->
 			<div class="dropdown-content" id="dropdown">
@@ -57,9 +52,17 @@
 			<!-- Side nav -->
 			<div id="side-menu" class="side-nav">
 			    <li><a href="home.html">Dashboard</a></li>
-				<li><a href="users.html">Users</a></li>
+			    <li><a href="users.html">Users</a></li>
 				<li><a href="accounts.html">Accounts</a></li>
-				<li><a href="new-staff.html">Add new staff</a></li>
+				<li class="accordion">
+					<a href="#">New transaction</a>
+					<i class="fa fa-caret-down right" style="margin-top:1em"></i>
+				</li>
+				<!-- Accordion content -->
+				<div class="panel">
+					<a href="credit.html">Credit</a>
+					<a href="debit.html">Debit</a>
+				</div>
 				<li onclick="event.preventDefault();return logout();"><a href="#">Logout</a></li>
 			</div>
 		</div>
@@ -76,7 +79,7 @@
 					</a>
 					<a href="users.html">
 						<li>
-							<i class="fas fa-users"></i>
+							<i class="fas fa-chart-line"></i>
 							Users
 						</li>
 					</a>
@@ -86,12 +89,16 @@
 							Accounts
 						</li>
 					</a>
-					<a href="new-staff.html">
-						<li>
-							<i class="fas fa-plus"></i>
-							Add new staff
-						</li>
-					</a>
+					<li class="accordion">
+						<i class="fas fa-book-open"></i>
+						<a href="#">New transaction</a>
+						<i class="fa fa-caret-down right"></i>
+					</li>
+					<!-- Accordion content -->
+					<div class="panel">
+						<a href="credit.html">Credit</a>
+						<a href="debit.html">Debit</a>
+					</div>
 					<a href="#">
 						<li onclick="event.preventDefault();return logout();">
 							<i class="fas fa-info-circle"></i>
@@ -103,43 +110,23 @@
 		</section>
 
 		<section class="ad-main-showcase">
-			<div class="toast">
-				<img src="../../assets/img/check-mark.gif" alt="check-mark">
-					<figcaption>Success!</figcaption>
-			</div>
-			<header><h2 class="header">Accounts</h2></header>
 			<div class="ad-main-content">
-				<table>
-					<tr>
-						<th>Data created</th>
-						<th>Owner ID</th>
-						<th>Account type</th>
-						<th>Status</th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</table>
-
-				<hr />
-				<br />
-                <div style="text-align:center">
-                    <button class="button btn-transparent btn-wide">Load more</button>
-                </div>
+				<span class="back" onclick="window.history.back()">
+					<i class="fas fa-arrow-left fa-2x"></i>
+				</span>
+				<section class="single">
+					<header><h2>Account info</h2></header>
+				</section>
+				<hr/>
 			</div>
 		</section>
 	</div>
 
 	<script src="../../assets/js/middleware.js"></script>
 	<script>
-        const handleSelectedAccount = (id) => {
-            sessionStorage.setItem('id', id);
-            location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/admin/account-single.html`);
-        }
-    </script>
-	<script>
 		document.addEventListener("DOMContentLoaded", () => {
             withAuth();
+            const accountNumber = sessionStorage.getItem('id');
             const token = getAuthToken();
             const url = new URL(env.url());
             const config = {
@@ -154,15 +141,21 @@
             .then(response => response.json())
             .then(json => {
                 if (!json.error) {
-                    //
+                    // Remove side nav links based on user
+                    const accordion = document.querySelectorAll('.accordion');
+                    const panel = document.querySelectorAll('.panel');
+                    if (json.data.type == 'admin') {
+                        accordion.forEach((acc) => acc.style.display = 'none');
+                        panel.forEach((pnl) => pnl.style.display = 'none');
+                    }
                 }
                 return null;
             })
             .catch(error => showToast(false, 'Please log in again.'));
 
-            // Get all accounts
+            // Get account details
             (function() {
-                fetch(`${url.href}/accounts/`, config)
+                fetch(`${url.href}/accounts/${accountNumber}`, config)
                     .then(response => response.json())
                     .then(json => {
                         if (json.status === 401) {
@@ -172,58 +165,17 @@
                             return redirect.home();
                         }
                         if (json.status < 300) {
-                            const table = document.querySelector('table');
-                            json.data.map((account) => {
-                                const tableRow = document.createElement('tr');
-                                tableRow.innerHTML = `
-                                    <tr key=${account.id}>
-                                        <td>${formatDate(account.created_at)}</td>
-                                        <td>${account.owner}</td>
-                                        <td>${account.type}</td>
-                                        <td>${account.status}</td>
-                                        <td>
-                                            <a href="#"
-                                               onclick="handleSelectedAccount(${account.account_number})"
-                                            >
-                                               View
-                                            </a>
-                                        </td>
-										<!-- Ellipsis for mobile view -->
-										<td class="ellipsis">
-											<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-											<!-- Ellipsis content -->
-											<div class="more-options">
-												<button onclick="modalOpen(true, 'deactivate')" class="gold"
-												>
-													Deactivate
-												</button>
-												<button onclick="modalOpen(true, 'delete')" class="red"
-												>
-													Delete
-												</button>
-											</div>
-										</td> <!-- end ellipsis -->
-										<td class="actions">
-											<a
-												href="#"
-												class="gold"
-												onclick="modalOpen(true, 'deactivate')"
-											>
-												Deactivate
-											</a>
-										</td>
-										<td class="actions">
-											<a
-												href="#"
-												onclick="modalOpen(true, 'delete')"
-												class="red"
-											>
-												Delete
-											</a>
-										</td>
-                                    </tr>`;
-                                table.appendChild(tableRow);
-                            });
+                        	const { data } = json;
+                            const section = document.querySelector('.single');
+                            const content = document.createElement('div');
+                            content.innerHTML = `
+                            	<p>Holder's Name: ${data.owner}</p>
+								<p>Account Number: <strong>${data.account_number}</strong></p>
+								<p>Account Type: ${data.type.toUpperCase()}</p>
+								<p>Balance: ₦${formatCurrency(data.balance)}</p>
+								<p>Status: ${data.status.toUpperCase()}</p>
+                            `;
+                            section.appendChild(content);
                             return handleLoadingComplete(false, 1, '#fff');
                         } else {
                             showToast(false, 'Unable to fetch data');
@@ -231,11 +183,11 @@
                         }
                     })
                     .catch(error => {
-                        showToast(false, 'Try again');
+                        showToast(false, `${error}: Try again`);
                         return handleLoadingComplete(true, 1);
                     }).
                     catch(error => {
-                        showToast(false, 'Try again');
+                        showToast(false, `${error}: Try again`);
                         return handleLoadingComplete(true, 1);
                     });
                     return null;

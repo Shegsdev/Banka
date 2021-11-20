@@ -43,7 +43,7 @@ window.onscroll = function () {
       const el = l.children[0];
       if (el.tagName === 'LI') {
         el.style.color = '#e7e7e9';
-      } else if (el.tagName === 'EM') el.style.color = '#ff0000';
+      } else if (el.parentElement.classList.contains('active')) el.style.color = 'teal';
       else el.style.color = '#e7e7e9';
     }
   }

@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Banka | Home</title>
+	<link rel="icon" type="image/x-icon" href="./client/assets/img/logo.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="./client/assets/css/main.css">
 	<link rel="stylesheet" type="text/css" href="./client/assets/css/responsive.css">
@@ -13,26 +14,26 @@
 		display: none;
 	}
 	.loader {
-        border: 3px solid #f3f3f3;
-        border-top: 3px solid teal;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        animation: spin 1s linear infinite;
-        position: absolute;
-        top: 40%;
-        left: 48%;
-      }
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid teal;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 40%;
+    left: 48%;
+  }
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    @media only screen and (max-width : 768px) {
-    	.loader {
-    		left: 45%;
-    	}
-    }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+	@media only screen and (max-width : 768px) {
+		.loader {
+			left: 45%;
+		}
+	}
 </style>
 <body>
 	<div id="app">
@@ -52,9 +53,9 @@
 						<a href="./client/views/login.html"><li class="button button-green">Login</li></a>
 					</ul>
 					<!-- Hamburger links -->
-				    <a onclick="openSlideMenu()">
-					    <span class="open-slide" style="color: rgb(0, 147, 221)">
-						    <i class="fas fa-bars fa-2x"></i>
+				    <a href="#" onclick="event.preventDefault();openSlideMenu(this)">
+					    <span class="open-slide">
+						    <i class="fas fa-align-right fa-2x"></i>
 						</span>
 					</a>
 
@@ -68,14 +69,25 @@
 
 					<!-- Side nav -->
 					<div id="side-menu" class="side-nav">
-					    <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
 					    <li class="active"><a href="index.html">Home</a></li>
-					    <li id="account-link"><a href="./client/views/profile.html">My account</a></li>
+					    <li id="account-link"><a href="#">My account</a></li>
 						<li><a href="./client/views/contact-us.html">Contact</a></li>
 						<li><a href="./client/views/about.html">About</a></li>
 						<li><a href="./client/views/help.html">Help</a></li>
-						<li><a href="./client/views/login.html">Login</a></li>
+						<li id="login-link"><a href="./client/views/login.html">Login</a></li>
 						<li id="logout-link"><a href="#">Logout</a></li>
+						<br />
+						<hr />
+						<div style="text-align: center">
+							<a href="./client/views/new-account.html">
+								<button
+									class="button button-green"
+									style="padding: 0.4em 1.5em;font-size: 1.2em;font-weight: 200"
+								>
+									Create account
+								</button>
+							</a>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -162,7 +174,7 @@
 	</div>
 
 	<script>
-		let linkHref = 'profile';
+		let linkHref = 'user/profile';
 		const pageContent = document.querySelector('#app')
 
 		document.addEventListener("DOMContentLoaded", function() {
@@ -176,10 +188,13 @@
 			if (token) {
 				// side nav link
 				const accountLink = document.querySelector('#account-link');
-				accountLink.style.display = 'inline-flex';
+				accountLink.style.display = 'list-item';
+
+				const loginLink = document.querySelector('#login-link');
+				loginLink.style.display = 'none';
 
 				const logoutLink = document.querySelector('#logout-link');
-				logoutLink.style.display = 'inline-flex';
+				logoutLink.style.display = 'list-item';
 				logoutLink.addEventListener('click', (e) => {
 					closeSlideMenu();
 					return logout(e);
@@ -203,26 +218,47 @@
 								linkHref = 'admin/home';
 								break;
 							case 'staff':
-								linkHref = 'admin/staff/home';
+								linkHref = 'staff/home';
 								break;
-							default: linkHref = 'profile';
+							default: linkHref = 'user/profile';
 						}
 					}
 				})
 				.catch(error => showToast(false, 'Please log in again.'));
 				list[list.length - 1].addEventListener("click", () => {
+					console.log(linkHref)
 					location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/${linkHref}.html`);
-				})
+				});
 				list[list.length - 1].attributes.href.textContent = '#';
 				list[list.length - 1].firstChild.innerHTML = 'my account';
 
+				// Add url path to side nav
+				accountLink.firstChild.addEventListener("click", (e) => {
+					e.preventDefault();
+					location.assign(`${ghPagesUrlRedirect(location.origin)}/client/views/${linkHref}.html`);
+				});
+
 				// Add logout button
-				const element = document.createElement('span');
-				const text = document.createElement('em');
-				text.innerHTML = 'Logout';
-				element.appendChild(text);
+				const element = document.createElement('li');
+				const children = document.createElement('div');
+				children.innerHTML = `
+					<img id="avatar"
+						onclick="openDropDown(true)" 
+						class="dropbtn"
+						src="./client/assets/img/avatar.png" 
+					/>
+					<!-- Dropdown content -->
+					<div class="dropdown-content" id="dropdown">
+						<a href="#" onclick="event.preventDefault();return logout();">
+							<i class="fas fa-info-circle"></i>
+							Logout
+						</a>
+					</div>
+				`;
+				children.style.position = 'absolute';
+				children.style.top = 0;
+				element.appendChild(children);
 				element.id = 'logout';
-				element.addEventListener('click', (e) => logout(e));
 				document.querySelector('.nav-links').children[0].appendChild(element);
 
 				// end session after 15mins

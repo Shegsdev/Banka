@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Banka | Sign up</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
@@ -13,15 +14,14 @@
 	<loader class="loader"></loader>
 	<div class="auth-page">
         <span class="nav right">
-            <a href="#" onclick="openSlideMenu()">
-                <span class="open-slide" style="color: #ffffff">
-                    <i class="fas fa-bars fa-2x"></i>
+            <a href="#" onclick="event.preventDefault();openSlideMenu(this)">
+                <span class="open-slide">
+                    <i class="fas fa-align-right fa-2x"></i>
                 </span>
              </a>
         </span>
         <!-- Side nav -->
         <div id="side-menu" class="side-nav">
-            <button class="btn-close" onclick="closeSlideMenu()">&times;</button>
             <li class="active"><a href="../../index.html">Home</a></li>
             <li><a href="contact-us.html">Contact</a></li>
             <li><a href="about.html">About</a></li>
@@ -34,8 +34,8 @@
                     <img src="../assets/img/logo.png" alt="logo">
                 </a>
             </div>
-			<!-- <h1>A better way to secure the future</h1>
-            <p>You're only one step away!</p> -->
+			<h1>A better way to secure the future</h1>
+            <p>You're only one step away!</p>
 		</section>
 
 		<section class="container form">
@@ -46,7 +46,7 @@
 				<img src="../assets/img/cross-mark.jpg" alt="cross-mark">
 			</div>
             <span class="back" onclick="window.history.back()">
-                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-left fa-2x"></i>
             </span>
 			<header>
 				<h3>Sign Up</h3>
