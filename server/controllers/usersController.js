@@ -61,7 +61,6 @@ const UsersController = {
         });
       }
       const { isStaff, isAdmin } = req.user;
-      console.log(users.rows)
       if (isStaff) {
         const filteredData = UsersResource(users.rows.filter(({ is_admin, is_staff }) => !is_admin && !is_staff));
         return res.status(200).json({
