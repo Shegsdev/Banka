@@ -126,7 +126,7 @@ function renderLoader(el, display) {
       document.body.removeChild(loader);
       el.style.display = display;
     }
-  }, 2500);
+  }, 300);
 }
 
 // Dropdown menu

@@ -372,7 +372,7 @@ nav ul li a:hover {
 	/*height: 100%;*/
 }
 
-.main .main-content article button {
+.main .main-content article button, .main .final-cta button {
 	border: none;
 	color: #fff;
 	cursor: pointer;
@@ -745,7 +745,7 @@ input::placeholder {
 
 .footer {
 	color: #fff;
-	background: teal;
+	background: #000;
 	padding: 10px 0;
 	text-align: center;
 	margin-top: 250px;
