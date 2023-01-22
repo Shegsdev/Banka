@@ -5,11 +5,15 @@ import { executer, output } from './server/utils/helpers';
 const win = 'set DEBUG=express';
 const unix = 'DEBUG=express';
 
+const osType = {
+	'Windows_NT': win,
+	'Linux': unix,
+	'Darwin': unix,
+};
+
 // Execute script depending on OS
-let prefix;
-if (os.type() === 'Windows_NT') prefix = win;
-else if (os.type() === 'Linux' || os.type() === 'Darwin') prefix = unix;
-else throw new Error(`Unsupported OS ${os.type()}`);
+const prefix = osType[os.type()];
+if (prefix == undefined) throw new Error(`Unsupported OS: ${os.type()}`);
 
 const cmd = executer(prefix, 'server', 'nodemon', 'server/server.js', '--exec', 'babel-node', '--');
 output(cmd);
