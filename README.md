@@ -2,12 +2,12 @@
 
 # Banka
 
-Banka is a light-weight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can signup and create bank accounts online, but must visit the branch to withdraw or deposit money.
+Banka is a lightweight core banking application that powers banking operations like account creation, customer deposit and withdrawals. This app is meant to support a single bank, where users can sign up and create bank accounts online, but must visit the branch to withdraw or deposit money.
 ___
 
 **Features**
 01. User signup.
-02. User signin.
+02. User sign-in.
 03. User can create a bank account.
 04. User can view account details.
 05. User can view account transaction history.
@@ -32,7 +32,7 @@ ___
 ## Technologies Used
 * [Node.js](https://nodejs.org/en/) - A runtime environment based off of Chromes's V8 Engine for writing Javascript server-side applications.
 * [Express.js](https://expressjs.com/) - Web application framework based on Node.js.
-* [ESLint](https://eslint.org/) - A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+* [ESLint](https://eslint.org/) - A pluggable and configurable linter tool for identifying and reporting patterns in JavaScript.
 * [Airbnb](https://www.npmjs.com/package/eslint-config-airbnb) style guide was followed.
 * [PostgreSQL](https://www.postgresql.org) - Relational Database Management System.
 * [Swagger](https://swagger.io/) - Document your code and keep a live and reusable OpenAPI (Swagger) specification.
@@ -43,7 +43,7 @@ ___
 ## Testing Tools
 * [Mocha](https://mochajs.org/) - A JavaScript test framework.
 * [Chai](https://www.chaijs.com/) - A test assertion library for JavaScript.
-* [Supertest](https://www.npmjs.com/package/supertest) - A module that provides high-level abstraction for HTTP testing.
+* [Supertest](https://www.npmjs.com/package/supertest) - A module that provides a high-level abstraction for HTTP testing.
 
 ___
 
@@ -91,8 +91,8 @@ Before getting started, make sure to configure the database as follows:
    `SECRET=your_secret_key_here`
    `DB_URL=postgresql://username:password@host:port/database`
    where `your_secret_key_here` refers to a custom secret key for the application (you can choose a secured key).
-   `username` - username of the currently logged in user on your local machine.
-   `password` - password of the currently logged in user on your local machine.
+   `username` - username of the currently logged-in user on your local machine.
+   `password` - password of the currently logged-in user on your local machine.
    `host` - database hostname, default is `127.0.0.1`.
    `port` - database port, default is `5432`.
 3. After successfully configuring the database, run the following commands to create the database:
@@ -102,7 +102,7 @@ Before getting started, make sure to configure the database as follows:
    Optionally, you can seed the database by running:
    `$ npm run migration:seed`
 
-   To drop the tables, run:
+   To drop the tables, run the following:
    `$ npm run migration:drop`
 
 #### Accessing the endpoints remotely via POSTMAN
@@ -112,7 +112,7 @@ You will need to have [POSTMAN](https://www.getpostman.com/downloads/) app insta
 ###### Sign In
 1. Launch POSTMAN
 2. Click the dropdown menu to the left of the URL bar and select POST as a method.
-3. To access the Sign In endpoint, at the end of Banka's URL attach the sign in endpoint to it as seen in step 4
+3. To access the Sign In endpoint, at the end of Banka's URL attach the sign-in endpoint to it as seen in step 4
 4. https://surebanka.herokuapp.com/api/v1/auth/signin 
 5. Then paste the full URL in the URL bar.
 6. Click 'Body' tab below the URL, then select x-www-form-urlencoded radio button.
@@ -134,13 +134,13 @@ e.g To access Sign In endpoint you will have a full URL like http://localhost:50
 
 #### Test
 You can locally run the test by running
-`npm run dev` and in separate terminal window,
+`npm run dev` and in a separate terminal window,
  run `npm test`.
 
 ___
 
 ## Author
-### Segun Akanbi
+#### Shegsdev
 You can follow me on [Twitter](http://twitter.com/shegsdev)
 
 
